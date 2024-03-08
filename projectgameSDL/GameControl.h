@@ -6,6 +6,14 @@
 
 class GameControl {
 public:
+
+	static GameControl* getInstance() {
+		if (instance == 0) {
+			instance =new GameControl();
+			return instance;
+		}
+		return instance;
+	}
 	bool  init(const char* title, int x, int y, int width, int height, bool choose);
 
 	void render();
@@ -14,12 +22,12 @@ public:
 	void clean();
 
 	void quit() {
-
+		game_running = false;
 	}
 
 
 	bool running() {
-	    return 
+		return game_running;
 	}
 private:
 	GameControl() {};
@@ -27,6 +35,7 @@ private:
 	SDL_Renderer* renderer = nullptr;
 	SDL_Surface* surface_background = nullptr;
 	SDL_Texture* texture_background = nullptr;
+	bool game_running = true;
 
 	static GameControl* instance;
 
