@@ -140,10 +140,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GameControl.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ObjectTextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameControl.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="ObjectTextureManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

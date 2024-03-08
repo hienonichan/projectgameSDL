@@ -14,7 +14,6 @@ int main(int argc, char* argv[]) {
 		GameControl::getInstance()->handleEvents();
 		GameControl::getInstance()->update();
 		GameControl::getInstance()->render();
-
 	}
 	GameControl::getInstance()->clean();
 	return 0;

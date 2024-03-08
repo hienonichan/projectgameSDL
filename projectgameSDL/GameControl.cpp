@@ -2,7 +2,15 @@
 #include<SDL.h>
 #include<SDL_image.h>
 #include<iostream>
+#include"ObjectTextureManager.h"
+#include"GameObject.h"
 GameControl*GameControl::instance = 0;
+
+
+
+
+GameObject* character = new GameObject();
+
 
 bool GameControl::init(const char* title, int x, int y, int width, int height, bool choose) {
 	if (SDL_Init(SDL_INIT_EVERYTHING)>=0) {
@@ -28,20 +36,23 @@ bool GameControl::init(const char* title, int x, int y, int width, int height, b
 	surface_background = IMG_Load(background.c_str());
 	texture_background = SDL_CreateTextureFromSurface(renderer, surface_background);
 
+
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/solider run.png", "player", renderer);
+	character->load("player", 100, 100, 60, 60);
+
 	return true;
 }
 
 
 void GameControl::render() {
 	SDL_RenderClear(renderer);
-
 	SDL_RenderCopy(renderer, texture_background, NULL, NULL);
-
+	character->draw();
 	SDL_RenderPresent(renderer);
 }
 
 void GameControl::update() {
-
+	character->update();
 }
 
 

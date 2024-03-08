@@ -28,6 +28,11 @@ public:
 	bool gRunning() {
 		return game_running;
 	}
+
+	SDL_Renderer* getRenderer() {
+		return renderer;
+	}
+
 private:
 	GameControl() {};
 	SDL_Window* window = nullptr;
