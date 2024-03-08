@@ -35,7 +35,6 @@ void ObjectTextureManager::draw(std::string id, int x, int y, int width, int hei
 	desRect.x = x;
 	desRect.y = y;
 	SDL_RenderCopyEx(renderer, TextureMap[id], &sourceRect, &desRect, 0, 0,flipImage);
-
 }
 
 

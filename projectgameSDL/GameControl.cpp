@@ -4,12 +4,15 @@
 #include<iostream>
 #include"ObjectTextureManager.h"
 #include"GameObject.h"
+#include"Player.h"
+#include"Enemy.h"
 GameControl*GameControl::instance = 0;
 
 
 
 
-GameObject* character = new GameObject();
+Player* character;
+Enemy* monster;
 
 
 bool GameControl::init(const char* title, int x, int y, int width, int height, bool choose) {
@@ -38,7 +41,10 @@ bool GameControl::init(const char* title, int x, int y, int width, int height, b
 
 
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/solider run.png", "player", renderer);
-	character->load("player", 100, 100, 60, 60);
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/zom2.png", "enemy", renderer);
+	character = new Player("player", 100, 100, 60, 60);
+	monster = new Enemy("enemy", 300, 300, 100, 80);
+	
 
 	return true;
 }
@@ -47,12 +53,17 @@ bool GameControl::init(const char* title, int x, int y, int width, int height, b
 void GameControl::render() {
 	SDL_RenderClear(renderer);
 	SDL_RenderCopy(renderer, texture_background, NULL, NULL);
+
+
 	character->draw();
+	monster->draw();
+
 	SDL_RenderPresent(renderer);
 }
 
 void GameControl::update() {
 	character->update();
+	monster->update();
 }
 
 

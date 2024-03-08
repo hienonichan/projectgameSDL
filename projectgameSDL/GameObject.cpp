@@ -5,8 +5,7 @@
 
 
 
-
-void GameObject::load(std::string id, int x, int y, int w, int h) {
+GameObject::GameObject(std::string id, int x, int y, int w, int h) {
 	textureID = id;
 	xpos = x;
 	ypos = y;

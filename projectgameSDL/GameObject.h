@@ -6,18 +6,16 @@
 #include<string>
 class GameObject {
 public:
-	GameObject(){}
-
-	void load(std::string id, int x, int y, int w, int h);
+	GameObject(std::string id, int x, int y, int w, int h);
 	void draw();
 	void update();
 	void clean();
 
 
-
-private:
+protected:
 	int xpos;
 	int ypos;
+
 	int width;
 	int height;
 
