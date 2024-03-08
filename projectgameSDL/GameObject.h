@@ -19,6 +19,8 @@ protected:
 	int width;
 	int height;
 
+	int sprite;
+
 	std::string textureID;
 };
 #endif

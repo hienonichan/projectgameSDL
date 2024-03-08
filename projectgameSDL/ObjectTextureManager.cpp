@@ -39,5 +39,20 @@ void ObjectTextureManager::draw(std::string id, int x, int y, int width, int hei
 
 
 
+void ObjectTextureManager::drawAnimation(std::string id, int x, int y, int width, int height, int sprite, SDL_Renderer* renderer, SDL_RendererFlip flipImage) {
+	SDL_Rect sourceRect;
+	SDL_Rect desRect;
 
+	sourceRect.x = width*sprite;
+	sourceRect.y = 0;
+
+	sourceRect.w = desRect.w = width;
+	sourceRect.h = desRect.h = height;
+
+	desRect.x = x;
+	desRect.y = y;
+
+	SDL_RenderCopyEx(renderer, TextureMap[id], &sourceRect, &desRect, 0, 0, flipImage);
+
+}
 

@@ -9,7 +9,7 @@ void Player::draw() {
 
 
 void Player::update() {
-	GameObject::update();
+	sprite = int(SDL_GetTicks() / 100) % 6;
 }
 
 void Player::clean() {

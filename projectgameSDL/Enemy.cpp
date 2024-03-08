@@ -15,7 +15,7 @@ void Enemy::draw() {
 
 
 void Enemy::update() {
-	xpos -= 1;
+	sprite = int(SDL_GetTicks() / 100) % 8;
 }
 
 void Enemy::clean() {

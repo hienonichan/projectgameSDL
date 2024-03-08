@@ -18,6 +18,7 @@ public:
 
 	bool loadTexture(std::string file, std::string id, SDL_Renderer* renderer);
 	void draw(std::string id, int x, int y, int width, int height,SDL_Renderer* renderer, SDL_RendererFlip = SDL_FLIP_NONE);
+	void drawAnimation(std::string id, int x, int y, int width, int height, int sprite, SDL_Renderer* renderer, SDL_RendererFlip = SDL_FLIP_NONE);
 
 private:
 	ObjectTextureManager(){}

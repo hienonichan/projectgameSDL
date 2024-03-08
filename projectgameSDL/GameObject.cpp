@@ -15,11 +15,11 @@ GameObject::GameObject(std::string id, int x, int y, int w, int h) {
 
 
 void GameObject::draw() {
-	ObjectTextureManager::getInstance()->draw(textureID, xpos, ypos, width, height, GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->drawAnimation(textureID, xpos, ypos, width, height, sprite,GameControl::getInstance()->getRenderer());
 }
 
 void GameObject::update() {
-	xpos += 1;
+	
 }
 
 void GameObject:: clean() {
