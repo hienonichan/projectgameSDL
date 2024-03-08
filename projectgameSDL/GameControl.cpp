@@ -6,7 +6,6 @@ GameControl*GameControl::instance = 0;
 
 bool GameControl::init(const char* title, int x, int y, int width, int height, bool choose) {
 	if (SDL_Init(SDL_INIT_EVERYTHING)>=0) {
-		std::cout << "have something error in init SDL\n";
 		int windowWay;
 		if (choose == true) {
 			windowWay = SDL_WINDOW_FULLSCREEN;
@@ -24,13 +23,21 @@ bool GameControl::init(const char* title, int x, int y, int width, int height, b
 	else {
 		return false;
 	}
+	game_running = true;
+	std::string background = "C:/projectgameSDL/projectgameSDL/background1.jpg";
+	surface_background = IMG_Load(background.c_str());
+	texture_background = SDL_CreateTextureFromSurface(renderer, surface_background);
 
 	return true;
 }
 
 
 void GameControl::render() {
+	SDL_RenderClear(renderer);
 
+	SDL_RenderCopy(renderer, texture_background, NULL, NULL);
+
+	SDL_RenderPresent(renderer);
 }
 
 void GameControl::update() {
@@ -39,7 +46,12 @@ void GameControl::update() {
 
 
 void GameControl::handleEvents() {
-
+	SDL_Event e;
+	while (SDL_PollEvent(&e) != 0) {
+		if (e.type == SDL_QUIT) {
+			game_running = false;
+		}
+	}
 }
 
 void GameControl::clean() {

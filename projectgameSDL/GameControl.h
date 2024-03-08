@@ -25,8 +25,7 @@ public:
 		game_running = false;
 	}
 
-
-	bool running() {
+	bool gRunning() {
 		return game_running;
 	}
 private:
