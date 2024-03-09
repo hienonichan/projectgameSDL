@@ -2,7 +2,7 @@
 #include"InputChecker.h"
 #include"GameObject.h"
 #include"Vector.h"
-GameButton::GameButton(std::string id,int x,int y,int w,int h,int framecount,void(*callback)()):GameObject(id,x,y,w,h,framecount),button_callback(callback){
+GameButton::GameButton(std::string id,int x,int y,int w,int h,int framecount):GameObject(id,x,y,w,h,framecount){
 	sprite = 0;
 }
 

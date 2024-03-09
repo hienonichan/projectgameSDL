@@ -8,6 +8,8 @@ SDL_RendererFlip check_flip= SDL_FLIP_NONE;
 
 
 GameObject::GameObject(std::string id, int x, int y, int w, int h,int framecount):position(0,0),velocity(0,0) {
+	position.setX(x);
+	position.setY(y);
 	textureID = id;
 	width = w;
 	height = h;

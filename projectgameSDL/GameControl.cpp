@@ -6,10 +6,12 @@
 #include"GameObject.h"
 #include"Player.h"
 #include"Enemy.h"
-
+#include"InputChecker.h"
+#include"StateManager.h"
+#include"HomeState.h"
 GameControl*GameControl::instance = 0;
 
-
+StateManager* a = new StateManager();
 
 
 Player* character;
@@ -44,9 +46,9 @@ bool GameControl::init(const char* title, int x, int y, int width, int height, b
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/solider run.png", "player", renderer);
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/zom2.png", "enemy", renderer);
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/solider stand.png", "playerstand", renderer);
-	character = new Player("player", 100, 100, 60, 60,6);
-	monster = new Enemy("enemy", 300, 300, 100, 80,8);
-	
+	/*character = new Player("player", 100, 100, 60, 60,6);
+	monster = new Enemy("enemy", 300, 300, 100, 80,8);*/
+	a->addState(new HomeState());
 
 	return true;
 }
@@ -56,26 +58,22 @@ void GameControl::render() {
 	SDL_RenderClear(renderer);
 	SDL_RenderCopy(renderer, texture_background, NULL, NULL);
 
-
-	character->draw();
-	monster->draw();
+	a->render();
+	//character->draw();
+	//monster->draw();
 
 	SDL_RenderPresent(renderer);
 }
 
 void GameControl::update() {
-	character->update();
-	monster->update();
+	//character->update();
+	//monster->update();
+	a->update();
 }
 
 
 void GameControl::handleEvents() {
-	SDL_Event e;
-	while (SDL_PollEvent(&e) != 0) {
-		if (e.type == SDL_QUIT) {
-			game_running = false;
-		}
-	}
+	InputChecker::getInstance()->checkInput();
 }
 
 void GameControl::clean() {

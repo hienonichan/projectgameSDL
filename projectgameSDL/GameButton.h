@@ -5,7 +5,7 @@
 
 class GameButton :public GameObject {
 public:
-	GameButton(std::string id, int x, int y, int w, int h,int framecount, void(*callback)());
+	GameButton(std::string id, int x, int y, int w, int h,int framecount);
 	virtual void draw();
 	virtual void update();
 	virtual void clean();
