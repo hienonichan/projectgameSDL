@@ -142,6 +142,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameControl.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="HomeState.cpp" />
     <ClCompile Include="InputChecker.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjectTextureManager.cpp" />
@@ -151,9 +152,11 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameControl.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="HomeState.h" />
     <ClInclude Include="InputChecker.h" />
     <ClInclude Include="ObjectTextureManager.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="State.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -8,10 +8,10 @@
 class GameObject {
 public:
 	GameObject(std::string id, int x, int y, int w, int h,int framecount);
-	void draw();
-	void update();
-	void clean();
-	void drawchar();
+	virtual void draw();
+	virtual void update();
+	virtual void clean();
+	virtual void drawchar();
 
 	void changeTexture(std::string id,int framecount) { 
 		frame = framecount;

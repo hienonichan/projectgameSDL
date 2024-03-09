@@ -36,7 +36,6 @@ void GameObject::drawchar() {
 		GameObject::changeTexture("player", 6);
 		ObjectTextureManager::getInstance()->drawAnimation(textureID, (int)position.getX(), (int)position.getY(), width, height, sprite, GameControl::getInstance()->getRenderer(), check_flip);
 	}
-	
 }
 
 
