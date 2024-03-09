@@ -42,8 +42,8 @@ bool GameControl::init(const char* title, int x, int y, int width, int height, b
 
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/solider run.png", "player", renderer);
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/zom2.png", "enemy", renderer);
-	character = new Player("player", 100, 100, 60, 60);
-	monster = new Enemy("enemy", 300, 300, 100, 80);
+	character = new Player("player", 100, 100, 60, 60,6);
+	monster = new Enemy("enemy", 300, 300, 100, 80,8);
 	
 
 	return true;

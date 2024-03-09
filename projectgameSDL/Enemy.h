@@ -5,7 +5,7 @@
 class Enemy :public GameObject{
 
 public:
-	Enemy(std::string id, int x, int y, int w,int h);
+	Enemy(std::string id, int x, int y, int w,int h,int framecount);
 	void draw();
 	void update();
 	void clean();

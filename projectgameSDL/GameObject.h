@@ -6,7 +6,7 @@
 #include<string>
 class GameObject {
 public:
-	GameObject(std::string id, int x, int y, int w, int h);
+	GameObject(std::string id, int x, int y, int w, int h,int framecount);
 	void draw();
 	void update();
 	void clean();
@@ -20,7 +20,9 @@ protected:
 	int height;
 
 	int sprite;
+	int frame;
 
 	std::string textureID;
+
 };
 #endif
