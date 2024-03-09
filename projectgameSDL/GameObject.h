@@ -11,7 +11,12 @@ public:
 	void draw();
 	void update();
 	void clean();
+	void drawchar();
 
+	void changeTexture(std::string id,int framecount) { 
+		frame = framecount;
+		textureID = id;
+	}
 
 protected:
 	Vector position;
