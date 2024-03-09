@@ -27,6 +27,10 @@ public:
 
 	Vector* getMousePostion() { return mouse_position; }
 
+	bool checkClicked(int number) {
+		return checkMouse[number];
+	}
+
 private:
 	InputChecker();
 
