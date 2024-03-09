@@ -19,17 +19,38 @@ public:
 		v1.ypos += v2.ypos;
 		return v1;
 	}
+
+
 	Vector operator*(double number) { return Vector(xpos * number, ypos * number); }
 	Vector& operator*=(double number) {
 		xpos *= number;
 		ypos *= number;
 		return *this;
 	}
-    
 
+
+	Vector operator-(const Vector& v2) const { return Vector(xpos - v2.xpos, ypos - v2.ypos); }
+	friend Vector& operator-=(Vector& v1, const Vector& v2) {
+		v1.xpos -= v2.xpos;
+		v1.ypos -= v2.ypos;
+		return v1;
+	}
+
+	Vector operator/(double number) { return Vector(xpos / number, ypos / number); }
+	Vector& operator/=(double number) {
+		xpos /= number;
+		ypos /= number;
+		return *this;
+	}
+
+	void setLength1() {
+		double len = length();
+		if (len > 1) {
+			(*this) *= 1 / len;
+		}
+	}
 
 private:
-
 	double xpos;
 	double ypos;
 };

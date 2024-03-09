@@ -4,6 +4,7 @@
 #include<SDL.h>
 #include<SDL_image.h>
 #include<string>
+#include"Vector.h"
 class GameObject {
 public:
 	GameObject(std::string id, int x, int y, int w, int h,int framecount);
@@ -13,8 +14,8 @@ public:
 
 
 protected:
-	int xpos;
-	int ypos;
+	Vector position;
+	Vector velocity;
 
 	int width;
 	int height;

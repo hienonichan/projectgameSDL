@@ -5,10 +5,8 @@
 
 
 
-GameObject::GameObject(std::string id, int x, int y, int w, int h,int framecount) {
+GameObject::GameObject(std::string id, int x, int y, int w, int h,int framecount):position(0,0),velocity(0,0) {
 	textureID = id;
-	xpos = x;
-	ypos = y;
 	width = w;
 	height = h;
 	frame = framecount;
@@ -16,12 +14,12 @@ GameObject::GameObject(std::string id, int x, int y, int w, int h,int framecount
 
 
 void GameObject::draw() {
-	ObjectTextureManager::getInstance()->drawAnimation(textureID, xpos, ypos, width, height, sprite,GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->drawAnimation(textureID,(int)position.getX(),(int)position.getY(), width, height, sprite, GameControl::getInstance()->getRenderer());
 }
 
 
 void GameObject::update() {
-	
+	position += velocity;
 }
 
 

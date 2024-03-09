@@ -142,6 +142,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameControl.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="InputChecker.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjectTextureManager.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameControl.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="InputChecker.h" />
     <ClInclude Include="ObjectTextureManager.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Vector.h" />

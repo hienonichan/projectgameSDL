@@ -6,6 +6,7 @@
 #include"GameObject.h"
 #include"Player.h"
 #include"Enemy.h"
+
 GameControl*GameControl::instance = 0;
 
 
