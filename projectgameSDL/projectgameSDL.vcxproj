@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CollisionChecker.cpp" />
     <ClCompile Include="DelayState.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameButton.cpp" />
@@ -154,6 +155,7 @@
     <ClCompile Include="StateManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CollisionChecker.h" />
     <ClInclude Include="DelayState.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameButton.h" />
