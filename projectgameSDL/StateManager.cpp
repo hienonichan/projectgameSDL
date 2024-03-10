@@ -18,11 +18,12 @@ void StateManager::addState(State*pState) {
 }
 
 
-void StateManager::deleteState(State* pState) {
+void StateManager::deleteState() {
 	if (!gameStates.empty()) {
-		gameStates.back()->exitState();
-		delete gameStates.back();
-		gameStates.pop_back();
+		if (gameStates.back()->exitState()) {
+			delete gameStates.back();
+			gameStates.pop_back();
+		}
 	}
 }
 

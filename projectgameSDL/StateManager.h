@@ -7,7 +7,7 @@
 class StateManager {
 public:
     void addState(State* pState);
-    void deleteState(State* pState);
+    void deleteState();
 
     void update();
     void render();

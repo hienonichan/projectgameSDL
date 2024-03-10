@@ -8,7 +8,7 @@
 #include"Enemy.h"
 
 Enemy::Enemy(std::string id, int x, int y, int w, int h,int framecount) : GameObject(id, x, y, w, h,framecount) {
-	velocity.setY(-2);
+	velocity.setY(-0.5);
 }
 
 void Enemy::draw() {

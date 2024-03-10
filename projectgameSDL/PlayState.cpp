@@ -4,9 +4,15 @@
 #include"Player.h"
 #include"ObjectTextureManager.h"
 #include"Enemy.h"
+#include"InputChecker.h"
+#include"DelayState.h"
 void PlayState::update() {
 	for (int i = 0; i < gameObjects.size(); i++) {
 		gameObjects[i]->update();
+	}
+
+	if (InputChecker::getInstance()->checkKeyboard(SDL_SCANCODE_ESCAPE)) {
+		GameControl::getInstance()->getStateManager()->addState(new DelayState());
 	}
 }
 
