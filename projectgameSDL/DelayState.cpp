@@ -21,8 +21,8 @@ void DelayState::render() {
 bool DelayState::loadState() {
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/continue.png", "continue", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/menu.png", "menu", GameControl::getInstance()->getRenderer());
-	GameObject* button1 = new GameButton("continue", 200, 200, 135, 58, 1, turnToPlay);
-	GameObject* button2 = new GameButton("menu", 200, 260, 135, 57, 1, turnToHome);
+	GameObject* button1 = new GameButton("continue", 300, 200, 135, 58, 1, turnToPlay);
+	GameObject* button2 = new GameButton("menu", 300, 260, 135, 57, 1, turnToHome);
 	gameObjects.push_back(button1);
 	gameObjects.push_back(button2);
 	std::cout << "loading delaySTate\n";

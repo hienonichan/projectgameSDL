@@ -147,6 +147,7 @@
     <ClCompile Include="HomeState.cpp" />
     <ClCompile Include="InputChecker.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MapObject.cpp" />
     <ClCompile Include="ObjectTextureManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayState.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="HomeState.h" />
     <ClInclude Include="InputChecker.h" />
+    <ClInclude Include="MapObject.h" />
     <ClInclude Include="ObjectTextureManager.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayState.h" />

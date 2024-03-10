@@ -18,7 +18,18 @@ GameObject::GameObject(std::string id, int x, int y, int w, int h,int framecount
 
 
 void GameObject::draw() {
-	ObjectTextureManager::getInstance()->drawAnimation(textureID,(int)position.getX(),(int)position.getY(), width, height, sprite, GameControl::getInstance()->getRenderer());
+	
+	if (velocity.getX() > 0) {
+		ObjectTextureManager::getInstance()->drawAnimation(textureID, (int)position.getX(), (int)position.getY(), width, height, sprite, GameControl::getInstance()->getRenderer());
+	}
+	else if (velocity.getX() < 0) {
+		ObjectTextureManager::getInstance()->drawAnimation(textureID, (int)position.getX(), (int)position.getY(), width, height, sprite, GameControl::getInstance()->getRenderer(),SDL_FLIP_HORIZONTAL);
+	}
+	else {
+		ObjectTextureManager::getInstance()->drawAnimation(textureID, (int)position.getX(), (int)position.getY(), width, height, sprite, GameControl::getInstance()->getRenderer());
+	}
+	
+
 }
 
 
