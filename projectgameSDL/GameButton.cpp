@@ -2,7 +2,7 @@
 #include"InputChecker.h"
 #include"GameObject.h"
 #include"Vector.h"
-GameButton::GameButton(std::string id,int x,int y,int w,int h,int framecount):GameObject(id,x,y,w,h,framecount){
+GameButton::GameButton(std::string id,int x,int y,int w,int h,int framecount,void callback()):GameObject(id,x,y,w,h,framecount),button_callback(callback){
 	sprite = 0;
 }
 
@@ -10,7 +10,6 @@ GameButton::GameButton(std::string id,int x,int y,int w,int h,int framecount):Ga
 void GameButton::draw() {
 	GameObject::draw();
 }
-
 
 void GameButton::update() {
 	Vector* mouse = InputChecker::getInstance()->getMousePostion();
@@ -21,6 +20,7 @@ void GameButton::update() {
 		sprite = 1;
 		if (InputChecker::getInstance()->checkClicked(LEFT)) {
 			sprite = 2;
+			button_callback();
 		}
 	}
 	else {

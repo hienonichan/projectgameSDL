@@ -7,6 +7,7 @@ public:
 	virtual bool loadState() = 0;
 	virtual bool exitState() = 0;
 
+	virtual int getStateCode() = 0;
 };
 
 #endif

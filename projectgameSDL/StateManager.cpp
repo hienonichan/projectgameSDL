@@ -4,7 +4,7 @@
 
 void StateManager::addState(State*pState) {
 	if (!gameStates.empty()) {
-		if (gameStates.back() == pState) {
+		if (gameStates.back()->getStateCode() == pState->getStateCode()) {
 			return;
 		}
 		else {
@@ -28,6 +28,7 @@ void StateManager::deleteState(State* pState) {
 
 void StateManager::update() {
 	gameStates.back()->update();
+
 }
 
 void StateManager::render() {

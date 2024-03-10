@@ -2,6 +2,7 @@
 #include<iostream>
 #include"GameButton.h"
 #include"ObjectTextureManager.h"
+#include"PlayState.h"
 
 void HomeState::update() {
 	for (int i = 0; i < gameObjects.size(); i++) {
@@ -20,8 +21,8 @@ void HomeState::render() {
 bool HomeState::loadState() {
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/play.png", "startbutton", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/exit.png", "exitbutton", GameControl::getInstance()->getRenderer());
-	GameObject* play = new GameButton("startbutton", 500, 300, 230, 100, 2);
-	GameObject* exit = new GameButton("exitbutton", 500, 400, 230, 100, 2);
+	GameObject* play = new GameButton("startbutton", 500, 200, 230, 100, 2,turnToPlay);
+	GameObject* exit = new GameButton("exitbutton", 500, 300, 230, 100, 2,turnToExit);
 	gameObjects.push_back(play);
 	gameObjects.push_back(exit);
 
@@ -39,4 +40,16 @@ bool HomeState::exitState() {
 	ObjectTextureManager::getInstance()->eraseTexture("exitbutton");
 	std::cout << "exiting HomeState\n";
 	return true;
+}
+
+
+void HomeState::turnToPlay() {
+	GameControl::getInstance()->getStateManager()->addState(new PlayState());
+	std::cout << "start button clicked\n";
+}
+
+
+void HomeState::turnToExit() {
+	GameControl::getInstance()->quit();
+	std::cout << "exit button clicked\n";
 }

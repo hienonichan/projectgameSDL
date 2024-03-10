@@ -2,7 +2,7 @@
 #define __GameControl__
 #include<SDL.h>
 #include<SDL_image.h>
-
+#include"StateManager.h"
 
 class GameControl {
 public:
@@ -33,6 +33,8 @@ public:
 		return renderer;
 	}
 
+	StateManager* getStateManager() { return state; }
+
 private:
 	GameControl() {};
 	SDL_Window* window = nullptr;
@@ -43,7 +45,7 @@ private:
 
 	static GameControl* instance;
 
-	
+	StateManager* state = new StateManager();
 };
 
 #endif

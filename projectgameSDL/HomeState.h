@@ -10,8 +10,13 @@ class HomeState :public State{
 	virtual bool loadState();
 	virtual bool exitState();
 
+	virtual int getStateCode() { return code; }
 private:
+	int code = 1;
 	std::vector<GameObject*>gameObjects;
+
+	static void turnToPlay();
+	static void turnToExit();
 };
 
 

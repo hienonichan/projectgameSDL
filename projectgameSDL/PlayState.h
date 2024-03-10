@@ -9,7 +9,9 @@ public:
     virtual void render();
     virtual bool loadState();
     virtual bool exitState();
+   virtual int getStateCode() { return code; }
 private:
+    int code = 2;
     std::vector<GameObject*>gameObjects;
 };
 
