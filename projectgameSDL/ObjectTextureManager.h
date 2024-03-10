@@ -1,5 +1,5 @@
 #ifndef _-ObjectTextureManager__
-#define __ObjectTexureManager__
+#define __ObjectTextureManager__
 #include<SDL.h>
 #include<SDL_image.h>
 #include"GameControl.h"
@@ -15,6 +15,7 @@ public:
 		}
 		return instance;
 	}
+	void eraseTexture(std::string id) { TextureMap.erase(id); }
 
 	bool loadTexture(std::string file, std::string id, SDL_Renderer* renderer);
 	void draw(std::string id, int x, int y, int width, int height,SDL_Renderer* renderer, SDL_RendererFlip = SDL_FLIP_NONE);

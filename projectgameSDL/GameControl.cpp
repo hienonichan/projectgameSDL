@@ -9,6 +9,7 @@
 #include"InputChecker.h"
 #include"StateManager.h"
 #include"HomeState.h"
+#include"PlayState.h"
 GameControl*GameControl::instance = 0;
 
 StateManager* a = new StateManager();
@@ -42,12 +43,6 @@ bool GameControl::init(const char* title, int x, int y, int width, int height, b
 	surface_background = IMG_Load(background.c_str());
 	texture_background = SDL_CreateTextureFromSurface(renderer, surface_background);
 
-
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/solider run.png", "player", renderer);
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/zom2.png", "enemy", renderer);
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/solider stand.png", "playerstand", renderer);
-	/*character = new Player("player", 100, 100, 60, 60,6);
-	monster = new Enemy("enemy", 300, 300, 100, 80,8);*/
 	a->addState(new HomeState());
 
 	return true;
@@ -59,21 +54,20 @@ void GameControl::render() {
 	SDL_RenderCopy(renderer, texture_background, NULL, NULL);
 
 	a->render();
-	//character->draw();
-	//monster->draw();
-
+	
 	SDL_RenderPresent(renderer);
 }
 
 void GameControl::update() {
-	//character->update();
-	//monster->update();
 	a->update();
 }
 
 
 void GameControl::handleEvents() {
 	InputChecker::getInstance()->checkInput();
+	if (InputChecker::getInstance()->checkKeyboard(SDL_SCANCODE_F)) {
+		a->addState(new PlayState());
+	}
 }
 
 void GameControl::clean() {

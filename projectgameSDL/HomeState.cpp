@@ -21,7 +21,6 @@ bool HomeState::loadState() {
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/play.png", "startbutton", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/exit.png", "exitbutton", GameControl::getInstance()->getRenderer());
 	GameObject* play = new GameButton("startbutton", 500, 300, 230, 100, 2);
-
 	GameObject* exit = new GameButton("exitbutton", 500, 400, 230, 100, 2);
 	gameObjects.push_back(play);
 	gameObjects.push_back(exit);
@@ -32,6 +31,12 @@ bool HomeState::loadState() {
 
 
 bool HomeState::exitState() {
+	for (int i = 0; i < gameObjects.size(); i++) {
+		gameObjects[i]->clean();
+	}
+	gameObjects.clear();
+	ObjectTextureManager::getInstance()->eraseTexture("startbutton");
+	ObjectTextureManager::getInstance()->eraseTexture("exitbutton");
 	std::cout << "exiting HomeState\n";
 	return true;
 }
