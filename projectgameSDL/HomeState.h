@@ -3,6 +3,7 @@
 #include"State.h"
 #include<vector>
 #include"GameObject.h"
+#include"SDL_ttf.h"
 class HomeState :public State{
 	virtual void update();
 	virtual void render();
@@ -17,6 +18,7 @@ private:
 
 	static void turnToPlay();
 	static void turnToExit();
+
 };
 
 

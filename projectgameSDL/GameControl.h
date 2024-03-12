@@ -3,7 +3,7 @@
 #include<SDL.h>
 #include<SDL_image.h>
 #include"StateManager.h"
-
+#include<SDL_mixer.h>
 class GameControl {
 public:
 

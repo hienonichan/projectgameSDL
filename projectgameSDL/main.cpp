@@ -2,6 +2,8 @@
 #include<SDL_image.h>
 #include<iostream>
 #include"GameControl.h"
+#include"SDL_ttf.h"
+#include<SDL_mixer.h>
 
 const int WINDOW_WIDTH = 1280;
 const int WINDOW_HEIGHT = 640;

@@ -1,5 +1,6 @@
 #ifndef __CollisionChecker__
 #define __CollisionChecker__
+#include"GameObject.h"
 class CollisionChecker {
 public:
 	static CollisionChecker* getInstance() {
@@ -9,6 +10,7 @@ public:
 		}
 		return instance;
 	}
+	bool CollisionEnemy(GameObject* enemy, GameObject* player);
 
 private:
 	CollisionChecker(){}

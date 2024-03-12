@@ -18,6 +18,10 @@ public:
 		textureID = id;
 	}
 
+	Vector getPos() { return position; }
+	int getW() { return width; }
+	int getH() { return height; }
+
 protected:
 	Vector position;
 	Vector velocity;

@@ -3,6 +3,8 @@
 #include"GameButton.h"
 #include"ObjectTextureManager.h"
 #include"PlayState.h"
+#include"SDL_ttf.h"
+#include"GameControl.h"
 
 void HomeState::update() {
 	for (int i = 0; i < gameObjects.size(); i++) {
@@ -25,6 +27,11 @@ bool HomeState::loadState() {
 	GameObject* exit = new GameButton("exitbutton", 500, 300, 230, 100, 2,turnToExit);
 	gameObjects.push_back(play);
 	gameObjects.push_back(exit);
+   
+	// render word game
+	
+	
+
 
 	std::cout << "loading HomeState\n";
 	return true;

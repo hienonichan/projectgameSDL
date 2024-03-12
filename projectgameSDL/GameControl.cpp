@@ -10,6 +10,8 @@
 #include"StateManager.h"
 #include"HomeState.h"
 #include"PlayState.h"
+#include<SDL_ttf.h>
+#include<SDL_mixer.h>
 GameControl*GameControl::instance = 0;
 
 
@@ -27,6 +29,8 @@ bool GameControl::init(const char* title, int x, int y, int width, int height, b
 		else {
 			windowWay = SDL_WINDOW_SHOWN;
 		}
+		TTF_Init();
+		Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 
 		window = SDL_CreateWindow(title, x, y, width, height, windowWay);
 
@@ -43,6 +47,18 @@ bool GameControl::init(const char* title, int x, int y, int width, int height, b
 	texture_background = SDL_CreateTextureFromSurface(renderer, surface_background);
 
 	GameControl::getInstance()->getStateManager()->addState(new HomeState());
+
+
+	TTF_Font* font = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/GloriousChristmas-BLWWB.ttf", 20);
+	SDL_Color textColor = { 255,255,255 };
+	SDL_Surface* textSurface = TTF_RenderText_Solid(font, "MONSTER KILLER", textColor);
+	SDL_Texture* textTexture = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface);
+	SDL_Rect textRect;
+	textRect.x = 500;
+	textRect.y = 100;
+	SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
+	SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
+
 	return true;
 }
 
