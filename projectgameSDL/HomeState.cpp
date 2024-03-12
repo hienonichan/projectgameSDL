@@ -21,6 +21,9 @@ void HomeState::render() {
 
 
 bool HomeState::loadState() {
+	Mix_VolumeChunk(sound, MIX_MAX_VOLUME / 2);
+	PlayMusic();
+
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/play.png", "startbutton", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/exit.png", "exitbutton", GameControl::getInstance()->getRenderer());
 	GameObject* play = new GameButton("startbutton", 500, 200, 230, 100, 2,turnToPlay);
@@ -51,6 +54,7 @@ bool HomeState::exitState() {
 
 
 void HomeState::turnToPlay() {
+	Mix_HaltChannel(0);
 	GameControl::getInstance()->getStateManager()->addState(new PlayState());
 	std::cout << "start button clicked\n";
 }

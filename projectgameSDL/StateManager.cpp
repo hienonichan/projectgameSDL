@@ -8,7 +8,9 @@ void StateManager::addState(State*pState) {
 			return;
 		}
 		else {
+			
 			gameStates.push_back(pState);
+			
 		}
 	}
 	else {

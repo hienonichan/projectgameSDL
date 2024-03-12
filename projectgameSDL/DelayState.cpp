@@ -37,6 +37,7 @@ bool DelayState::exitState() {
 
 
 void DelayState::turnToHome() {
+	Mix_HaltChannel(-1);
 	GameControl::getInstance()->getStateManager()->addState(new HomeState);
 }
 

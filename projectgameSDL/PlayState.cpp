@@ -11,6 +11,7 @@
 Map* map;
 
 void PlayState::update() {
+	
 	for (int i = 0; i < gameObjects.size(); i++) {
 		gameObjects[i]->update();
 	}
@@ -22,6 +23,7 @@ void PlayState::update() {
 
 void PlayState::render() {
 	// ve truoc player
+	
 	map->DrawMap();
 
 	for (int i = 0; i < gameObjects.size(); i++) {
@@ -33,13 +35,18 @@ void PlayState::render() {
 
 bool PlayState::loadState() {
 	map = new Map();
+	// phat am thanh
+	Mix_VolumeChunk(sound1, MIX_MAX_VOLUME / 3);
+	PlayMusic();
+
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/solider run.png", "player",GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/zom2.png", "enemy", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/solider stand.png", "playerstand", GameControl::getInstance()->getRenderer());
 	GameObject* player1 = new Player("player", 100, 100, 60, 60, 6);
 	GameObject* enemy1 = new Enemy("enemy", 400, 400, 100, 80, 8);
 
-
+	
+	
 	gameObjects.push_back(player1);
 	gameObjects.push_back(enemy1);
 	std::cout << "loading playState\n";
