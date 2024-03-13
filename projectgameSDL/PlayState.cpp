@@ -9,11 +9,38 @@
 #include"MapObject.h"
 
 Map* map;
+GameObject* player1 = nullptr;
+int ran_num = 0;
+
+int next_create = 0;
+bool check_ran = false;
+
+void PlayState:: rand_enemy() {
+	ran_num = rand() % 1000 + 1;
+	if (ran_num== 1) {
+		check_ran = true;
+	}
+	if (check_ran) {
+		int time = SDL_GetTicks();
+		if (time-next_create >= 2000) {
+			enemys.push_back(new Enemy("enemy",ran_num, ran_num, 100, 80, 8 ));
+			check_ran = false;
+			next_create = time;
+		}
+	}
+}
+
 
 void PlayState::update() {
-	
+	rand_enemy();
+
+
 	for (int i = 0; i < gameObjects.size(); i++) {
 		gameObjects[i]->update();
+	}
+	for (int i = 0; i < enemys.size(); i++) {
+		enemys[i]->update();
+		enemys[i]->set_follow(player1);
 	}
 
 	if (InputChecker::getInstance()->checkKeyboard(SDL_SCANCODE_ESCAPE)) {
@@ -29,6 +56,9 @@ void PlayState::render() {
 	for (int i = 0; i < gameObjects.size(); i++) {
 		gameObjects[i]->draw();
 	}
+	for (int i = 0; i < enemys.size(); i++) {
+		enemys[i]->draw();
+	}
 	
 }
 
@@ -42,11 +72,10 @@ bool PlayState::loadState() {
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/solider run.png", "player",GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/zom2.png", "enemy", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/solider stand.png", "playerstand", GameControl::getInstance()->getRenderer());
-	GameObject* player1 = new Player("player", 100, 100, 60, 60, 6);
+	player1 = new Player("player", 100, 100, 60, 60, 6);
 	GameObject* enemy1 = new Enemy("enemy", 400, 400, 100, 80, 8);
 
-	
-	
+
 	gameObjects.push_back(player1);
 	gameObjects.push_back(enemy1);
 	std::cout << "loading playState\n";

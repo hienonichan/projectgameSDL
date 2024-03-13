@@ -10,5 +10,11 @@ public:
 	void update();
 	void clean();
 
+	void set_follow(GameObject* player) {
+		velocity = (player->getPos() - position);
+		velocity.setLength1();
+		velocity /= 20;
+	}
+
 };
 #endif

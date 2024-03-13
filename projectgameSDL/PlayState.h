@@ -5,6 +5,7 @@
 #include"GameObject.h"
 #include<SDL_mixer.h>
 #include<thread>
+#include"Enemy.h"
 class PlayState :public State {
 public:
     virtual void update();
@@ -18,10 +19,12 @@ public:
    }
 
 
+   void rand_enemy();
+
 private:
     int code = 2;
     std::vector<GameObject*>gameObjects;
-
+    std::vector<Enemy*>enemys;
     Mix_Chunk* sound1 = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/soundplay.wav");
 };
 

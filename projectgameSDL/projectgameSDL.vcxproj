@@ -71,11 +71,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\SDL2\SDL2_mixer-2.0.2\include;C:\SDL2\SDL2_ttf-2.0.18\include;C:\SDL2\SDL2_image-2.8.2\include;C:\SDL2\SDL2-2.28.5\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\SDL2\SDL2_image-2.8.2\include;C:\SDL2\SDL2_ttf-2.0.18\include;C:\SDL2\SDL2_mixer-2.0.2\include;C:\SDL2\SDL2-2.28.5\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\SDL2\SDL2_mixer-2.0.2\lib;C:\SDL2\SDL2_ttf-2.0.18\lib;C:\SDL2\SDL2_image-2.8.2\lib;C:\SDL2\SDL2-2.28.5\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\SDL2\SDL2_mixer-2.0.2\include;C:\SDL2\SDL2_ttf-2.0.18\include;C:\SDL2\SDL2_image-2.8.2\include;C:\SDL2\SDL2-2.28.5\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\SDL2\SDL2_image-2.8.2\include;C:\SDL2\SDL2_ttf-2.0.18\include;C:\SDL2\SDL2_mixer-2.0.2\include;C:\SDL2\SDL2-2.28.5\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\SDL2\SDL2_mixer-2.0.2\lib;C:\SDL2\SDL2_ttf-2.0.18\lib;C:\SDL2\SDL2_image-2.8.2\lib;C:\SDL2\SDL2-2.28.5\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

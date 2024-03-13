@@ -10,6 +10,8 @@ void HomeState::update() {
 	for (int i = 0; i < gameObjects.size(); i++) {
 		gameObjects[i]->update();
 	}
+
+	
 }
 
 
@@ -31,11 +33,6 @@ bool HomeState::loadState() {
 	gameObjects.push_back(play);
 	gameObjects.push_back(exit);
    
-	// render word game
-	
-	
-
-
 	std::cout << "loading HomeState\n";
 	return true;
 }

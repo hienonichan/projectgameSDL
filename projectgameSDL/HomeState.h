@@ -28,6 +28,7 @@ private:
 
 	Mix_Chunk* sound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/theme sound.wav");
 
+
 };
 
 

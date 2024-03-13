@@ -4,6 +4,7 @@
 #include<SDL_image.h>
 #include"StateManager.h"
 #include<SDL_mixer.h>
+#include<SDL_ttf.h>
 class GameControl {
 public:
 
@@ -46,6 +47,17 @@ private:
 	static GameControl* instance;
 
 	StateManager* state = new StateManager();
+
+
+
+
+
+	SDL_Color color = { 255,0,0 };
+	SDL_Surface* textSurface = nullptr;
+	SDL_Texture* textTexture = nullptr;
+	SDL_Rect textRect = { 400,100,400,400 };
+
+
 };
 
 #endif

@@ -36,7 +36,7 @@ bool GameControl::init(const char* title, int x, int y, int width, int height, b
 
 		renderer = SDL_CreateRenderer(window, -1, 0);
 
-		SDL_SetRenderDrawColor(renderer,255, 255, 255, 255);
+		SDL_SetRenderDrawColor(renderer,0, 0, 0, 0);
 	}
 	else {
 		return false;
@@ -46,29 +46,32 @@ bool GameControl::init(const char* title, int x, int y, int width, int height, b
 	surface_background = IMG_Load(background.c_str());
 	texture_background = SDL_CreateTextureFromSurface(renderer, surface_background);
 
-	GameControl::getInstance()->getStateManager()->addState(new HomeState());
 
-
-	TTF_Font* font = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/GloriousChristmas-BLWWB.ttf", 20);
-	SDL_Color textColor = { 255,255,255 };
-	SDL_Surface* textSurface = TTF_RenderText_Solid(font, "MONSTER KILLER", textColor);
-	SDL_Texture* textTexture = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface);
-	SDL_Rect textRect;
-	textRect.x = 500;
-	textRect.y = 100;
+	TTF_Font* font = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/GloriousChristmas-BLWWB.ttf", 50);
+	textSurface = TTF_RenderText_Blended(font, "MONSTER KILLER", color);
+	textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
 	SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
-	SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
 
+
+	GameControl::getInstance()->getStateManager()->addState(new HomeState());
 	return true;
 }
 
 
 void GameControl::render() {
+	// tai background va may cai lat vat
 	SDL_RenderClear(renderer);
 	SDL_RenderCopy(renderer, texture_background, NULL, NULL);
+	if (GameControl::getInstance()->getStateManager()->getVectorState().back()->getStateCode() == 1) {
+		SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
+	}
 
+
+	// tai object chinh
 	GameControl::getInstance()->getStateManager()->render();
 	
+
+
 	SDL_RenderPresent(renderer);
 }
 
