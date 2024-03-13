@@ -5,6 +5,7 @@
 #include<SDL_image.h>
 #include<string>
 #include"Vector.h"
+#include"Point.h"
 class GameObject {
 public:
 	GameObject(std::string id, int x, int y, int w, int h,int framecount);
@@ -22,6 +23,8 @@ public:
 	int getW() { return width; }
 	int getH() { return height; }
 
+	Point* GetOrigin() { return origin; }
+
 protected:
 	Vector position;
 	Vector velocity;
@@ -33,6 +36,8 @@ protected:
 	int frame;
 
 	std::string textureID;
+
+	Point* origin;
 
 };
 #endif

@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CollisionChecker.cpp" />
     <ClCompile Include="DelayState.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -155,6 +156,7 @@
     <ClCompile Include="StateManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="CollisionChecker.h" />
     <ClInclude Include="DelayState.h" />
     <ClInclude Include="Enemy.h" />
@@ -167,6 +169,7 @@
     <ClInclude Include="ObjectTextureManager.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayState.h" />
+    <ClInclude Include="Point.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="Vector.h" />

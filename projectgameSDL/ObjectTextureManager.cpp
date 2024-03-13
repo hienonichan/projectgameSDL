@@ -1,6 +1,6 @@
 #include"ObjectTextureManager.h"
 #include<iostream>
-
+#include"Camera.h"
 ObjectTextureManager* ObjectTextureManager::instance = 0;
 
 
@@ -49,8 +49,14 @@ void ObjectTextureManager::drawAnimation(std::string id, int x, int y, int width
 	sourceRect.w = desRect.w = width;
 	sourceRect.h = desRect.h = height;
 
+	Vector cam = Camera::getInstance()->GetPosition();
+
 	desRect.x = x;
 	desRect.y = y;
+	if (id == "player" || id == "enemy"||id=="playerstand") {
+		desRect.x -= cam.getX();
+		desRect.y -= cam.getY();
+	}
 
 	SDL_RenderCopyEx(renderer, TextureMap[id], &sourceRect, &desRect, 0, 0, flipImage);
 
@@ -67,8 +73,11 @@ void ObjectTextureManager::drawTile(std::string id, int x, int y, int width, int
 	sourceRect.w = desRect.w = width;
 	sourceRect.h = desRect.h = height;
 
-	desRect.x = x;
-	desRect.y = y;
+	Vector cam = Camera::getInstance()->GetPosition();
+
+
+	desRect.x = x-cam.getX();
+	desRect.y = y-cam.getY();
 
 	SDL_RenderCopyEx(renderer, TextureMap[id], &sourceRect, &desRect, 0, 0, flip);
 }

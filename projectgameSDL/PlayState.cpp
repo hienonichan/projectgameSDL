@@ -7,6 +7,7 @@
 #include"InputChecker.h"
 #include"DelayState.h"
 #include"MapObject.h"
+#include"Camera.h"
 
 Map* map;
 GameObject* player1 = nullptr;
@@ -22,7 +23,7 @@ void PlayState:: rand_enemy() {
 	}
 	if (check_ran) {
 		int time = SDL_GetTicks();
-		if (time-next_create >= 2000) {
+		if (time-next_create >= 3000) {
 			enemys.push_back(new Enemy("enemy",ran_num, ran_num, 100, 80, 8 ));
 			check_ran = false;
 			next_create = time;
@@ -46,6 +47,10 @@ void PlayState::update() {
 	if (InputChecker::getInstance()->checkKeyboard(SDL_SCANCODE_ESCAPE)) {
 		GameControl::getInstance()->getStateManager()->addState(new DelayState());
 	}
+
+
+
+	Camera::getInstance()->Update();
 }
 
 void PlayState::render() {
@@ -78,6 +83,9 @@ bool PlayState::loadState() {
 
 	gameObjects.push_back(player1);
 	gameObjects.push_back(enemy1);
+
+	Camera::getInstance()->SetTarget(player1->GetOrigin());
+
 	std::cout << "loading playState\n";
 	return true;
 }
@@ -93,3 +101,5 @@ bool PlayState::exitState() {
 	std::cout << "exting playState\n";
 	return true;
 }
+
+

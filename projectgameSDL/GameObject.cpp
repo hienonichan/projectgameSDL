@@ -14,6 +14,11 @@ GameObject::GameObject(std::string id, int x, int y, int w, int h,int framecount
 	width = w;
 	height = h;
 	frame = framecount;
+
+
+	float px = x + w / 2;
+	float py = y + h / 2;
+	origin = new Point(px, py);
 }
 
 
