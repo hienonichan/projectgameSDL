@@ -1,4 +1,5 @@
 #include"CollisionChecker.h"
+#include"Camera.h"
 
 bool CollisionChecker::CollisionEnemy(GameObject* enemy, GameObject* player) {
 	int left1 = player->getPos().getX();
@@ -15,6 +16,24 @@ bool CollisionChecker::CollisionEnemy(GameObject* enemy, GameObject* player) {
 	if (left2 >= right1) { return false; }
 	if (under1 <= top2) { return false; }
 	if (under2 <= top1) { return false; }
+
+	return true;
+}
+
+
+bool CollisionChecker::CollisionBullet(GameObject* enemy, Bullet* bullet) {
+	Vector cam = Camera::getInstance()->GetPosition();
+	int left1 = enemy->getPos().getX()-cam.getX();
+	int righ1 = enemy->getPos().getX()  + enemy->getW() - cam.getX();
+	int top1 = enemy->getPos().getY() - cam.getY();
+	int under1 = enemy->getPos().getY()  + enemy->getH() - cam.getY();
+
+	int left2 = bullet->getPos().getX() - cam.getX();
+	int righ2 = bullet->getPos().getX() + bullet->getW() - cam.getX();
+	int top2 = bullet->getPos().getY() - cam.getY();
+	int under2 = bullet->getPos().getY() + bullet->getH() - cam.getY();
+
+
 
 	return true;
 }

@@ -4,8 +4,7 @@
 #include"GameControl.h"
 #include"InputChecker.h"
 #include"Player.h"
-SDL_RendererFlip check_flip= SDL_FLIP_NONE;
-
+SDL_RendererFlip check_flip = SDL_FLIP_NONE;
 
 GameObject::GameObject(std::string id, int x, int y, int w, int h,int framecount):position(0,0),velocity(0,0) {
 	position.setX(x);
@@ -65,3 +64,8 @@ void GameObject::update() {
 void GameObject:: clean() {
 
 }
+
+
+
+int GameObject:: CheckFlip() { return check_flip; }
+

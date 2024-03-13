@@ -6,6 +6,7 @@
 #include<SDL_mixer.h>
 #include<thread>
 #include"Enemy.h"
+#include"BulletObject.h"
 class PlayState :public State {
 public:
     virtual void update();
@@ -25,6 +26,7 @@ private:
     int code = 2;
     std::vector<GameObject*>gameObjects;
     std::vector<Enemy*>enemys;
+    std::vector<Bullet*>bullets;
     Mix_Chunk* sound1 = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/soundplay.wav");
 };
 

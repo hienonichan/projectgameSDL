@@ -11,10 +11,15 @@
 
 Map* map;
 GameObject* player1 = nullptr;
-int ran_num = 0;
 
+// cac bien dieu khien ham random
+int ran_num = 0;
 int next_create = 0;
 bool check_ran = false;
+
+// cac bien dieu khien sinh bullet
+int next_bullet = 0;
+
 
 void PlayState:: rand_enemy() {
 	ran_num = rand() % 1000 + 1;
@@ -33,7 +38,18 @@ void PlayState:: rand_enemy() {
 
 
 void PlayState::update() {
+	// random tao enemy
 	rand_enemy();
+
+	if (InputChecker::getInstance()->checkKeyboard(SDL_SCANCODE_SPACE)) {
+		int time = SDL_GetTicks();
+		if (time - next_bullet >= 100) {
+			Vector cam = Camera::getInstance()->GetPosition();
+			bullets.push_back(new Bullet("bullet", player1->getPos().getX()-cam.getX(), player1->getPos().getY()-cam.getY(), 19, 19, 1));
+			next_bullet = time;
+		}
+
+	}
 
 
 	for (int i = 0; i < gameObjects.size(); i++) {
@@ -44,11 +60,18 @@ void PlayState::update() {
 		enemys[i]->set_follow(player1);
 	}
 
+	if (!bullets.empty()) {
+		for (int i = 0; i < bullets.size(); i++) {
+			bullets[i]->update();
+		}
+	}
+
+
 	if (InputChecker::getInstance()->checkKeyboard(SDL_SCANCODE_ESCAPE)) {
 		GameControl::getInstance()->getStateManager()->addState(new DelayState());
 	}
 
-
+	
 
 	Camera::getInstance()->Update();
 }
@@ -64,6 +87,11 @@ void PlayState::render() {
 	for (int i = 0; i < enemys.size(); i++) {
 		enemys[i]->draw();
 	}
+	if (!bullets.empty()) {
+		for (int i = 0; i < bullets.size(); i++) {
+			bullets[i]->draw();
+		}
+	}
 	
 }
 
@@ -77,6 +105,7 @@ bool PlayState::loadState() {
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/solider run.png", "player",GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/zom2.png", "enemy", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/solider stand.png", "playerstand", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/bullet.png", "bullet", GameControl::getInstance()->getRenderer());
 	player1 = new Player("player", 100, 100, 60, 60, 6);
 	GameObject* enemy1 = new Enemy("enemy", 400, 400, 100, 80, 8);
 

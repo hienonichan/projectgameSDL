@@ -25,6 +25,8 @@ public:
 
 	Point* GetOrigin() { return origin; }
 
+	int CheckFlip();
+
 protected:
 	Vector position;
 	Vector velocity;
@@ -36,6 +38,7 @@ protected:
 	int frame;
 
 	std::string textureID;
+
 
 	Point* origin;
 
