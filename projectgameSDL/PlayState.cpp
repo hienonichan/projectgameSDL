@@ -23,7 +23,7 @@ int next_bullet = 0;
 
 void PlayState:: rand_enemy() {
 	ran_num = rand() % 1000 + 1;
-	if (ran_num<=10) {
+	if (ran_num) {
 		check_ran = true;
 	}
 	if (check_ran) {
@@ -101,7 +101,8 @@ void PlayState::update() {
 void PlayState::render() {
 	// ve truoc player
 	
-	map->DrawMap();
+	Map::getInstance()->DrawMap();
+
 
 	for (int i = 0; i < gameObjects.size(); i++) {
 		gameObjects[i]->draw();
@@ -122,7 +123,7 @@ void PlayState::render() {
 
 
 bool PlayState::loadState() {
-	map = new Map();
+	
 	// phat am thanh
 	Mix_VolumeChunk(sound1, MIX_MAX_VOLUME / 3);
 	PlayMusic();

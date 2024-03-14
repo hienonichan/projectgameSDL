@@ -5,6 +5,7 @@
 #include"PlayState.h"
 #include"SDL_ttf.h"
 #include"GameControl.h"
+#include"SetupState.h"
 
 void HomeState::update() {
 	for (int i = 0; i < gameObjects.size(); i++) {
@@ -52,7 +53,7 @@ bool HomeState::exitState() {
 
 void HomeState::turnToPlay() {
 	Mix_HaltChannel(0);
-	GameControl::getInstance()->getStateManager()->addState(new PlayState());
+	GameControl::getInstance()->getStateManager()->addState(new SetupState());
 	std::cout << "start button clicked\n";
 }
 
