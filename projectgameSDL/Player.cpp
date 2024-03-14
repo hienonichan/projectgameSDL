@@ -14,16 +14,16 @@ void Player::update() {
 	velocity.setX(0);
 	velocity.setY(0);
 	if (InputChecker::getInstance()->checkKeyboard(SDL_SCANCODE_A)) {
-		velocity.setX(-0.3);
+		velocity.setX(-1);
 	}
 	if (InputChecker::getInstance()->checkKeyboard(SDL_SCANCODE_D)) {
-		velocity.setX(0.3);
+		velocity.setX(1);
 	}
 	if (InputChecker::getInstance()->checkKeyboard(SDL_SCANCODE_W)) {
-		velocity.setY(-0.3);
+		velocity.setY(-1);
 	}
 	if (InputChecker::getInstance()->checkKeyboard(SDL_SCANCODE_S)) {
-		velocity.setY(0.3);
+		velocity.setY(1);
 	}
 
 
