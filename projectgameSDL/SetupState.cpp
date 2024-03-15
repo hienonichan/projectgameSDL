@@ -12,6 +12,8 @@ void SetupState::update() {
 
 void SetupState::render() {
 	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), textTexture, NULL, &textRect);
+	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), textTexture1, NULL, &textRect1);
+	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), textTexture2, NULL, &textRect2);
 	for (int i = 0; i < gameObjects.size(); i++) {
 		gameObjects[i]->draw();
 	}
@@ -20,9 +22,18 @@ void SetupState::render() {
 
 bool SetupState::loadState() {
 	TTF_Font* font = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/phong chu2.ttf", 45);
+
 	textSurface = TTF_RenderText_Blended(font, "Choose place to start mission", colorText);
 	textTexture = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface);
 	SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
+
+	textSurface1 = TTF_RenderText_Blended(font, "first Map", colorText1);
+	textTexture1 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface1);
+	SDL_QueryTexture(textTexture1, NULL, NULL, &textRect1.w, &textRect1.h);
+
+	textSurface2 = TTF_RenderText_Blended(font, "second Map", colorText2);
+	textTexture2 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface2);
+	SDL_QueryTexture(textTexture2, NULL, NULL, &textRect2.w, &textRect2.h);
 
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/anh map.jpg", "map1", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/anh map2.jpg", "map2", GameControl::getInstance()->getRenderer());

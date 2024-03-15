@@ -52,7 +52,6 @@ bool GameControl::init(const char* title, int x, int y, int width, int height, b
 	textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
 	SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
 
-
 	GameControl::getInstance()->getStateManager()->addState(new HomeState());
 	return true;
 }

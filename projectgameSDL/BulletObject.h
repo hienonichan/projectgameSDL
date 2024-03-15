@@ -11,6 +11,14 @@ public:
 	void draw();
 	void update();
 	void clean();
+	void fireBullet(GameObject*crosshair) {
+		Vector bonus(crosshair->getW()/2, crosshair->getH()/2);
+		velocity =  crosshair->getPos() +bonus- position;
+		velocity.setLength1();
+		velocity *= 3;
+	}
+
+
 private:
 };
 #endif

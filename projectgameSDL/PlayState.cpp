@@ -8,6 +8,7 @@
 #include"DelayState.h"
 #include"MapObject.h"
 #include"Camera.h"
+#include"Aim.h"
 #include"CollisionChecker.h"
 Map* map;
 
@@ -19,7 +20,7 @@ bool check_ran = false;
 
 // cac bien dieu khien sinh bullet
 int next_bullet = 0;
-
+GameObject* crosshair = nullptr;
 
 void PlayState:: rand_enemy() {
 	ran_num = rand() % 1000 + 1;
@@ -28,8 +29,13 @@ void PlayState:: rand_enemy() {
 	}
 	if (check_ran) {
 		int time = SDL_GetTicks();
-		if (time-next_create >= 3000) {
-			enemys.push_back(new Enemy("enemy",ran_num, ran_num, 100, 80, 8 ));
+		if (time-next_create >= 2000) {
+			if (ran_num<=500) {
+				enemys.push_back(new Enemy("enemy", ran_num, ran_num, 100, 80, 8));
+			}
+			else{
+				enemys.push_back(new Enemy("enemy2", ran_num, ran_num, 150, 150, 8));
+			}
 			check_ran = false;
 			next_create = time;
 		}
@@ -37,21 +43,28 @@ void PlayState:: rand_enemy() {
 }
 
 
+
 void PlayState::update() {
 	// random tao enemy
 	rand_enemy();
 
-	// ham ban dan
-	if (InputChecker::getInstance()->checkKeyboard(SDL_SCANCODE_SPACE)) {
+	
+
+	// ban bang crosshair
+	if (InputChecker::getInstance()->checkClicked(LEFT)==true) {
 		int time = SDL_GetTicks();
 		if (time - next_bullet >= 100) {
+
 			Vector cam = Camera::getInstance()->GetPosition();
-			bullets.push_back(new Bullet("bullet", player1->getPos().getX()-cam.getX(), player1->getPos().getY()-cam.getY(), 19, 19, 1));
+			Bullet* bullet = new Bullet("bullet", player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY(), 19, 19, 1);
+			bullet->fireBullet(crosshair);
+			bullets.push_back(bullet);
 			Mix_VolumeChunk(shootingsound, MIX_MAX_VOLUME / 4);
 			Mix_PlayChannel(3, shootingsound, 0);
 			next_bullet = time;
 		}
 	}
+
 
 
 
@@ -96,6 +109,15 @@ void PlayState::update() {
 		GameControl::getInstance()->getStateManager()->addState(new DelayState());
 	}
 	Camera::getInstance()->Update();
+
+	
+
+
+	// neu di chuyen cho  chu bien mat
+	if (player1->getVelocity().getX() != 0 || player1->getVelocity().getY() != 0) {
+		SDL_SetTextureAlphaMod(textTexture, 0);
+	}
+
 }
 
 void PlayState::render() {
@@ -119,7 +141,12 @@ void PlayState::render() {
 			}
 		}
 	}
+
+	// hien chu "MISSION START"
+	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), textTexture, NULL, &textRect);
 }
+
+
 
 
 bool PlayState::loadState() {
@@ -132,12 +159,21 @@ bool PlayState::loadState() {
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/zom2.png", "enemy", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/solider stand.png", "playerstand", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/bullet.png", "bullet", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/enemy2.png", "enemy2", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/crosshair.png", "crosshair", GameControl::getInstance()->getRenderer());
 	player1 = new Player("player", 100, 100, 60, 60, 6);
-	
+	 crosshair = new Aim("crosshair", 100, 100, 150, 150, 1);
 	gameObjects.push_back(player1);
-
+	gameObjects.push_back(crosshair);
 	// lay player lam trung tam camera
 	Camera::getInstance()->SetTarget(player1->GetOrigin());
+
+
+	TTF_Font* font = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/phong chu2.ttf", 45);
+	textSurface = TTF_RenderText_Blended(font, "MISSION START", colorText);
+	textTexture = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface);
+	SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
+
 
 	std::cout << "loading playState\n";
 	return true;

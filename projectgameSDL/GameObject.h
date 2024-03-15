@@ -20,6 +20,7 @@ public:
 	}
 
 	Vector getPos() { return position; }
+	Vector getVelocity() { return velocity; }
 	int getW() { return width; }
 	int getH() { return height; }
 

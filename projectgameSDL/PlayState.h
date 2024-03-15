@@ -57,6 +57,12 @@ private:
     std::map<Enemy*, int>check_enemy;
     std::map<Bullet*, int>check_bullet;
     GameObject* player1 = nullptr;
+
+    SDL_Surface* textSurface = nullptr;
+    SDL_Texture* textTexture = nullptr;
+    SDL_Color colorText = { 255,255,255 };
+    SDL_Rect textRect = { 500,300,300,300 };
+
 };
 
 #endif
