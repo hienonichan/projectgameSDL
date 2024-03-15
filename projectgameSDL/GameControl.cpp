@@ -61,7 +61,9 @@ void GameControl::render() {
 	// tai background va may cai lat vat
 	SDL_RenderClear(renderer);
 	SDL_RenderCopy(renderer, texture_background, NULL, NULL);
-	if (GameControl::getInstance()->getStateManager()->getVectorState().back()->getStateCode() == 1) {
+	if (GameControl::getInstance()->getStateManager()->getVectorState().back()->getStateCode() == 1
+		|| GameControl::getInstance()->getStateManager()->getVectorState().back()->getStateCode() == 3
+		) {
 		SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
 	}
 

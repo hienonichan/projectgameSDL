@@ -52,16 +52,29 @@ private:
     std::vector<GameObject*>gameObjects;
     std::vector<Enemy*>enemys;
     std::vector<Bullet*>bullets;
-    Mix_Chunk* sound1 = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/soundplay.wav");
+    Mix_Chunk* sound1 = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/Warriyo - Mortals (feat. Laura Brehm) [NCS Release] (1).wav");
     Mix_Chunk* shootingsound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/shooting sound.wav");
     std::map<Enemy*, int>check_enemy;
     std::map<Bullet*, int>check_bullet;
     GameObject* player1 = nullptr;
 
+
+
+
     SDL_Surface* textSurface = nullptr;
     SDL_Texture* textTexture = nullptr;
     SDL_Color colorText = { 255,255,255 };
     SDL_Rect textRect = { 500,300,300,300 };
+
+
+    SDL_Surface* textSurface2 = nullptr;
+    SDL_Texture* textTexture2 = nullptr;
+    SDL_Color colorText2 = { 255,255,255 };
+    SDL_Rect textRect2 = { 50,50,300,300 };
+
+   
+
+    int score = 0;
 
 };
 
