@@ -8,6 +8,7 @@
 #include"Enemy.h"
 #include"BulletObject.h"
 #include<map>
+
 class PlayState :public State {
 public:
     virtual void update();
@@ -59,8 +60,6 @@ private:
     GameObject* player1 = nullptr;
 
 
-
-
     SDL_Surface* textSurface = nullptr;
     SDL_Texture* textTexture = nullptr;
     SDL_Color colorText = { 255,255,255 };
@@ -72,9 +71,13 @@ private:
     SDL_Color colorText2 = { 255,255,255 };
     SDL_Rect textRect2 = { 50,50,300,300 };
 
-   
 
-    int score = 0;
+    SDL_Surface* textSurface3 = nullptr;
+    SDL_Texture* textTexture3 = nullptr;
+    SDL_Color colorText3 = { 255,255,255 };
+    SDL_Rect textRect3 = { 50,100,300,300 };
+
+  
 
 };
 

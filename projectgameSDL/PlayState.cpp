@@ -10,11 +10,12 @@
 #include"Camera.h"
 #include"Aim.h"
 #include"CollisionChecker.h"
-Map* map;
+#include"GameOver.h"
+
 
 TTF_Font* font = nullptr;
 TTF_Font* font2 = nullptr;
-
+TTF_Font* font3 = nullptr;
 
 // cac bien dieu khien ham random
 int ran_num = 0;
@@ -51,7 +52,9 @@ void PlayState::update() {
 	// random tao enemy
 	rand_enemy();
 
-	
+	if (health == 0) {
+		GameControl::getInstance()->getStateManager()->addState(new GameOver());
+	}
 
 	// ban bang crosshair
 	if (InputChecker::getInstance()->checkClicked(LEFT)==true) {
@@ -87,6 +90,26 @@ void PlayState::update() {
 		}
 	}
 
+	// ham clear object toi uu cho game
+	clearBullet();
+	clearEnemy();
+
+	// neu va cham voi ke dich thi bi tru mau
+	// cap nhat texture health
+	for (int i = 0; i < enemys.size(); i++) {
+		if (CollisionChecker::getInstance()->CollisionEnemy(enemys[i], player1)) {
+			check_enemy[enemys[i]] = 1;
+			health--;
+			SDL_FreeSurface(textSurface3);
+			SDL_DestroyTexture(textTexture3);
+			textSurface3 = TTF_RenderText_Blended(font3, ("HEALTH:" + std::to_string(health)).c_str(), colorText3);
+			textTexture3 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface3);
+			
+		}
+	}
+
+
+
 	for (int i = 0; i < gameObjects.size(); i++) {
 		gameObjects[i]->update();
 	}
@@ -109,10 +132,6 @@ void PlayState::update() {
 		}
 	}
 
-	// ham clear object toi uu cho game
-	clearBullet();
-	clearEnemy();
-
 
 	if (InputChecker::getInstance()->checkKeyboard(SDL_SCANCODE_ESCAPE)) {
 		GameControl::getInstance()->getStateManager()->addState(new DelayState());
@@ -125,9 +144,7 @@ void PlayState::update() {
 	}
 
 
-
 	Camera::getInstance()->Update();
-
 }
 
 void PlayState::render() {
@@ -156,9 +173,10 @@ void PlayState::render() {
 
 	// hien chu "MISSION START"
 	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), textTexture, NULL, &textRect);
-	
 	// cap nhat hien score len man hinh
 	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), textTexture2, NULL, &textRect2);
+	// cap nhat health len man hinh
+	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), textTexture3, NULL, &textRect3);
 }
 
 
@@ -166,7 +184,7 @@ void PlayState::render() {
 bool PlayState::loadState() {
 	
 	// phat am thanh
-	Mix_VolumeChunk(sound1, MIX_MAX_VOLUME / 3);
+	Mix_VolumeChunk(sound1, MIX_MAX_VOLUME / 5);
 	PlayMusic();
 
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/solider run.png", "player",GameControl::getInstance()->getRenderer());
@@ -182,19 +200,24 @@ bool PlayState::loadState() {
 	// lay player lam trung tam camera
 	Camera::getInstance()->SetTarget(player1->GetOrigin());
 
+
 	// tai chu MISSION START
-	
 	font=TTF_OpenFont("C:/projectgameSDL/projectgameSDL/phong chu2.ttf", 45);
 	textSurface = TTF_RenderText_Blended(font, "MISSION START", colorText);
 	textTexture = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface);
 	SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
 
-
+	// tai score len goc trai
 	font2 = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/LibreBaskerville-Bold.ttf", 30);
 	textSurface2 = TTF_RenderText_Blended(font2, ("SCORE:" + std::to_string(score)).c_str(), colorText2);
 	textTexture2 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface2);
 	SDL_QueryTexture(textTexture2, NULL, NULL, &textRect2.w, &textRect2.h);
-	
+
+	// tai health
+	font3 = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/LibreBaskerville-Bold.ttf", 25);
+	textSurface3 = TTF_RenderText_Blended(font3, ("HEALTH:" + std::to_string(health)).c_str(), colorText3);
+	textTexture3 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface3);
+	SDL_QueryTexture(textTexture3, NULL, NULL, &textRect3.w, &textRect3.h);
 
 	std::cout << "loading playState\n";
 	return true;
@@ -211,5 +234,6 @@ bool PlayState::exitState() {
 	std::cout << "exting playState\n";
 	return true;
 }
+
 
 

@@ -1,5 +1,6 @@
 #ifndef __State__
 #define __State__
+
 class State {
 public:
 	virtual void update() = 0;
@@ -8,6 +9,11 @@ public:
 	virtual bool exitState() = 0;
 
 	virtual int getStateCode() = 0;
+
+	virtual int getScore() { return score; }
+protected:
+	int score = 0;
+	int health = 5;
 };
 
 #endif

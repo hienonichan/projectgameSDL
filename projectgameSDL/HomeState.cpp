@@ -20,6 +20,8 @@ void HomeState::render() {
 	for (int i = 0; i < gameObjects.size(); i++) {
 		gameObjects[i]->draw();
    }
+
+	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), textTexture, NULL, &textRect);
 }
 
 
@@ -33,6 +35,12 @@ bool HomeState::loadState() {
 	GameObject* exit = new GameButton("exitbutton", 500, 300, 230, 100, 2,turnToExit);
 	gameObjects.push_back(play);
 	gameObjects.push_back(exit);
+
+
+	TTF_Font* font = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/GloriousChristmas-BLWWB.ttf", 50);
+	textSurface = TTF_RenderText_Blended(font, "MONSTER KILLER", colorText);
+	textTexture = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface);
+	SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
    
 	std::cout << "loading HomeState\n";
 	return true;

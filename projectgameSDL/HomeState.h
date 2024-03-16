@@ -29,6 +29,11 @@ private:
 	Mix_Chunk* sound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/theme sound.wav");
 
 
+	SDL_Surface* textSurface = nullptr;
+	SDL_Texture* textTexture = nullptr;
+	SDL_Color colorText = { 255,0,0 };
+	SDL_Rect textRect = { 400,100,400,400 };
+
 };
 
 

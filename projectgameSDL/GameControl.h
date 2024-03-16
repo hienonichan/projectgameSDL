@@ -47,10 +47,7 @@ private:
 	static GameControl* instance;
 
 	StateManager* state = new StateManager();
-	SDL_Color color = { 255,0,0 };
-	SDL_Surface* textSurface = nullptr;
-	SDL_Texture* textTexture = nullptr;
-	SDL_Rect textRect = { 400,100,400,400 };
+	
 
 
 };
