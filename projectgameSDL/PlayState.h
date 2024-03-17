@@ -93,6 +93,11 @@ private:
     SDL_Color colorText4 = { 255,255,255 };
     SDL_Rect textRect4 = { 50,150,300,300 };
 
+    SDL_Surface* textSurface5 = nullptr;
+    SDL_Texture* textTexture5 = nullptr;
+    SDL_Color colorText5 = { 255,255,255 };
+    SDL_Rect textRect5 = { 350,400,300,300 };
+
 };
 
 #endif

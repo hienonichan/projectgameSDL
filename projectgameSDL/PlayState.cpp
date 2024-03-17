@@ -17,6 +17,7 @@ TTF_Font* font = nullptr;
 TTF_Font* font2 = nullptr;
 TTF_Font* font3 = nullptr;
 TTF_Font* font4 = nullptr;
+TTF_Font* font5 = nullptr;
 // cac bien dieu khien ham random
 int ran_num = 0;
 int next_create = 0;
@@ -171,6 +172,7 @@ void PlayState::update() {
 	// neu di chuyen cho  chu bien mat
 	if (player1->getVelocity().getX() != 0 || player1->getVelocity().getY() != 0) {
 		SDL_SetTextureAlphaMod(textTexture, 0);
+		SDL_SetTextureAlphaMod(textTexture5, 0);
 	}
 
 
@@ -210,6 +212,8 @@ void PlayState::render() {
 	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), textTexture3, NULL, &textRect3);
 	// cap nhat ammo
 	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), textTexture4, NULL, &textRect4);
+	// tai huong dan
+	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), textTexture5, NULL, &textRect5);
 }
 
 
@@ -242,20 +246,27 @@ bool PlayState::loadState() {
 	textTexture = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface);
 	SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
 
+    // tai huong dan tro choi
+	font5 = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/phong chu2.ttf", 25);
+	textSurface5 = TTF_RenderText_Blended(font5, "A,W,S,D to move. LEFT MOUSE to shoot. R to reload", colorText5);
+	textTexture5 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface5);
+	SDL_QueryTexture(textTexture5, NULL, NULL, &textRect5.w, &textRect5.h);
+
+
 	// tai score len goc trai
 	font2 = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/LibreBaskerville-Bold.ttf", 30);
 	textSurface2 = TTF_RenderText_Blended(font2, ("SCORE:" + std::to_string(score)).c_str(), colorText2);
 	textTexture2 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface2);
 	SDL_QueryTexture(textTexture2, NULL, NULL, &textRect2.w, &textRect2.h);
 
-	// tai health
+	// tai chu health
 	font3 = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/LibreBaskerville-Bold.ttf", 25);
 	textSurface3 = TTF_RenderText_Blended(font3, ("HEALTH:" + std::to_string(health)).c_str(), colorText3);
 	textTexture3 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface3);
 	SDL_QueryTexture(textTexture3, NULL, NULL, &textRect3.w, &textRect3.h);
      
 
-	// tai ammo
+	// tai chu ammo
 	font4 = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/LibreBaskerville-Bold.ttf", 25);
 	textSurface4 = TTF_RenderText_Blended(font3, ("AMMO:" + std::to_string(ammo_count)).c_str(), colorText4);
 	textTexture4 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface4);
@@ -276,6 +287,7 @@ bool PlayState::exitState() {
 	ObjectTextureManager::getInstance()->eraseTexture("solider stand");
 	std::cout << "exting playState\n";
 	return true;
+
 }
 
 
