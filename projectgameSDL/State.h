@@ -14,6 +14,7 @@ public:
 protected:
 	int score = 0;
 	int health = 5;
+	int ammo_count = 3;
 };
 
 #endif

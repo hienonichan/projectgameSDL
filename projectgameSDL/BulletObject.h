@@ -4,6 +4,7 @@
 #include<SDL.h>
 #include<SDL_image.h>
 #include<string>
+#include"Camera.h"
 class Bullet:public GameObject {
 public:
 	Bullet(std::string id,int x, int y, int w, int h, int framecount);
@@ -13,7 +14,8 @@ public:
 	void clean();
 	void fireBullet(GameObject*crosshair) {
 		Vector bonus(crosshair->getW()/2, crosshair->getH()/2);
-		velocity =  crosshair->getPos() +bonus- position;
+		Vector cam = Camera::getInstance()->GetPosition();
+		velocity = crosshair->getPos() + bonus - position;
 		velocity.setLength1();
 		velocity *= 3;
 	}

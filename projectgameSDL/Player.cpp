@@ -26,7 +26,7 @@ void Player::update() {
 		velocity.setY(1);
 	}
 
-
+	// lay tam nhan vat
 	origin->x = position.getX() +width / 2;
 	origin->y = position.getY() + height / 2;
 

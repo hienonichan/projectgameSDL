@@ -8,6 +8,7 @@
 #include"Enemy.h"
 #include"BulletObject.h"
 #include<map>
+#include"InputChecker.h"
 
 class PlayState :public State {
 public:
@@ -18,7 +19,7 @@ public:
    virtual int getStateCode() { return code; }
 
    void PlayMusic() {
-       Mix_PlayChannel(-1, sound1, 0);
+       Mix_PlayChannel(-1, sound1, -1);
    }
 
 
@@ -48,6 +49,14 @@ public:
        }
    }
 
+   // ham check reload
+   bool checkReload() {
+       if (InputChecker::getInstance()->checkKeyboard(SDL_SCANCODE_R)) {
+           return true;
+       }
+       return false;
+   }
+
 private:
     int code = 2;
     std::vector<GameObject*>gameObjects;
@@ -55,6 +64,8 @@ private:
     std::vector<Bullet*>bullets;
     Mix_Chunk* sound1 = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/Warriyo - Mortals (feat. Laura Brehm) [NCS Release] (1).wav");
     Mix_Chunk* shootingsound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/shooting sound.wav");
+    Mix_Chunk* hurtSound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/roblox-death-sound-effect.wav");
+    Mix_Chunk* reloadSound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/1911-reload-6248.wav");
     std::map<Enemy*, int>check_enemy;
     std::map<Bullet*, int>check_bullet;
     GameObject* player1 = nullptr;
@@ -77,7 +88,10 @@ private:
     SDL_Color colorText3 = { 255,255,255 };
     SDL_Rect textRect3 = { 50,100,300,300 };
 
-  
+    SDL_Surface* textSurface4 = nullptr;
+    SDL_Texture* textTexture4 = nullptr;
+    SDL_Color colorText4 = { 255,255,255 };
+    SDL_Rect textRect4 = { 50,150,300,300 };
 
 };
 

@@ -2,6 +2,8 @@
 #include"GameControl.h"
 #include"GameButton.h"
 #include"ObjectTextureManager.h"
+#include"PlayState.h";
+#include"HomeState.h"
 void GameOver::update() {
 	for (int i = 0; i < gameObjects.size(); i++) {
 		gameObjects[i]->update();
@@ -53,9 +55,12 @@ bool GameOver::exitState() {
 }
 
 void GameOver::restart() {
+	Mix_HaltChannel(-1);
+
+	GameControl::getInstance()->getStateManager()->addState(new PlayState());
 
 }
 
 void GameOver::returnMenu() {
-
+	GameControl::getInstance()->getStateManager()->addState(new HomeState());
 }
