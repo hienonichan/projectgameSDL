@@ -53,7 +53,7 @@ void ObjectTextureManager::drawAnimation(std::string id, int x, int y, int width
 
 	desRect.x = x;
 	desRect.y = y;
-	if (id == "player" || id == "enemy"||id=="playerstand"||id=="enemy2") {
+	if (id == "player" || id == "enemy"||id=="playerstand"||id=="enemy2"||id=="boss") {
 		desRect.x -= cam.getX();
 		desRect.y -= cam.getY();
 	}

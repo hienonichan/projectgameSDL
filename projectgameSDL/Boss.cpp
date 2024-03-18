@@ -7,6 +7,7 @@ void Boss::update() {
 }
 
 void Boss::draw() {
+	sprite = int(SDL_GetTicks() / 100) % frame;
 	GameObject::draw();
 }
 

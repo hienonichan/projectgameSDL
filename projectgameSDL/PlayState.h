@@ -9,6 +9,7 @@
 #include"BulletObject.h"
 #include<map>
 #include"InputChecker.h"
+#include"Boss.h"
 
 class PlayState :public State {
 public:
@@ -49,6 +50,15 @@ public:
        }
    }
 
+   void clearBoss() {
+       for (int i = 0; i < bosses.size(); i++) {
+           if (check_boss[bosses[i]] == 1) {
+               bosses.erase(bosses.begin() + i);
+               i--;
+           }
+       }
+   }
+
    // ham check reload
    bool checkReload() {
        if (InputChecker::getInstance()->checkKeyboard(SDL_SCANCODE_R)) {
@@ -62,12 +72,14 @@ private:
     std::vector<GameObject*>gameObjects;
     std::vector<Enemy*>enemys;
     std::vector<Bullet*>bullets;
+    std::vector<Boss*>bosses;
     Mix_Chunk* sound1 = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/Warriyo - Mortals (feat. Laura Brehm) [NCS Release] (1).wav");
     Mix_Chunk* shootingsound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/shooting sound.wav");
     Mix_Chunk* hurtSound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/roblox-death-sound-effect.wav");
     Mix_Chunk* reloadSound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/1911-reload-6248.wav");
     std::map<Enemy*, int>check_enemy;
     std::map<Bullet*, int>check_bullet;
+    std::map<Boss*, int>check_boss;
     GameObject* player1 = nullptr;
 
 

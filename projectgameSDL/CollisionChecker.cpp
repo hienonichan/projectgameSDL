@@ -4,7 +4,7 @@ CollisionChecker* CollisionChecker::instance = 0;
 
 
 bool CollisionChecker::CollisionEnemy(GameObject* enemy, GameObject* player) {
-	int lowSquare = 40;
+	int lowSquare = enemy->getW()/4;
 
 	Vector cam = Camera::getInstance()->GetPosition();
 	int left1 = player->getPos().getX()-cam.getX();
@@ -28,7 +28,7 @@ bool CollisionChecker::CollisionEnemy(GameObject* enemy, GameObject* player) {
 
 bool CollisionChecker::CollisionBullet(GameObject* enemy, Bullet* bullet) {
 	Vector cam = Camera::getInstance()->GetPosition();
-	int lowSquare = 32;
+	int lowSquare = enemy->getW()/4;
 
 
 	int left1 = enemy->getPos().getX() - cam.getX();
