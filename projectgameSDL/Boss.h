@@ -14,8 +14,8 @@ public:
 	int getHealth() {
 		return health;
 	}
-	void lowHealth() {
-		health--;
+	void lowHealth(int dame) {
+		health-=dame;
 	}
 
 	void set_follow(GameObject* player) {

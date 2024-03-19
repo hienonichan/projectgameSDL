@@ -148,6 +148,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameButton.cpp" />
     <ClCompile Include="GameControl.cpp" />
+    <ClCompile Include="GameItem.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="HomeState.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameButton.h" />
     <ClInclude Include="GameControl.h" />
+    <ClInclude Include="GameItem.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="HomeState.h" />

@@ -11,7 +11,7 @@
 #include"Aim.h"
 #include"CollisionChecker.h"
 #include"GameOver.h"
-
+#include"GameItem.h"
 
 TTF_Font* font = nullptr;
 TTF_Font* font2 = nullptr;
@@ -29,9 +29,14 @@ int next_reload = 0;
 const int max_ammo = 3;
 GameObject* crosshair = nullptr;
 
+// thong so cua dan
+std::string bullet_id = "bullet";
+int bullet_w = 19;
+int bullet_h = 19;
+int bullet_dame=1;
 
 void PlayState:: rand_enemy() {
-	ran_num = rand() % 1000 + 1;
+	ran_num = ran();
 	if (ran_num) {
 		check_ran = true;
 	}
@@ -58,6 +63,9 @@ void PlayState:: rand_enemy() {
 void PlayState::update() {
 	// random tao enemy
 	rand_enemy();
+
+	
+
 	// het mau chuyen sang GameOver
 	if (health <= 0) {
 		GameControl::getInstance()->getStateManager()->addState(new GameOver());
@@ -86,7 +94,7 @@ void PlayState::update() {
 		int time = SDL_GetTicks();
 		if (time - next_bullet >= 100) {
 			Vector cam = Camera::getInstance()->GetPosition();
-			Bullet* bullet = new Bullet("bullet", player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY(), 19, 19, 1);
+			Bullet* bullet = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY(), bullet_w, bullet_h, 1);
 			if(ammo_count>0){
 				ammo_count--;
 
@@ -106,23 +114,61 @@ void PlayState::update() {
 		}
 	}
 
+	// check item sau do change bullet
+	for (int i = 0; i < items.size(); i++) {
+		if (CollisionChecker::getInstance()->CollisionEnemy(items[i], player1)) {
+			check_item[items[i]] = 1;
+			int ran_id = ran() % 4;
+			if (ran_id == 0) {
+				bullet_id = "bullet";
+			}
+			else if (ran_id == 1) {
+				bullet_id = "bullet2";
+			}
+			else if (ran_id == 2) {
+				bullet_id = "bullet3";
+			}
+			else {
+				bullet_id = "bullet4";
+			}
+			bullet_w = bullet_h = ran() % 25 + 5;
+
+
+			if (bullet_w < 10) {
+				bullet_dame = 1;
+			}
+			else if (bullet_w < 15) {
+				bullet_dame = 3;
+			}
+			else {
+				bullet_dame = 10;
+			}
+		}
+	}
 
 	// goi lop check bullet ban trung enemy
 	for (int i = 0; i < bullets.size(); i++) {
 		for (int j = 0; j < enemys.size(); j++) {
 			if (CollisionChecker::getInstance()->CollisionBullet(enemys[j], bullets[i])) {
-				score++;
-				// danh dau enemy chet
-				check_enemy[enemys[j]] = 1;
-				check_bullet[bullets[i]]= 1;
-				// cap nhat texture Score
-				SDL_FreeSurface(textSurface2);
-				SDL_DestroyTexture(textTexture2);
-				textSurface2= TTF_RenderText_Blended(font2, ("SCORE: " + std::to_string(score)).c_str(),colorText2);
-				textTexture2 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface2);
+				if (enemys[j]->getHealth() <= 0) {
+					score++;
+					// danh dau enemy chet
+					check_enemy[enemys[j]] = 1;
+					
+					// cap nhat texture Score
+					SDL_FreeSurface(textSurface2);
+					SDL_DestroyTexture(textTexture2);
+					textSurface2 = TTF_RenderText_Blended(font2, ("SCORE: " + std::to_string(score)).c_str(), colorText2);
+					textTexture2 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface2);
+				}
+				else {
+					enemys[j]->lowHealth(bullet_dame);
+				}
+				check_bullet[bullets[i]] = 1;
 			}
 		}
 
+		// check ban trung boss
 		for (int z = 0; z < bosses.size(); z++) {
 			if (CollisionChecker::getInstance()->CollisionBullet(bosses[z], bullets[i])) {
 				if (bosses[z]->getHealth() <= 0) {
@@ -136,7 +182,7 @@ void PlayState::update() {
 					textTexture2 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface2);
 				}
 				else {
-					bosses[z]->lowHealth();
+					bosses[z]->lowHealth(bullet_dame);
 				}
 
 				check_bullet[bullets[i]] = 1;
@@ -144,12 +190,12 @@ void PlayState::update() {
 		}
 	}
 
-
-
 	// ham clear object toi uu cho game
 	clearBullet();
 	clearEnemy();
 	clearBoss();
+	clearItem();
+
 
 	// neu va cham voi ke dich thi bi tru mau
 	// cap nhat texture health
@@ -164,17 +210,20 @@ void PlayState::update() {
 			textTexture3 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface3);
 		}
 	}
-
+	// va cham voi boss
 	for (int i = 0; i < bosses.size(); i++) {
 		if (CollisionChecker::getInstance()->CollisionEnemy(bosses[i], player1)) {
 			Mix_PlayChannel(4, hurtSound, 0);
-			health=0;
+			health = 0;
 			SDL_FreeSurface(textSurface3);
 			SDL_DestroyTexture(textTexture3);
 			textSurface3 = TTF_RenderText_Blended(font3, ("HEALTH:" + std::to_string(health)).c_str(), colorText3);
 			textTexture3 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface3);
 		}
 	}
+	
+	
+
 
 
 
@@ -204,7 +253,12 @@ void PlayState::update() {
 			bosses[i]->set_follow(player1);
 		}
 	}
-
+	// update item
+	for (int i = 0; i < items.size(); i++) {
+		if (check_item[items[i]] == 0) {
+			items[i]->update();
+		}
+	}
 
 	if (InputChecker::getInstance()->checkKeyboard(SDL_SCANCODE_ESCAPE)) {
 		GameControl::getInstance()->getStateManager()->addState(new DelayState());
@@ -228,6 +282,12 @@ void PlayState::render() {
 	Map::getInstance()->DrawMap();
 
 
+	for (int i = 0; i < items.size(); i++) {
+		if (check_item[items[i]] == 0) {
+			items[i]->draw();
+		}
+	}
+
 	for (int i = 0; i < gameObjects.size(); i++) {
 		gameObjects[i]->draw();
 	}
@@ -249,6 +309,7 @@ void PlayState::render() {
 			}
 		}
 	}
+	
 
 
 
@@ -276,15 +337,21 @@ bool PlayState::loadState() {
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/zom2.png", "enemy", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/solider stand.png", "playerstand", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/bullet.png", "bullet", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/bullet2.png", "bullet2", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/bullet3.png", "bullet3", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/bullet4.png", "bullet4", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/enemy2.png", "enemy2", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/crosshair.png", "crosshair", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/boss.png","boss",GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/item.png", "item", GameControl::getInstance()->getRenderer());
 
 	player1 = new Player("player", 100, 100, 60, 60, 6);
 	 crosshair = new Aim("crosshair", 100, 100, 150, 150, 1);
 	gameObjects.push_back(player1);
 	gameObjects.push_back(crosshair);
-
+	for (int i = 1; i <= 20; i++) {
+		items.push_back(new GameItem("item",ran() , ran() , 32, 32, 1));
+	}
 
 	// lay player lam trung tam camera
 	Camera::getInstance()->SetTarget(player1->GetOrigin());

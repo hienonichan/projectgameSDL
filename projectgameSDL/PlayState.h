@@ -10,6 +10,7 @@
 #include<map>
 #include"InputChecker.h"
 #include"Boss.h"
+#include"GameItem.h"
 
 class PlayState :public State {
 public:
@@ -17,55 +18,69 @@ public:
     virtual void render();
     virtual bool loadState();
     virtual bool exitState();
-   virtual int getStateCode() { return code; }
+    virtual int getStateCode() { return code; }
 
-   void PlayMusic() {
-       Mix_PlayChannel(-1, sound1, -1);
-   }
+    void PlayMusic() {
+        Mix_PlayChannel(-1, sound1, -1);
+    }
 
 
-   void rand_enemy();
+    void rand_enemy();
 
-   void clearBullet() {
-       // clear dan trung muc tieu
-       for (int i = 0; i < bullets.size(); i++) {
-           if (check_bullet[bullets[i]] == 1) {
-               bullets.erase(bullets.begin() + i);
-               i--;
-           }
-           else if (abs(bullets[i]->getPos().length() - player1->getPos().length()) >= 2000) {
-               bullets.erase(bullets.begin() + i);
-               i--;
-           }
-       }
-   }
+    void clearBullet() {
+        // clear dan trung muc tieu
+        for (int i = 0; i < bullets.size(); i++) {
+            if (check_bullet[bullets[i]] == 1) {
+                bullets.erase(bullets.begin() + i);
+                i--;
+            }
+            else if (abs(bullets[i]->getPos().length() - player1->getPos().length()) >= 2000) {
+                bullets.erase(bullets.begin() + i);
+                i--;
+            }
+        }
+    }
 
-   void clearEnemy() {
-       // clear enemy bi chet
-       for (int i = 0; i < enemys.size(); i++) {
-           if (check_enemy[enemys[i]] == 1) {
-               enemys.erase(enemys.begin() + i);
-               i--;
-           }
-       }
-   }
+    void clearEnemy() {
+        // clear enemy bi chet
+        for (int i = 0; i < enemys.size(); i++) {
+            if (check_enemy[enemys[i]] == 1) {
+                enemys.erase(enemys.begin() + i);
+                i--;
+            }
+        }
+    }
 
-   void clearBoss() {
-       for (int i = 0; i < bosses.size(); i++) {
-           if (check_boss[bosses[i]] == 1) {
-               bosses.erase(bosses.begin() + i);
-               i--;
-           }
-       }
-   }
+    void clearBoss() {
+        for (int i = 0; i < bosses.size(); i++) {
+            if (check_boss[bosses[i]] == 1) {
+                bosses.erase(bosses.begin() + i);
+                i--;
+            }
+        }
+    }
 
-   // ham check reload
-   bool checkReload() {
-       if (InputChecker::getInstance()->checkKeyboard(SDL_SCANCODE_R)) {
-           return true;
-       }
-       return false;
-   }
+    void clearItem() {
+        for (int i = 0; i < items.size(); i++) {
+            if (check_item[items[i]] == 1) {
+                items.erase(items.begin() + i);
+                i--;
+            }
+        }
+    }
+
+    // ham check reload
+    bool checkReload() {
+        if (InputChecker::getInstance()->checkKeyboard(SDL_SCANCODE_R)) {
+            return true;
+        }
+        return false;
+    }
+
+    int ran() {
+        int loi = rand() % 2000 + 1;
+        return loi;
+    }
 
 private:
     int code = 2;
@@ -73,6 +88,7 @@ private:
     std::vector<Enemy*>enemys;
     std::vector<Bullet*>bullets;
     std::vector<Boss*>bosses;
+    std::vector<GameItem*>items;
     Mix_Chunk* sound1 = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/Warriyo - Mortals (feat. Laura Brehm) [NCS Release] (1).wav");
     Mix_Chunk* shootingsound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/shooting sound.wav");
     Mix_Chunk* hurtSound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/roblox-death-sound-effect.wav");
@@ -80,6 +96,7 @@ private:
     std::map<Enemy*, int>check_enemy;
     std::map<Bullet*, int>check_bullet;
     std::map<Boss*, int>check_boss;
+    std::map<GameItem*, int>check_item;
     GameObject* player1 = nullptr;
 
 

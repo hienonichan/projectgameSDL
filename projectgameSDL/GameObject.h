@@ -18,6 +18,13 @@ public:
 		frame = framecount;
 		textureID = id;
 	}
+	void changeW(int w) {
+		width=w;
+	}
+	void changeH(int h) {
+		height = h;
+	}
+	
 
 	Vector getPos() { return position; }
 	Vector getVelocity() { return velocity; }
