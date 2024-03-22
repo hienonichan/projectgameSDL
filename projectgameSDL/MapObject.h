@@ -32,7 +32,6 @@ private:
 	static Map* instance;
 	int map[map_height][map_width];
 	int tileset[tileset_height][tileset_width];
-
 	std::map<int, std::pair<int, int>>mp;
 };
 
