@@ -41,5 +41,8 @@ private:
 	static void map1ToPlay();
 	static void map2ToPlay();
 
+	SDL_Surface* surface_background = nullptr;
+	SDL_Texture* texture_background = nullptr;
+
 };
 #endif

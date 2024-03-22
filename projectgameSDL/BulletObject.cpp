@@ -16,6 +16,7 @@ void Bullet::draw() {
 }
 
 void Bullet::update() {
+	sprite = int(SDL_GetTicks() / 100) % frame;
 	GameObject::update();
 }
 

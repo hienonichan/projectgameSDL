@@ -42,9 +42,7 @@ bool GameControl::init(const char* title, int x, int y, int width, int height, b
 		return false;
 	}
 	game_running = true;
-	std::string background = "C:/projectgameSDL/projectgameSDL/background1.jpg";
-	surface_background = IMG_Load(background.c_str());
-	texture_background = SDL_CreateTextureFromSurface(renderer, surface_background);
+	
 
 	GameControl::getInstance()->getStateManager()->addState(new HomeState());
 	return true;
@@ -54,7 +52,7 @@ bool GameControl::init(const char* title, int x, int y, int width, int height, b
 void GameControl::render() {
 	// tai background va may cai lat vat
 	SDL_RenderClear(renderer);
-	SDL_RenderCopy(renderer, texture_background, NULL, NULL);
+	
 	// tai object chinh
 	GameControl::getInstance()->getStateManager()->render();
 	SDL_RenderPresent(renderer);

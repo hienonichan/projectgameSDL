@@ -33,5 +33,8 @@ private:
     SDL_Rect textRect2 = { 500,130,300,300 };
 
     int max_score = 0;
+
+    SDL_Surface* surface_background = nullptr;
+    SDL_Texture* texture_background = nullptr;
 };
 #endif

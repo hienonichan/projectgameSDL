@@ -40,8 +40,7 @@ private:
 	GameControl() {};
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
-	SDL_Surface* surface_background = nullptr;
-	SDL_Texture* texture_background = nullptr;
+	
 	bool game_running = true;
 
 	static GameControl* instance;

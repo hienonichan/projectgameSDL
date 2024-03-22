@@ -11,6 +11,8 @@ void SetupState::update() {
 }
 
 void SetupState::render() {
+	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), texture_background, NULL, NULL);
+
 	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), textTexture, NULL, &textRect);
 	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), textTexture1, NULL, &textRect1);
 	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), textTexture2, NULL, &textRect2);
@@ -42,6 +44,10 @@ bool SetupState::loadState() {
 	GameObject* button2 = new GameButton("map2", 800, 300, 249, 249, 1, map2ToPlay);
 	gameObjects.push_back(button1);
 	gameObjects.push_back(button2);
+
+	std::string background = "C:/projectgameSDL/projectgameSDL/background1.jpg";
+	surface_background = IMG_Load(background.c_str());
+	texture_background = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), surface_background);
 
 	std::cout << "loading SetupState\n";
 	return true;

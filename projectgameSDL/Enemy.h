@@ -19,7 +19,7 @@ public:
 	void set_follow(GameObject* player) {
 		Vector cam = Camera::getInstance()->GetPosition();
 
-		velocity = (player->getPos() - position);
+		velocity = (player->getPos()- position);
 		velocity.setLength1();
 		velocity /= 20;
 	}

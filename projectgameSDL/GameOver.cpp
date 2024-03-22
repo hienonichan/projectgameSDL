@@ -12,6 +12,8 @@ void GameOver::update() {
 
 
 void GameOver::render() {
+	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), texture_background, NULL, NULL);
+
 	for (int i = 0; i < gameObjects.size(); i++) {
 		gameObjects[i]->draw();
 	}
@@ -26,7 +28,7 @@ bool GameOver::loadState() {
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/menu.png", "menu", GameControl::getInstance()->getRenderer());
 
 	GameObject* button1 = new GameButton("restart", 550, 200, 142, 60,1, restart);
-	GameObject* button2 = new GameButton("menu", 560, 260, 135, 57,1, returnMenu);
+	GameObject* button2 = new GameButton("menu", 560, 260, 135, 56,1, returnMenu);
 	gameObjects.push_back(button1);
 	gameObjects.push_back(button2);
 
@@ -46,8 +48,13 @@ bool GameOver::loadState() {
 	SDL_QueryTexture(textTexture2, NULL, NULL, &textRect2.w, &textRect2.h);
    
 
+	std::string background = "C:/projectgameSDL/projectgameSDL/background1.jpg";
+	surface_background = IMG_Load(background.c_str());
+	texture_background = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), surface_background);
+
 	return true;
 }
+
 
 bool GameOver::exitState() {
 

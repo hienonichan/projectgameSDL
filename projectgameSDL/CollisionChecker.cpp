@@ -30,7 +30,6 @@ bool CollisionChecker::CollisionBullet(GameObject* enemy, Bullet* bullet) {
 	Vector cam = Camera::getInstance()->GetPosition();
 	int lowSquare = enemy->getW()/4;
 
-
 	int left1 = enemy->getPos().getX() - cam.getX();
 	int right1 = enemy->getPos().getX() + enemy->getW()-cam.getX();
 	int top1 = enemy->getPos().getY() - cam.getY();

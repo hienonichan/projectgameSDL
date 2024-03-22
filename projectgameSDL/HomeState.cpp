@@ -17,6 +17,8 @@ void HomeState::update() {
 
 
 void HomeState::render() {
+	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), texture_background, NULL, NULL);
+
 	for (int i = 0; i < gameObjects.size(); i++) {
 		gameObjects[i]->draw();
    }
@@ -41,6 +43,10 @@ bool HomeState::loadState() {
 	textSurface = TTF_RenderText_Blended(font, "MONSTER KILLER", colorText);
 	textTexture = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface);
 	SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
+
+	std::string background = "C:/projectgameSDL/projectgameSDL/background1.jpg";
+	surface_background = IMG_Load(background.c_str());
+	texture_background = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), surface_background);
    
 	std::cout << "loading HomeState\n";
 	return true;

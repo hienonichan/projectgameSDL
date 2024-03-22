@@ -8,7 +8,6 @@
 class Bullet:public GameObject {
 public:
 	Bullet(std::string id,int x, int y, int w, int h, int framecount);
-
 	void draw();
 	void update();
 	void clean();
@@ -19,8 +18,6 @@ public:
 		velocity.setLength1();
 		velocity *= 3;
 	}
-
-
 private:
 };
 #endif

@@ -3,11 +3,13 @@
 #include<SDL.h>
 #include<SDL_image.h>
 #include<SDL_ttf.h>
+#include<map>
 #include<SDL_mixer.h>
 const int map_width = 80;
 const int map_height = 40;
 
-
+const int tileset_width = 19;
+const int tileset_height = 45;
 class Map {
 public:
 	static Map* getInstance() {
@@ -23,20 +25,15 @@ public:
 
 	void LoadMap(int arr[map_height][map_width]);
 	void DrawMap();
-
 	void changeMap(int idMap);
 
 private:
 	Map();
 	static Map* instance;
-	SDL_Rect src, dest;
-
-	SDL_Texture* dirt;
-	SDL_Texture * grass;
-	SDL_Texture* water;
-	SDL_Texture* rock;
-
 	int map[map_height][map_width];
+	int tileset[tileset_height][tileset_width];
+
+	std::map<int, std::pair<int, int>>mp;
 };
 
 #endif

@@ -127,6 +127,10 @@ private:
     SDL_Color colorText5 = { 255,255,255 };
     SDL_Rect textRect5 = { 350,400,300,300 };
 
+    SDL_Surface* surface_background = nullptr;
+    SDL_Texture* texture_background = nullptr;
+
+
 };
 
 #endif

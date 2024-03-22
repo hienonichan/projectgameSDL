@@ -63,12 +63,12 @@ void ObjectTextureManager::drawAnimation(std::string id, int x, int y, int width
 }
 
 
-void ObjectTextureManager::drawTile(std::string id, int x, int y, int width, int height, SDL_Renderer* renderer, SDL_RendererFlip flip) {
+void ObjectTextureManager::drawTile(std::string id, int x, int y,int desx,int desy,int width, int height, SDL_Renderer* renderer, SDL_RendererFlip flip) {
 	SDL_Rect sourceRect;
 	SDL_Rect desRect;
 
-	sourceRect.x = 0;
-	sourceRect.y = 0;
+	sourceRect.x = desx;
+	sourceRect.y = desy;
 
 	sourceRect.w = desRect.w = width;
 	sourceRect.h = desRect.h = height;

@@ -34,6 +34,7 @@ std::string bullet_id = "bullet";
 int bullet_w = 19;
 int bullet_h = 19;
 int bullet_dame=1;
+int bullet_frame = 1;
 
 void PlayState:: rand_enemy() {
 	ran_num = ran();
@@ -94,7 +95,7 @@ void PlayState::update() {
 		int time = SDL_GetTicks();
 		if (time - next_bullet >= 100) {
 			Vector cam = Camera::getInstance()->GetPosition();
-			Bullet* bullet = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY(), bullet_w, bullet_h, 1);
+			Bullet* bullet = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY(), bullet_w, bullet_h, bullet_frame);
 			if(ammo_count>0){
 				ammo_count--;
 
@@ -121,20 +122,36 @@ void PlayState::update() {
 			int ran_id = ran() % 4;
 			if (ran_id == 0) {
 				bullet_id = "bullet";
+
+				bullet_w = bullet_h = 20;
+				bullet_frame = 1;
+				bullet_dame = 2;
 			}
 			else if (ran_id == 1) {
 				bullet_id = "bullet2";
+				bullet_h = 25;
+				bullet_w = 32;
+				bullet_frame = 6;
+				bullet_dame = 4;
 			}
 			else if (ran_id == 2) {
 				bullet_id = "bullet3";
+				bullet_h = 25;
+				bullet_w = 31;
+				bullet_frame = 6;
+				bullet_dame = 5;
 			}
 			else {
 				bullet_id = "bullet4";
+				bullet_h = 25;
+				bullet_w = 32;
+				bullet_frame = 6;
+				bullet_dame = 20;
 			}
-			bullet_w = bullet_h = ran() % 25 + 5;
+			
 
 
-			if (bullet_w < 10) {
+			/*if (bullet_w < 10) {
 				bullet_dame = 1;
 			}
 			else if (bullet_w < 15) {
@@ -142,7 +159,7 @@ void PlayState::update() {
 			}
 			else {
 				bullet_dame = 10;
-			}
+			}*/
 		}
 	}
 
@@ -278,7 +295,7 @@ void PlayState::update() {
 
 void PlayState::render() {
 	// ve truoc player
-	
+	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), texture_background, NULL, NULL);
 	Map::getInstance()->DrawMap();
 
 
@@ -345,13 +362,18 @@ bool PlayState::loadState() {
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/boss.png","boss",GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/item.png", "item", GameControl::getInstance()->getRenderer());
 
-	player1 = new Player("player", 100, 100, 60, 60, 6);
+	player1 = new Player("player", 700, 500, 60, 60, 6);
 	 crosshair = new Aim("crosshair", 100, 100, 150, 150, 1);
 	gameObjects.push_back(player1);
 	gameObjects.push_back(crosshair);
 	for (int i = 1; i <= 20; i++) {
 		items.push_back(new GameItem("item",ran() , ran() , 32, 32, 1));
 	}
+
+
+	std::string background = "C:/projectgameSDL/projectgameSDL/background play.png";
+	surface_background = IMG_Load(background.c_str());
+	texture_background = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), surface_background);
 
 	// lay player lam trung tam camera
 	Camera::getInstance()->SetTarget(player1->GetOrigin());
@@ -377,6 +399,7 @@ bool PlayState::loadState() {
 	SDL_QueryTexture(textTexture2, NULL, NULL, &textRect2.w, &textRect2.h);
 
 	// tai chu health
+
 	font3 = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/LibreBaskerville-Bold.ttf", 25);
 	textSurface3 = TTF_RenderText_Blended(font3, ("HEALTH:" + std::to_string(health)).c_str(), colorText3);
 	textTexture3 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface3);
