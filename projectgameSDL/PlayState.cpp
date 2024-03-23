@@ -12,12 +12,13 @@
 #include"CollisionChecker.h"
 #include"GameOver.h"
 #include"GameItem.h"
-
+#include"UpgradeState.h"
 TTF_Font* font = nullptr;
 TTF_Font* font2 = nullptr;
 TTF_Font* font3 = nullptr;
 TTF_Font* font4 = nullptr;
 TTF_Font* font5 = nullptr;
+
 // cac bien dieu khien ham random
 int ran_num = 0;
 int next_create = 0;
@@ -26,7 +27,7 @@ bool check_ran = false;
 // cac bien dieu khien sinh bullet
 int next_bullet = 0;
 int next_reload = 0;
-const int max_ammo = 3;
+
 GameObject* crosshair = nullptr;
 
 // thong so cua dan
@@ -35,6 +36,10 @@ int bullet_w = 19;
 int bullet_h = 19;
 int bullet_dame=1;
 int bullet_frame = 1;
+
+// dieu kien upgrade
+int current_score=0;
+int next_score=0;
 
 void PlayState:: rand_enemy() {
 	ran_num = ran();
@@ -71,6 +76,11 @@ void PlayState::update() {
 	if (health <= 0) {
 		GameControl::getInstance()->getStateManager()->addState(new GameOver());
 	}
+     next_score = score;
+	if (next_score - current_score >= 50) {
+		current_score = next_score;
+		GameControl::getInstance()->getStateManager()->addState(new UpgradeState());
+	}
 
 	// nap dan 
 	if (checkReload()) {
@@ -80,11 +90,7 @@ void PlayState::update() {
 				Mix_PlayChannel(5, reloadSound, 0);
 				ammo_count++;
 			}
-
-			SDL_FreeSurface(textSurface4);
-			SDL_DestroyTexture(textTexture4);
-			textSurface4 = TTF_RenderText_Blended(font4, ("AMMO: " + std::to_string(ammo_count)).c_str(), colorText4);
-			textTexture4 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface4);
+			render_ammo();
 			next_reload = time;
 		}
 	}
@@ -104,12 +110,7 @@ void PlayState::update() {
 				Mix_VolumeChunk(shootingsound, MIX_MAX_VOLUME / 3);
 				Mix_PlayChannel(3, shootingsound, 0);
 				next_bullet = time;
-
-
-				SDL_FreeSurface(textSurface4);
-				SDL_DestroyTexture(textTexture4);
-				textSurface4 = TTF_RenderText_Blended(font4, ("AMMO: " + std::to_string(ammo_count)).c_str(), colorText4);
-				textTexture4 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface4);
+				render_ammo();
 			}
 		}
 	}
@@ -124,28 +125,28 @@ void PlayState::update() {
 
 				bullet_w = bullet_h = 20;
 				bullet_frame = 1;
-				bullet_dame = 2;
+				
 			}
 			else if (ran_id == 1) {
 				bullet_id = "bullet2";
 				bullet_h = 25;
 				bullet_w = 32;
 				bullet_frame = 6;
-				bullet_dame = 4;
+				
 			}
 			else if (ran_id == 2) {
 				bullet_id = "bullet3";
 				bullet_h = 25;
 				bullet_w = 31;
 				bullet_frame = 6;
-				bullet_dame = 5;
+				
 			}
 			else {
 				bullet_id = "bullet4";
 				bullet_h = 25;
 				bullet_w = 32;
 				bullet_frame = 6;
-				bullet_dame = 20;
+				
 			}
 		}
 	}
@@ -181,10 +182,7 @@ void PlayState::update() {
 					score += 20;
 
 					// neu boss chet thi cap nhat diem
-					SDL_FreeSurface(textSurface2);
-					SDL_DestroyTexture(textTexture2);
-					textSurface2 = TTF_RenderText_Blended(font2, ("SCORE: " + std::to_string(score)).c_str(), colorText2);
-					textTexture2 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface2);
+					render_score();
 				}
 				else {
 					bosses[z]->lowHealth(bullet_dame);
@@ -209,10 +207,7 @@ void PlayState::update() {
 			check_enemy[enemys[i]] = 1;
 			Mix_PlayChannel(4, hurtSound, 0);
 			health--;
-			SDL_FreeSurface(textSurface3);
-			SDL_DestroyTexture(textTexture3);
-			textSurface3 = TTF_RenderText_Blended(font3, ("HEALTH:" + std::to_string(health)).c_str(), colorText3);
-			textTexture3 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface3);
+			render_health();
 		}
 	}
 	// va cham voi boss
@@ -220,10 +215,7 @@ void PlayState::update() {
 		if (CollisionChecker::getInstance()->CollisionEnemy(bosses[i], player1)) {
 			Mix_PlayChannel(4, hurtSound, 0);
 			health = 0;
-			SDL_FreeSurface(textSurface3);
-			SDL_DestroyTexture(textTexture3);
-			textSurface3 = TTF_RenderText_Blended(font3, ("HEALTH:" + std::to_string(health)).c_str(), colorText3);
-			textTexture3 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface3);
+			render_health();
 		}
 	}
 	
@@ -310,10 +302,6 @@ void PlayState::render() {
 			}
 		}
 	}
-	
-
-
-
 	// hien chu "MISSION START"
 	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), textTexture, NULL, &textRect);
 	// cap nhat hien score len man hinh
@@ -378,22 +366,17 @@ bool PlayState::loadState() {
 
 	// tai score len goc trai
 	font2 = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/LibreBaskerville-Bold.ttf", 30);
-	textSurface2 = TTF_RenderText_Blended(font2, ("SCORE:" + std::to_string(score)).c_str(), colorText2);
-	textTexture2 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface2);
+	render_score();
 	SDL_QueryTexture(textTexture2, NULL, NULL, &textRect2.w, &textRect2.h);
 
 	// tai chu health
-
 	font3 = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/LibreBaskerville-Bold.ttf", 25);
-	textSurface3 = TTF_RenderText_Blended(font3, ("HEALTH:" + std::to_string(health)).c_str(), colorText3);
-	textTexture3 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface3);
+	render_health();
 	SDL_QueryTexture(textTexture3, NULL, NULL, &textRect3.w, &textRect3.h);
-     
 
 	// tai chu ammo
 	font4 = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/LibreBaskerville-Bold.ttf", 25);
-	textSurface4 = TTF_RenderText_Blended(font3, ("AMMO:" + std::to_string(ammo_count)).c_str(), colorText4);
-	textTexture4 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface4);
+	render_ammo();
 	SDL_QueryTexture(textTexture4, NULL, NULL, &textRect4.w, &textRect4.h);
 
 
@@ -414,5 +397,33 @@ bool PlayState::exitState() {
 
 }
 
+void PlayState::up_attack() {
+	bullet_dame += 2;
+}
+void PlayState::up_health() {
+	health += 2;
+}
+void PlayState::up_ammo() {
+	max_ammo += 2;
+}
 
 
+void PlayState:: render_health() {
+	SDL_FreeSurface(textSurface3);
+	SDL_DestroyTexture(textTexture3);
+	textSurface3 = TTF_RenderText_Blended(font3, ("HEALTH:" + std::to_string(health)).c_str(), colorText3);
+	textTexture3 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface3);
+}
+
+void PlayState::render_ammo() {
+	SDL_FreeSurface(textSurface4);
+	SDL_DestroyTexture(textTexture4);
+	textSurface4 = TTF_RenderText_Blended(font4, ("AMMO: " + std::to_string(ammo_count)).c_str(), colorText4);
+	textTexture4 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface4);
+}
+void PlayState::render_score() {
+	SDL_FreeSurface(textSurface2);
+	SDL_DestroyTexture(textTexture2);
+	textSurface2 = TTF_RenderText_Blended(font2, ("SCORE: " + std::to_string(score)).c_str(), colorText2);
+	textTexture2 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface2);
+}

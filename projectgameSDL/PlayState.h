@@ -82,6 +82,13 @@ public:
         return loi;
     }
 
+    void up_health();
+    void up_attack();
+    void up_ammo();
+    void render_health();
+    void render_ammo();
+    void render_score();
+   
 private:
     int code = 2;
     std::vector<GameObject*>gameObjects;
@@ -129,6 +136,8 @@ private:
 
     SDL_Surface* surface_background = nullptr;
     SDL_Texture* texture_background = nullptr;
+
+   
 
 
 };

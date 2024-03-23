@@ -45,7 +45,7 @@ bool GameControl::init(const char* title, int x, int y, int width, int height, b
 	game_running = true;
 	
 
-	GameControl::getInstance()->getStateManager()->addState(new UpgradeState());
+	GameControl::getInstance()->getStateManager()->addState(new HomeState());
 	return true;
 }
 
