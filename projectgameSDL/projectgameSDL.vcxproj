@@ -160,6 +160,7 @@
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="SetupState.cpp" />
     <ClCompile Include="StateManager.cpp" />
+    <ClCompile Include="UpgradeState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aim.h" />
@@ -184,6 +185,7 @@
     <ClInclude Include="SetupState.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateManager.h" />
+    <ClInclude Include="UpgradeState.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

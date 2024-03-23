@@ -37,7 +37,6 @@ private:
 	bool checkMouse[3];
 	Vector *mouse_position;
 	static InputChecker* instance;
-
 	const Uint8* keystates = SDL_GetKeyboardState(0);
 };
 #endif

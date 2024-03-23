@@ -78,6 +78,9 @@
     <ClCompile Include="GameItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UpgradeState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameControl.h">
@@ -147,6 +150,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UpgradeState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

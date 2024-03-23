@@ -21,7 +21,7 @@ public:
 
 		velocity = (player->getPos()- position);
 		velocity.setLength1();
-		velocity /= 20;
+		velocity /= 3;
 	}
 private:
 	int health = 5;

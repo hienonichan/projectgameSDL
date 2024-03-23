@@ -11,6 +11,7 @@
 #include"HomeState.h"
 #include"PlayState.h"
 #include<SDL_ttf.h>
+#include"UpgradeState.h"
 #include<SDL_mixer.h>
 GameControl*GameControl::instance = 0;
 
@@ -44,7 +45,7 @@ bool GameControl::init(const char* title, int x, int y, int width, int height, b
 	game_running = true;
 	
 
-	GameControl::getInstance()->getStateManager()->addState(new HomeState());
+	GameControl::getInstance()->getStateManager()->addState(new UpgradeState());
 	return true;
 }
 

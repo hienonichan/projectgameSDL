@@ -48,7 +48,7 @@ void PlayState:: rand_enemy() {
 				enemys.push_back(new Enemy("enemy", ran_num, ran_num, 100, 80, 8));
 			}
 			else if(ran_num<=900){
-				enemys.push_back(new Enemy("enemy2", ran_num, ran_num, 150, 150, 8));
+				enemys.push_back(new Enemy("enemy2", ran_num, ran_num, 60, 60, 7));
 			}
 			else {
 				bosses.push_back(new Boss("boss", ran_num, ran_num, 300, 200, 10));
@@ -111,7 +111,6 @@ void PlayState::update() {
 				textSurface4 = TTF_RenderText_Blended(font4, ("AMMO: " + std::to_string(ammo_count)).c_str(), colorText4);
 				textTexture4 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface4);
 			}
-			
 		}
 	}
 
@@ -148,18 +147,6 @@ void PlayState::update() {
 				bullet_frame = 6;
 				bullet_dame = 20;
 			}
-			
-
-
-			/*if (bullet_w < 10) {
-				bullet_dame = 1;
-			}
-			else if (bullet_w < 15) {
-				bullet_dame = 3;
-			}
-			else {
-				bullet_dame = 10;
-			}*/
 		}
 	}
 
@@ -184,6 +171,7 @@ void PlayState::update() {
 				check_bullet[bullets[i]] = 1;
 			}
 		}
+
 
 		// check ban trung boss
 		for (int z = 0; z < bosses.size(); z++) {
@@ -240,10 +228,6 @@ void PlayState::update() {
 	}
 	
 	
-
-
-
-
 	for (int i = 0; i < gameObjects.size(); i++) {
 		gameObjects[i]->update();
 	}
