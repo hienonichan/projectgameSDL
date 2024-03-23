@@ -57,6 +57,18 @@ bool GameOver::loadState() {
 
 
 bool GameOver::exitState() {
+	SDL_FreeSurface(textSurface);
+	SDL_FreeSurface(textSurface2);
+	SDL_FreeSurface(surface_background);
+
+	SDL_DestroyTexture(textTexture);
+	SDL_DestroyTexture(textTexture2);
+	SDL_DestroyTexture(texture_background);
+	for (int i = 0; i < gameObjects.size(); i++) {
+		gameObjects[i]->clean();
+	}
+	gameObjects.clear();
+
 
 	return true;
 }
@@ -64,8 +76,9 @@ bool GameOver::exitState() {
 void GameOver::restart() {
 	Mix_HaltChannel(-1);
 
+   std::vector<State*> loi=	GameControl::getInstance()->getStateManager()->getVectorState();
+   loi.erase(loi.begin() + loi.size() - 2);
 	GameControl::getInstance()->getStateManager()->addState(new PlayState());
-
 }
 
 void GameOver::returnMenu() {

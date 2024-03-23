@@ -60,6 +60,12 @@ bool HomeState::exitState() {
 	gameObjects.clear();
 	ObjectTextureManager::getInstance()->eraseTexture("startbutton");
 	ObjectTextureManager::getInstance()->eraseTexture("exitbutton");
+
+	SDL_FreeSurface(textSurface);
+	SDL_FreeSurface(surface_background);
+	SDL_DestroyTexture(texture_background);
+	SDL_DestroyTexture(textTexture);
+
 	std::cout << "exiting HomeState\n";
 	return true;
 }

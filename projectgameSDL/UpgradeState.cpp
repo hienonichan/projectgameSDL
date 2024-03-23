@@ -48,6 +48,12 @@ bool UpgradeState::exitState() {
 		gameObjects[i]->clean();
 	}
 	gameObjects.clear();
+
+	SDL_FreeSurface(textSurface);
+	SDL_FreeSurface(background_surface);
+	SDL_DestroyTexture(textTexture);
+	SDL_DestroyTexture(background_texture);
+
 	std::cout << "exiting UpgradeState\n";
 	return true; 
 }

@@ -62,7 +62,7 @@ void GameObject::update() {
 
 
 void GameObject:: clean() {
-
+	delete this;
 }
 
 

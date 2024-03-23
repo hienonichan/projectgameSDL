@@ -27,7 +27,6 @@ bool check_ran = false;
 // cac bien dieu khien sinh bullet
 int next_bullet = 0;
 int next_reload = 0;
-
 GameObject* crosshair = nullptr;
 
 // thong so cua dan
@@ -65,13 +64,9 @@ void PlayState:: rand_enemy() {
 }
 
 
-
 void PlayState::update() {
 	// random tao enemy
 	rand_enemy();
-
-	
-
 	// het mau chuyen sang GameOver
 	if (health <= 0) {
 		GameControl::getInstance()->getStateManager()->addState(new GameOver());
@@ -94,7 +89,6 @@ void PlayState::update() {
 			next_reload = time;
 		}
 	}
-
 
 	// ban bang crosshair
 	if (InputChecker::getInstance()->checkClicked(LEFT)==true) {
@@ -161,10 +155,7 @@ void PlayState::update() {
 					check_enemy[enemys[j]] = 1;
 					
 					// cap nhat texture Score
-					SDL_FreeSurface(textSurface2);
-					SDL_DestroyTexture(textTexture2);
-					textSurface2 = TTF_RenderText_Blended(font2, ("SCORE: " + std::to_string(score)).c_str(), colorText2);
-					textTexture2 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface2);
+					render_score();
 				}
 				else {
 					enemys[j]->lowHealth(bullet_dame);
@@ -180,7 +171,6 @@ void PlayState::update() {
 				if (bosses[z]->getHealth() <= 0) {
 					check_boss[bosses[z]] = 1;
 					score += 20;
-
 					// neu boss chet thi cap nhat diem
 					render_score();
 				}
@@ -263,8 +253,6 @@ void PlayState::update() {
 		SDL_SetTextureAlphaMod(textTexture, 0);
 		SDL_SetTextureAlphaMod(textTexture5, 0);
 	}
-
-
 	Camera::getInstance()->Update();
 
 }
@@ -392,9 +380,26 @@ bool PlayState::exitState() {
 	ObjectTextureManager::getInstance()->eraseTexture("player");
 	ObjectTextureManager::getInstance()->eraseTexture("enemy");
 	ObjectTextureManager::getInstance()->eraseTexture("solider stand");
+	ObjectTextureManager::getInstance()->eraseTexture("bullet");
+	ObjectTextureManager::getInstance()->eraseTexture("bullet2");
+	ObjectTextureManager::getInstance()->eraseTexture("bullet3");
+	ObjectTextureManager::getInstance()->eraseTexture("bullet4");
+
+	SDL_FreeSurface(textSurface);
+	SDL_FreeSurface(textSurface2);
+	SDL_FreeSurface(textSurface3);
+	SDL_FreeSurface(textSurface4);
+	SDL_FreeSurface(textSurface5);
+	SDL_DestroyTexture(textTexture);
+	SDL_DestroyTexture(textTexture2);
+	SDL_DestroyTexture(textTexture3);
+	SDL_DestroyTexture(textTexture4);
+	SDL_DestroyTexture(textTexture5);
+
+
+
 	std::cout << "exting playState\n";
 	return true;
-
 }
 
 void PlayState::up_attack() {

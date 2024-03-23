@@ -43,7 +43,18 @@ bool DelayState::loadState() {
 }
 
 bool DelayState::exitState() {
-	
+	ObjectTextureManager::getInstance()->eraseTexture("continue");
+	ObjectTextureManager::getInstance()->eraseTexture("menu");
+
+	SDL_FreeSurface(textSurface);
+	SDL_FreeSurface(surface_background);
+	SDL_DestroyTexture(texture_background);
+	SDL_DestroyTexture(textTexture);
+
+	for (int i = 0; i < gameObjects.size(); i++) {
+		gameObjects[i]->clean();
+	}
+	gameObjects.clear();
 	std::cout << "exiting delayState\n";
 	return true;
 }

@@ -31,10 +31,12 @@ public:
         // clear dan trung muc tieu
         for (int i = 0; i < bullets.size(); i++) {
             if (check_bullet[bullets[i]] == 1) {
+                bullets[i]->clean();
                 bullets.erase(bullets.begin() + i);
                 i--;
             }
-            else if (abs(bullets[i]->getPos().length() - player1->getPos().length()) >= 2000) {
+            else if (abs(bullets[i]->getPos().length() - player1->getPos().length()) >=2000) {
+                bullets[i]->clean();
                 bullets.erase(bullets.begin() + i);
                 i--;
             }
@@ -45,6 +47,7 @@ public:
         // clear enemy bi chet
         for (int i = 0; i < enemys.size(); i++) {
             if (check_enemy[enemys[i]] == 1) {
+                enemys[i]->clean();
                 enemys.erase(enemys.begin() + i);
                 i--;
             }
@@ -54,6 +57,7 @@ public:
     void clearBoss() {
         for (int i = 0; i < bosses.size(); i++) {
             if (check_boss[bosses[i]] == 1) {
+                bosses[i]->clean();
                 bosses.erase(bosses.begin() + i);
                 i--;
             }
@@ -63,6 +67,7 @@ public:
     void clearItem() {
         for (int i = 0; i < items.size(); i++) {
             if (check_item[items[i]] == 1) {
+                items[i]->clean();
                 items.erase(items.begin() + i);
                 i--;
             }

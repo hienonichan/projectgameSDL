@@ -1,6 +1,6 @@
 #include"StateManager.h"
 #include"State.h"
-
+#include"DelayState.h"
 
 void StateManager::addState(State*pState) {
 	if (!gameStates.empty()) {
@@ -8,7 +8,10 @@ void StateManager::addState(State*pState) {
 			return;
 		}
 		else {
-			
+			if (dynamic_cast<DelayState*>(pState) == nullptr) {
+				gameStates.back()->exitState();
+				gameStates.pop_back();
+			}
 			gameStates.push_back(pState);
 			
 		}
@@ -16,6 +19,7 @@ void StateManager::addState(State*pState) {
 	else {
 		gameStates.push_back(pState);
 	}
+
 	gameStates.back()->loadState();
 }
 

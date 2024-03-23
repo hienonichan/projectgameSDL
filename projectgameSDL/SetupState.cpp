@@ -55,6 +55,22 @@ bool SetupState::loadState() {
 
 
 bool SetupState::exitState() {
+	for (int i = 0; i < gameObjects.size(); i++) {
+		gameObjects[i]->clean();
+	}
+	gameObjects.clear();
+	SDL_FreeSurface(textSurface);
+	SDL_FreeSurface(textSurface1);
+	SDL_FreeSurface(textSurface2);
+	SDL_FreeSurface(surface_background);
+
+	SDL_DestroyTexture(textTexture);
+	SDL_DestroyTexture(textTexture1);
+	SDL_DestroyTexture(textTexture2);
+	SDL_DestroyTexture(texture_background);
+
+	ObjectTextureManager::getInstance()->eraseTexture("map1");
+	ObjectTextureManager::getInstance()->eraseTexture("map2");
 
 	std::cout << "exiting SetupState\n";
 	return true;
