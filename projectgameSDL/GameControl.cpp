@@ -13,11 +13,8 @@
 #include<SDL_ttf.h>
 #include"UpgradeState.h"
 #include<SDL_mixer.h>
+#include"DelayState.h"
 GameControl*GameControl::instance = 0;
-
-
-
-
 
 
 

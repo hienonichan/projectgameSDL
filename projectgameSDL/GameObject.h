@@ -6,13 +6,14 @@
 #include<string>
 #include"Vector.h"
 #include"Point.h"
+
 class GameObject {
 public:
 	GameObject(std::string id, int x, int y, int w, int h,int framecount);
 	virtual void draw();
 	virtual void update();
 	virtual void clean();
-	virtual void drawchar();
+	
 
 	void changeTexture(std::string id,int framecount) { 
 		frame = framecount;
@@ -33,7 +34,13 @@ public:
 
 	Point* GetOrigin() { return origin; }
 
+	void change_speedsprite(int speed) {
+		speed_sprite = speed;
+	}
+
 	int CheckFlip();
+    
+	
 
 protected:
 	Vector position;
@@ -47,8 +54,10 @@ protected:
 
 	std::string textureID;
 
+	int speed_sprite = 100;
 
 	Point* origin;
-
+	SDL_RendererFlip check_flip = SDL_FLIP_NONE;
+	bool check_death = false;
 };
 #endif

@@ -25,17 +25,17 @@ private:
 	SDL_Surface* textSurface = nullptr;
 	SDL_Texture* textTexture = nullptr;
 	SDL_Color colorText = { 255,255,255 };
-	SDL_Rect textRect = { 250,100,300,300 };
+	SDL_Rect textRect = { 480,120,300,300 };
 
 	SDL_Surface* textSurface1 = nullptr;
 	SDL_Texture* textTexture1 = nullptr;
 	SDL_Color colorText1 = { 255,255,255 };
-	SDL_Rect textRect1 = { 300,250,300,300 };
+	SDL_Rect textRect1 = { 390,250,300,300 };
 
 	SDL_Surface* textSurface2 = nullptr;
 	SDL_Texture* textTexture2 = nullptr;
 	SDL_Color colorText2 = { 255,255,255 };
-	SDL_Rect textRect2 = { 800,250,300,300 };
+	SDL_Rect textRect2 = { 670,250,300,300 };
 	std::vector<GameObject*>gameObjects;
 
 	static void map1ToPlay();
@@ -43,6 +43,10 @@ private:
 
 	SDL_Surface* surface_background = nullptr;
 	SDL_Texture* texture_background = nullptr;
+
+	SDL_Surface* surface_home = nullptr;
+	SDL_Texture* texture_home = nullptr;
+	SDL_Rect rect_home = { 275,50,692,500 };
 
 };
 #endif

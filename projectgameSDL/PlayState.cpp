@@ -26,6 +26,7 @@ bool check_ran = false;
 
 // cac bien dieu khien sinh bullet
 int next_bullet = 0;
+int next_bullet2 = 0;
 int next_reload = 0;
 GameObject* crosshair = nullptr;
 
@@ -67,10 +68,13 @@ void PlayState:: rand_enemy() {
 void PlayState::update() {
 	// random tao enemy
 	rand_enemy();
+
+
 	// het mau chuyen sang GameOver
-	if (health <= 0) {
-		GameControl::getInstance()->getStateManager()->addState(new GameOver());
+	if (health == 0) {
+		static_cast<Player*>(player1)->death();
 	}
+
      next_score = score;
 	if (next_score - current_score >= 50) {
 		current_score = next_score;
@@ -79,35 +83,17 @@ void PlayState::update() {
 
 	// nap dan 
 	if (checkReload()) {
-		int time = SDL_GetTicks();
-		if (time - next_reload >= 100) {
-			if (ammo_count < max_ammo) {
-				Mix_PlayChannel(5, reloadSound, 0);
-				ammo_count++;
-			}
-			render_ammo();
-			next_reload = time;
-		}
+		reload();
+	}
+	// ban bang crosshair 1 vien
+	if (InputChecker::getInstance()->checkClicked(LEFT) == true&&mode_shot==1) {
+		shot1();
+	}
+	// ban ba vien
+	if (InputChecker::getInstance()->checkClicked(LEFT) == true&&mode_shot==3) {
+		shot3();
 	}
 
-	// ban bang crosshair
-	if (InputChecker::getInstance()->checkClicked(LEFT)==true) {
-		int time = SDL_GetTicks();
-		if (time - next_bullet >= 100) {
-			Vector cam = Camera::getInstance()->GetPosition();
-			Bullet* bullet = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY(), bullet_w, bullet_h, bullet_frame);
-			if(ammo_count>0){
-				ammo_count--;
-
-				bullet->fireBullet(crosshair);
-				bullets.push_back(bullet);
-				Mix_VolumeChunk(shootingsound, MIX_MAX_VOLUME / 3);
-				Mix_PlayChannel(3, shootingsound, 0);
-				next_bullet = time;
-				render_ammo();
-			}
-		}
-	}
 
 	// check item sau do change bullet
 	for (int i = 0; i < items.size(); i++) {
@@ -116,7 +102,6 @@ void PlayState::update() {
 			int ran_id = ran() % 4;
 			if (ran_id == 0) {
 				bullet_id = "bullet";
-
 				bullet_w = bullet_h = 20;
 				bullet_frame = 1;
 				
@@ -144,6 +129,8 @@ void PlayState::update() {
 			}
 		}
 	}
+
+
 
 	// goi lop check bullet ban trung enemy
 	for (int i = 0; i < bullets.size(); i++) {
@@ -197,9 +184,14 @@ void PlayState::update() {
 			check_enemy[enemys[i]] = 1;
 			Mix_PlayChannel(4, hurtSound, 0);
 			health--;
+			if (health < 0) {
+				health = 0;
+			}
 			render_health();
 		}
 	}
+
+
 	// va cham voi boss
 	for (int i = 0; i < bosses.size(); i++) {
 		if (CollisionChecker::getInstance()->CollisionEnemy(bosses[i], player1)) {
@@ -226,6 +218,9 @@ void PlayState::update() {
 		for (int i = 0; i < bullets.size(); i++) {
 			if (check_bullet[bullets[i]] == 0) {
 				bullets[i]->update();
+			}
+			if (check_bullet[bullets[i]] == 2) {
+				bullets[i]->updateSpin(player1, 40);
 			}
 		}
 	}
@@ -285,9 +280,11 @@ void PlayState::render() {
 
 	if (!bullets.empty()) {
 		for (int i = 0; i < bullets.size(); i++) {
-			if (check_bullet[bullets[i]] == 0) {
+			if (check_bullet[bullets[i]] == 0||check_bullet[bullets[i]]==2) {
 				bullets[i]->draw();
 			}
+
+			
 		}
 	}
 	// hien chu "MISSION START"
@@ -307,7 +304,7 @@ void PlayState::render() {
 bool PlayState::loadState() {
 	
 	// phat am thanh
-	Mix_VolumeChunk(sound1, MIX_MAX_VOLUME / 6);
+	Mix_VolumeChunk(sound1, MIX_MAX_VOLUME / 4);
 	PlayMusic();
 
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/solider run.png", "player",GameControl::getInstance()->getRenderer());
@@ -321,6 +318,7 @@ bool PlayState::loadState() {
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/crosshair.png", "crosshair", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/boss.png","boss",GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/item.png", "item", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/solider death.png","playerdeath", GameControl::getInstance()->getRenderer());
 
 	player1 = new Player("player", 700, 500, 60, 60, 6);
 	 crosshair = new Aim("crosshair", 100, 100, 150, 150, 1);
@@ -379,24 +377,33 @@ bool PlayState::exitState() {
 	gameObjects.clear();
 	ObjectTextureManager::getInstance()->eraseTexture("player");
 	ObjectTextureManager::getInstance()->eraseTexture("enemy");
-	ObjectTextureManager::getInstance()->eraseTexture("solider stand");
+	ObjectTextureManager::getInstance()->eraseTexture("playerstand");
 	ObjectTextureManager::getInstance()->eraseTexture("bullet");
 	ObjectTextureManager::getInstance()->eraseTexture("bullet2");
 	ObjectTextureManager::getInstance()->eraseTexture("bullet3");
 	ObjectTextureManager::getInstance()->eraseTexture("bullet4");
+	ObjectTextureManager::getInstance()->eraseTexture("playerdeath");
+
 
 	SDL_FreeSurface(textSurface);
 	SDL_FreeSurface(textSurface2);
 	SDL_FreeSurface(textSurface3);
 	SDL_FreeSurface(textSurface4);
 	SDL_FreeSurface(textSurface5);
+	SDL_FreeSurface(surface_background);
+
 	SDL_DestroyTexture(textTexture);
 	SDL_DestroyTexture(textTexture2);
 	SDL_DestroyTexture(textTexture3);
 	SDL_DestroyTexture(textTexture4);
 	SDL_DestroyTexture(textTexture5);
+	SDL_DestroyTexture(texture_background);
 
 
+	Mix_FreeChunk(sound1);
+	Mix_FreeChunk(shootingsound);
+	Mix_FreeChunk(hurtSound);
+	Mix_FreeChunk(reloadSound);
 
 	std::cout << "exting playState\n";
 	return true;
@@ -431,4 +438,63 @@ void PlayState::render_score() {
 	SDL_DestroyTexture(textTexture2);
 	textSurface2 = TTF_RenderText_Blended(font2, ("SCORE: " + std::to_string(score)).c_str(), colorText2);
 	textTexture2 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface2);
+}
+
+void PlayState::reload() {
+	int time = SDL_GetTicks();
+	if (time - next_reload >= 100) {
+		if (ammo_count < max_ammo) {
+			Mix_PlayChannel(5, reloadSound, 0);
+			ammo_count++;
+		}
+		render_ammo();
+		next_reload = time;
+	}
+}
+
+void PlayState::shot1() {
+	int time = SDL_GetTicks();
+	if (time - next_bullet >= 150) {
+		Vector cam = Camera::getInstance()->GetPosition();
+		Bullet* bullet = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame);
+		if (ammo_count > 0) {
+			ammo_count--;
+			bullet->fireBullet(crosshair);
+			bullets.push_back(bullet);
+			Mix_VolumeChunk(shootingsound, MIX_MAX_VOLUME / 3);
+			Mix_PlayChannel(3, shootingsound, 0);
+			next_bullet = time;
+			render_ammo();
+		}
+	}
+}
+
+void PlayState::shot3() {
+	int time = SDL_GetTicks();
+	if (time - next_bullet2 >= 150) {
+		Vector cam = Camera::getInstance()->GetPosition();
+		Bullet* bullet = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame);
+		Bullet* bullet2 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame);
+		Bullet* bullet3 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame);
+		if (ammo_count >= 3) {
+			ammo_count -= 3;
+			bullet->fireBullet(crosshair);
+			bullet2->fireBulletup(crosshair, 10);
+			bullet3->fireBulletup(crosshair, -10);
+			bullets.push_back(bullet);
+			bullets.push_back(bullet2);
+			bullets.push_back(bullet3);
+			Mix_VolumeChunk(shootingsound, MIX_MAX_VOLUME / 3);
+			Mix_PlayChannel(3, shootingsound, 0);
+			next_bullet2 = time;
+			render_ammo();
+		}
+	}
+}
+
+void PlayState::summon() {
+	Vector cam = Camera::getInstance()->GetPosition();
+	Bullet* bullet = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame);
+	check_bullet[bullet] = 2;
+	bullets.push_back(bullet);
 }

@@ -21,7 +21,7 @@ public:
     virtual int getStateCode() { return code; }
 
     void PlayMusic() {
-        Mix_PlayChannel(-1, sound1, -1);
+        Mix_PlayChannel(-1, sound1, 0);
     }
 
 
@@ -87,13 +87,31 @@ public:
         return loi;
     }
 
+
+    // xu li boost
     void up_health();
     void up_attack();
     void up_ammo();
+
+    // xu li render stat
     void render_health();
     void render_ammo();
     void render_score();
-   
+
+    // xu li sung
+    void reload();
+    // mode ban 1 vien
+    void shot1();
+    // mode ban 3 vien
+    void shot3();
+    // summon dan xung quanh
+    void summon();
+    // ham thay doi mode
+    void mode(int p) {
+        mode_shot = p;
+    }
+    
+
 private:
     int code = 2;
     std::vector<GameObject*>gameObjects;
@@ -101,7 +119,7 @@ private:
     std::vector<Bullet*>bullets;
     std::vector<Boss*>bosses;
     std::vector<GameItem*>items;
-    Mix_Chunk* sound1 = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/Warriyo - Mortals (feat. Laura Brehm) [NCS Release] (1).wav");
+    Mix_Chunk* sound1 = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/playing music.wav");
     Mix_Chunk* shootingsound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/shooting sound.wav");
     Mix_Chunk* hurtSound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/roblox-death-sound-effect.wav");
     Mix_Chunk* reloadSound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/1911-reload-6248.wav");
@@ -143,7 +161,7 @@ private:
     SDL_Texture* texture_background = nullptr;
 
    
-
+    int mode_shot = 1;
 
 };
 

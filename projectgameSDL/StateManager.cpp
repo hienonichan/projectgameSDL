@@ -1,6 +1,8 @@
 #include"StateManager.h"
 #include"State.h"
 #include"DelayState.h"
+#include"UpgradeState.h"
+#include"GameOver.h"
 
 void StateManager::addState(State*pState) {
 	if (!gameStates.empty()) {
@@ -8,18 +10,17 @@ void StateManager::addState(State*pState) {
 			return;
 		}
 		else {
-			if (dynamic_cast<DelayState*>(pState) == nullptr) {
+			if (dynamic_cast<DelayState*>(pState) == nullptr&&dynamic_cast<UpgradeState*>(pState)==nullptr&& dynamic_cast<GameOver*>(pState) == nullptr) {
 				gameStates.back()->exitState();
 				gameStates.pop_back();
 			}
-			gameStates.push_back(pState);
-			
+			gameStates.push_back(pState);	
 		}
 	}
-	else {
-		gameStates.push_back(pState);
-	}
 
+	else {
+		gameStates.push_back(pState); 
+	}  
 	gameStates.back()->loadState();
 }
 

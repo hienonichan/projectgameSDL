@@ -32,11 +32,14 @@ private:
 	SDL_Surface* textSurface = nullptr;
 	SDL_Texture* textTexture = nullptr;
 	SDL_Color colorText = { 255,0,0 };
-	SDL_Rect textRect = { 400,100,400,400 };
+	SDL_Rect textRect = { 470,120,400,400 };
 
 	SDL_Surface* surface_background = nullptr;
 	SDL_Texture* texture_background = nullptr;
 
+	SDL_Surface* surface_home = nullptr;
+	SDL_Texture* texture_home = nullptr;
+	SDL_Rect rect_home = { 275,50,692,500 };
 };
 
 

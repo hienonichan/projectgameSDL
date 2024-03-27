@@ -18,6 +18,7 @@ void HomeState::update() {
 
 void HomeState::render() {
 	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), texture_background, NULL, NULL);
+	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), texture_home, NULL, &rect_home);
 
 	for (int i = 0; i < gameObjects.size(); i++) {
 		gameObjects[i]->draw();
@@ -34,12 +35,12 @@ bool HomeState::loadState() {
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/play.png", "startbutton", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/exit.png", "exitbutton", GameControl::getInstance()->getRenderer());
 	GameObject* play = new GameButton("startbutton", 500, 200, 230, 100, 2,turnToPlay);
-	GameObject* exit = new GameButton("exitbutton", 500, 300, 230, 100, 2,turnToExit);
+	GameObject* exit = new GameButton("exitbutton", 500, 320, 230, 100, 2,turnToExit);
 	gameObjects.push_back(play);
 	gameObjects.push_back(exit);
 
 
-	TTF_Font* font = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/GloriousChristmas-BLWWB.ttf", 50);
+	TTF_Font* font = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/PixeloidSans-Bold.ttf", 30);
 	textSurface = TTF_RenderText_Blended(font, "MONSTER KILLER", colorText);
 	textTexture = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface);
 	SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
@@ -48,6 +49,10 @@ bool HomeState::loadState() {
 	surface_background = IMG_Load(background.c_str());
 	texture_background = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), surface_background);
    
+
+	surface_home = IMG_Load("C:/projectgameSDL/projectgameSDL/homepic.png");
+	texture_home = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), surface_home);
+
 	std::cout << "loading HomeState\n";
 	return true;
 }
@@ -63,9 +68,14 @@ bool HomeState::exitState() {
 
 	SDL_FreeSurface(textSurface);
 	SDL_FreeSurface(surface_background);
+	SDL_FreeSurface(surface_home);
+
+	 
 	SDL_DestroyTexture(texture_background);
 	SDL_DestroyTexture(textTexture);
+	SDL_DestroyTexture(texture_home);
 
+	Mix_FreeChunk(sound);
 	std::cout << "exiting HomeState\n";
 	return true;
 }

@@ -25,16 +25,23 @@ private:
     SDL_Surface* textSurface = nullptr;
     SDL_Texture* textTexture = nullptr;
     SDL_Color colorText = { 255,0,0 };
-    SDL_Rect textRect = { 450,50,300,300 };
+    SDL_Rect textRect = { 470,100,300,300 };
 
     SDL_Surface* textSurface2 = nullptr;
     SDL_Texture* textTexture2 = nullptr;
     SDL_Color colorText2 = { 255,255,255 };
-    SDL_Rect textRect2 = { 500,130,300,300 };
+    SDL_Rect textRect2 = { 500,135,300,300 };
 
     int max_score = 0;
 
     SDL_Surface* surface_background = nullptr;
     SDL_Texture* texture_background = nullptr;
+
+
+    SDL_Surface* surface_home = nullptr;
+    SDL_Texture* texture_home = nullptr;
+    SDL_Rect rect_home = { 275,50,692,500 };
+
+
 };
 #endif

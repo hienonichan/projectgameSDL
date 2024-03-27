@@ -4,6 +4,7 @@
 #include<SDL.h>
 #include"GameObject.h"
 #include<string>
+#include"GameOver.h"
 
 class Player :public GameObject {
 public:
@@ -11,6 +12,19 @@ public:
 	void draw();
 	void update();
 	void clean();
+
+	void death() {
+		check_death = true;
+		changeTexture("playerdeath", 8);
+		sprite = 0;
+		change_speedsprite(500);
+		update();
+		draw();
+		if (sprite == 7) {
+			GameControl::getInstance()->getStateManager()->addState(new GameOver());
+		}
+	}
+
 };
 
 

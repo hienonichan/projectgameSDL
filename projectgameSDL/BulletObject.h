@@ -11,13 +11,12 @@ public:
 	void draw();
 	void update();
 	void clean();
-	void fireBullet(GameObject*crosshair) {
-		Vector bonus(crosshair->getW()/2, crosshair->getH()/2);
-		Vector cam = Camera::getInstance()->GetPosition();
-		velocity = crosshair->getPos() + bonus - position;
-		velocity.setLength1();
-		velocity *= 3;
-	}
+	void fireBullet(GameObject* crosshair);
+	void fireBulletup(GameObject* crosshair, float angle);
+
+	void updateSpin(GameObject*player,double r);
 private:
+
+	double angle = 0;
 };
 #endif
