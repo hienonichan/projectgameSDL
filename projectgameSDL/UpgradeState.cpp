@@ -121,9 +121,15 @@ void UpgradeState::summon_bullet() {
 }
 
 void UpgradeState::shotbullet3() {
-	
+	std::vector<State*>loi = GameControl::getInstance()->getStateManager()->getVectorState();
+	PlayState* check = dynamic_cast<PlayState*>(loi[loi.size() - 2]);
+	check->mode(3);
+	GameControl::getInstance()->getStateManager()->deleteState();
 }
 
 void UpgradeState::shotbullet5() {
-  
+	std::vector<State*>loi = GameControl::getInstance()->getStateManager()->getVectorState();
+	PlayState* check = static_cast<PlayState*>(loi[loi.size() - 2]);
+	check->mode(5);
+	GameControl::getInstance()->getStateManager()->deleteState();
 }

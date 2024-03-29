@@ -2,13 +2,7 @@
 
 
 Bullet::Bullet(std::string id,int x,int y,int w,int h,int framecount):GameObject(id,x,y,w,h,framecount){
-	/*if (GameObject::CheckFlip() == SDL_FLIP_NONE) {
-		velocity.setX(3);
-	}
-	else {
-		velocity.setX(-3);
-
-	}*/
+	
 }
 
 void Bullet::draw() {
@@ -28,7 +22,7 @@ void Bullet::fireBullet(GameObject* crosshair) {
 		Vector bonus(crosshair->getW() / 2, crosshair->getH() / 2);
 		velocity = crosshair->getPos() + bonus - position;
 		velocity.setLength1();
-		velocity *= 3;
+		velocity *= 5;
 }
 
 void Bullet::fireBulletup(GameObject* crosshair, float angle) {
@@ -39,7 +33,7 @@ void Bullet::fireBulletup(GameObject* crosshair, float angle) {
 	velocity.setY(ahead.getX() * sin(rad) + ahead.getY() * cos(rad));
 
 	velocity.setLength1();
-	velocity *= 3;
+	velocity *= 5;
 }
 
 void Bullet::updateSpin(GameObject*player,double r) {

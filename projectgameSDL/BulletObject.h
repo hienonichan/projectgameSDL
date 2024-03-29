@@ -16,6 +16,7 @@ public:
 
 	void updateSpin(GameObject*player,double r);
 private:
+	
 
 	double angle = 0;
 };

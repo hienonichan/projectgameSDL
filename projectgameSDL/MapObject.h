@@ -5,6 +5,7 @@
 #include<SDL_ttf.h>
 #include<map>
 #include<SDL_mixer.h>
+#include"GameObject.h"
 const int map_width = 80;
 const int map_height = 40;
 
@@ -26,6 +27,8 @@ public:
 	void LoadMap(int arr[map_height][map_width]);
 	void DrawMap();
 	void changeMap(int idMap);
+
+	bool MapCollision(GameObject*player);
 
 private:
 	Map();

@@ -40,7 +40,9 @@ public:
 
 	int CheckFlip();
     
-	
+	void changeVelo(Vector velo) {
+		velocity = velo;
+	}
 
 protected:
 	Vector position;

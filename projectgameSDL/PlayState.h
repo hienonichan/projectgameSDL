@@ -30,12 +30,13 @@ public:
     void clearBullet() {
         // clear dan trung muc tieu
         for (int i = 0; i < bullets.size(); i++) {
+            Vector cam = Camera::getInstance()->GetPosition();
             if (check_bullet[bullets[i]] == 1) {
                 bullets[i]->clean();
                 bullets.erase(bullets.begin() + i);
                 i--;
             }
-            else if (abs(bullets[i]->getPos().length() - player1->getPos().length()) >=2000) {
+            else if (abs(bullets[i]->getPos().length() - (player1->getPos()-cam).length()) >= SCREEN_WIDTH) {
                 bullets[i]->clean();
                 bullets.erase(bullets.begin() + i);
                 i--;
@@ -104,6 +105,8 @@ public:
     void shot1();
     // mode ban 3 vien
     void shot3();
+    // mode shot 5 vien
+    void shot5();
     // summon dan xung quanh
     void summon();
     // ham thay doi mode
@@ -161,7 +164,7 @@ private:
     SDL_Texture* texture_background = nullptr;
 
    
-    int mode_shot = 1;
+    int mode_shot = 3;
 
 };
 

@@ -8,7 +8,7 @@
 const int WINDOW_WIDTH = 1280;
 const int WINDOW_HEIGHT = 640;
 
-const int FPS = 100;
+const int FPS = 150;
 const int delay = 1000.0f / FPS;
 
 int main(int argc, char* argv[]) {

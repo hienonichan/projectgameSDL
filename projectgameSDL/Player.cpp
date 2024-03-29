@@ -2,6 +2,7 @@
 #include"GameObject.h"
 #include"InputChecker.h"
 #include"ObjectTextureManager.h"
+#include"MapObject.h"
 SDL_RendererFlip check_flip = SDL_FLIP_NONE;
 
 
@@ -55,6 +56,10 @@ void Player::update() {
 	// lay tam nhan vat
 	origin->x = position.getX() +width / 2;
 	origin->y = position.getY() + height / 2;
+
+	if (Map::getInstance()->MapCollision(this)) {
+		velocity = velocity*-1;
+	}
 
 	sprite = int(SDL_GetTicks() /speed_sprite) % frame;
 	GameObject::update();
