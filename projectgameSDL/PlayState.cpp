@@ -91,6 +91,7 @@ void PlayState::update() {
 	// ban bang crosshair 1 vien
 	if (InputChecker::getInstance()->checkClicked(LEFT) == true) {
 		if (mode_shot == 3) {
+			//shot3();
 			shot3();
 		}
 		// ban ba vien
@@ -284,7 +285,7 @@ void PlayState::render() {
 
 	if (!bullets.empty()) {
 		for (int i = 0; i < bullets.size(); i++) {
-			if (check_bullet[bullets[i]] == 0) {
+			if (check_bullet[bullets[i]] == 0||check_bullet[bullets[i]]==2) {
 				bullets[i]->draw();
 			}
 		}
@@ -525,6 +526,7 @@ void PlayState::shot5() {
 	
 }
 void PlayState::summon() {
+
 	Vector cam = Camera::getInstance()->GetPosition();
 	Bullet* bullet = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame);
 	Bullet* bullet2 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame);
@@ -532,4 +534,5 @@ void PlayState::summon() {
 	check_bullet[bullet2] = 2;
 	bullets.push_back(bullet);
 	bullets.push_back(bullet2);
+	
 }

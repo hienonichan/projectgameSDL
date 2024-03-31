@@ -6,6 +6,9 @@
 #include<map>
 #include<SDL_mixer.h>
 #include"GameObject.h"
+#include<vector>
+#include<sstream>
+#include"fstream"
 const int map_width = 80;
 const int map_height = 40;
 
@@ -24,18 +27,24 @@ public:
 
 	~Map() { ; }
 
-	void LoadMap(int arr[map_height][map_width]);
+	void LoadMap(std::string arr_layer1 , std::string arr_layer2);
 	void DrawMap();
 	void changeMap(int idMap);
-
 	bool MapCollision(GameObject*player);
+	 
+	std::vector<std::vector<int>>stringToArray(std::string s);
 
 private:
 	Map();
 	static Map* instance;
-	int map[map_height][map_width];
+	std::vector<std::vector<int>> map_layer1;
+	std::vector<std::vector<int>>map_layer2;
+	/*int map_layer1[map_height][map_width];
+	int map_layer2[map_height][map_width];*/
 	int tileset[tileset_height][tileset_width];
 	std::map<int, std::pair<int, int>>mp;
+
+	int tileSize = 32;
 };
 
 #endif

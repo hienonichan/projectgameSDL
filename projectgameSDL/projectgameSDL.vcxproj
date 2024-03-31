@@ -188,6 +188,10 @@
     <ClInclude Include="UpgradeState.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="mp_layer1.txt" />
+    <Text Include="mp_layer2.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
