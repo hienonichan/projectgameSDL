@@ -22,7 +22,7 @@ void Bullet::fireBullet(GameObject* crosshair) {
 		Vector bonus(crosshair->getW() / 2, crosshair->getH() / 2);
 		velocity = crosshair->getPos() + bonus - position;
 		velocity.setLength1();
-		velocity *= 5;
+		velocity *= 10;
 }
 
 void Bullet::fireBulletup(GameObject* crosshair, float angle) {
@@ -33,7 +33,7 @@ void Bullet::fireBulletup(GameObject* crosshair, float angle) {
 	velocity.setY(ahead.getX() * sin(rad) + ahead.getY() * cos(rad));
 
 	velocity.setLength1();
-	velocity *= 5;
+	velocity *= 10;
 }
 
 void Bullet::updateSpin(GameObject*player,double r) {

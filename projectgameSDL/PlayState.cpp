@@ -50,10 +50,10 @@ void PlayState:: rand_enemy() {
 	if (check_ran) {
 		int time = SDL_GetTicks();
 		if (time-next_create >= 4000) {
-			if (ran_num<=400) {
+			if (ran_num<=1400) {
 				enemys.push_back(new Enemy("enemy", ran_num, ran_num, 100, 80, 8));
 			}
-			else if(ran_num<=900){
+			else if(ran_num<=1900){
 				enemys.push_back(new Enemy("enemy2", ran_num, ran_num, 60, 60, 7));
 			}
 			else {
@@ -78,7 +78,7 @@ void PlayState::update() {
 	}
 
      next_score = score;
-	if (next_score - current_score >= 50) {
+	if (next_score - current_score >= 10) {
 		current_score = next_score;
 		GameControl::getInstance()->getStateManager()->addState(new UpgradeState());
 	}
@@ -459,7 +459,7 @@ void PlayState::reload() {
 
 void PlayState::shot1() {
 	int time = SDL_GetTicks();
-	if (time - next_bullet >= 100) {
+	if (time - next_bullet >= 150) {
 		Vector cam = Camera::getInstance()->GetPosition();
 	
 		if (ammo_count >= 1) {
@@ -476,7 +476,7 @@ void PlayState::shot1() {
 
 void PlayState::shot3() {
 	int time = SDL_GetTicks();
-	if (time - next_bullet2 >= 100) {
+	if (time - next_bullet2 >= 150) {
 		Vector cam = Camera::getInstance()->GetPosition();
 		Bullet* bullet2 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame);
 		Bullet* bullet3 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame);
@@ -498,7 +498,7 @@ void PlayState::shot3() {
 }
 void PlayState::shot5() {
 	int time = SDL_GetTicks();
-	if (time - next_bullet3) {
+	if (time - next_bullet3>=150) {
 		Vector cam = Camera::getInstance()->GetPosition();
 		Bullet* bullet = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame);
 		Bullet* bullet2 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame);
@@ -523,7 +523,6 @@ void PlayState::shot5() {
 			render_ammo();
 		}
 	}
-	
 }
 void PlayState::summon() {
 

@@ -76,8 +76,8 @@ void ObjectTextureManager::drawTile(std::string id, int x, int y,int desx,int de
 	Vector cam = Camera::getInstance()->GetPosition();
 
 
-	desRect.x = x-cam.getX();
-	desRect.y = y-cam.getY();
+	desRect.x = x -cam.getX();
+	desRect.y = y -cam.getY();
 
 	SDL_RenderCopyEx(renderer, TextureMap[id], &sourceRect, &desRect, 0, 0, flip);
 }

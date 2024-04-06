@@ -9,7 +9,7 @@ Camera::Camera() :position(0, 0) {
 
 void Camera::Update() {
 	if (target != nullptr) {
-		viewbox.x = target->x - SCREEN_WIDTH / 2;
+		viewbox.x = target->x -SCREEN_WIDTH / 2;
 		viewbox.y = target->y - SCREEN_HEIGHT / 2;
 		if (viewbox.x < 0) {
 			viewbox.x = 0;

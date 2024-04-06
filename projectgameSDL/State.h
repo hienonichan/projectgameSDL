@@ -15,7 +15,7 @@ protected:
 	int score = 0;
 	int health = 5;
 	
-	 int max_ammo = 5;
+	 int max_ammo = 12;
 	int ammo_count = max_ammo;
 };
 

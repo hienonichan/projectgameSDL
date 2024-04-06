@@ -164,7 +164,7 @@ private:
     SDL_Texture* texture_background = nullptr;
 
    
-    int mode_shot = 1;
+    int mode_shot = 3;
 
 };
 

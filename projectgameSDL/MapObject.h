@@ -14,6 +14,9 @@ const int map_height = 40;
 
 const int tileset_width = 19;
 const int tileset_height = 45;
+const int tileset_width2 = 20;
+const int tileset_height2 = 20;
+
 class Map {
 public:
 	static Map* getInstance() {
@@ -34,6 +37,10 @@ public:
 	 
 	std::vector<std::vector<int>>stringToArray(std::string s);
 
+	void changeidmap(int idmap){
+		id = idmap;
+	}
+
 private:
 	Map();
 	static Map* instance;
@@ -42,9 +49,12 @@ private:
 	/*int map_layer1[map_height][map_width];
 	int map_layer2[map_height][map_width];*/
 	int tileset[tileset_height][tileset_width];
+	int tileset2[tileset_height2][tileset_width2];
 	std::map<int, std::pair<int, int>>mp;
+	std::map<int, std::pair<int, int>>mp2;
 
 	int tileSize = 32;
+	int id = 0;
 };
 
 #endif

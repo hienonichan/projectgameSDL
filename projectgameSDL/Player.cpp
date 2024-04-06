@@ -54,16 +54,16 @@ void Player::update() {
 
 		if (check_death == false) {
 			if (InputChecker::getInstance()->checkKeyboard(SDL_SCANCODE_A)) {
-				velocity.setX(-1.5);
+				velocity.setX(-3);
 			}
 			if (InputChecker::getInstance()->checkKeyboard(SDL_SCANCODE_D)) {
-				velocity.setX(1.5);
+				velocity.setX(3);
 			}
 			if (InputChecker::getInstance()->checkKeyboard(SDL_SCANCODE_W)) {
-				velocity.setY(-1.5);
+				velocity.setY(-3);
 			}
 			if (InputChecker::getInstance()->checkKeyboard(SDL_SCANCODE_S)) {
-				velocity.setY(1.5);
+				velocity.setY(3);
 			}
 		}
 	}
