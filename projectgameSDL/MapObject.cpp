@@ -31,8 +31,8 @@ Map::Map() {
 	}
 
 	int k = 1;
-	for (int i = 0; i < tileset_height2; i++) {
-		for (int j = 0; j < tileset_width2; j++) {
+	for (int i = 0; i <tileset_height2; i++) {
+		for (int j = 0; j <tileset_width2; j++) {
 			mp2[k] = std::make_pair(j * 32, i * 32);
 			k++;
 		}

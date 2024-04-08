@@ -7,8 +7,8 @@
 #include"GameObject.h"
 #include"Enemy.h"
 
-Enemy::Enemy(std::string id, int x, int y, int w, int h,int framecount) : GameObject(id, x, y, w, h,framecount) {
-	
+Enemy::Enemy(std::string id, int x, int y, int w, int h,int framecount,int heal) : GameObject(id, x, y, w, h,framecount) {
+	health = heal;
 }
 
 void Enemy::draw() {

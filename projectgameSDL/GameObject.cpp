@@ -22,18 +22,17 @@ GameObject::GameObject(std::string id, int x, int y, int w, int h,int framecount
 
 
 void GameObject::draw() {
-	
 	if (velocity.getX() > 0) {
-		ObjectTextureManager::getInstance()->drawAnimation(textureID, (int)position.getX(), (int)position.getY(), width, height, sprite, GameControl::getInstance()->getRenderer());
+		check_flip = SDL_FLIP_NONE;
+		ObjectTextureManager::getInstance()->drawAnimation(textureID, (int)position.getX(), (int)position.getY(), width, height, sprite, GameControl::getInstance()->getRenderer(),check_flip);
 	}
 	else if (velocity.getX() < 0) {
-		ObjectTextureManager::getInstance()->drawAnimation(textureID, (int)position.getX(), (int)position.getY(), width, height, sprite, GameControl::getInstance()->getRenderer(),SDL_FLIP_HORIZONTAL);
+		check_flip = SDL_FLIP_HORIZONTAL;
+		ObjectTextureManager::getInstance()->drawAnimation(textureID, (int)position.getX(), (int)position.getY(), width, height, sprite, GameControl::getInstance()->getRenderer(),check_flip);
 	}
 	else {
-		ObjectTextureManager::getInstance()->drawAnimation(textureID, (int)position.getX(), (int)position.getY(), width, height, sprite, GameControl::getInstance()->getRenderer());
+		ObjectTextureManager::getInstance()->drawAnimation(textureID, (int)position.getX(), (int)position.getY(), width, height, sprite, GameControl::getInstance()->getRenderer(),check_flip);
 	}
-	
-
 }
 
 void GameObject::update() {

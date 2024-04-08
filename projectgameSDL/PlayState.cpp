@@ -22,6 +22,7 @@ TTF_Font* font5 = nullptr;
 // cac bien dieu khien ham random
 int ran_num = 0;
 int next_create = 0;
+int next_create2 = 0;
 bool check_ran = false;
 
 // cac bien dieu khien sinh bullet
@@ -42,25 +43,35 @@ int bullet_frame = 1;
 int current_score=0;
 int next_score=0;
 
-void PlayState:: rand_enemy() {
+void PlayState:: rand_enemy(int type) {
 	ran_num = ran();
 	if (ran_num) {
 		check_ran = true;
 	}
-	if (check_ran) {
-		int time = SDL_GetTicks();
-		if (time-next_create >= 4000) {
-			if (ran_num<=1400) {
-				enemys.push_back(new Enemy("enemy", ran_num, ran_num, 100, 80, 8));
-			}
-			else if(ran_num<=1900){
-				enemys.push_back(new Enemy("enemy2", ran_num, ran_num, 60, 60, 7));
-			}
-			else {
-				bosses.push_back(new Boss("boss", ran_num, ran_num, 300, 200, 10));
+	if (type == 1) {
+		if (check_ran) {
+			int time = SDL_GetTicks();
+			if (time - next_create2 >= 500) {
+				Vector cam = Camera::getInstance()->GetPosition();
+				enemys.push_back(new Enemy("fire",bosses.back()->getPos().getX(), bosses.back()->getPos().getY(), 78, 120, 8,1));
 			}
 			check_ran = false;
-			next_create = time;
+			next_create2 = time;
+		}
+	}
+	else {
+		if (check_ran) {
+			int time = SDL_GetTicks();
+			if (time - next_create >= 4000) {
+				if (ran_num <= 1400) {
+					enemys.push_back(new Enemy("enemy", ran_num, ran_num, 100, 80, 8,5));
+				}
+				else if (ran_num <= 1900) {
+					enemys.push_back(new Enemy("enemy2", ran_num, ran_num, 60, 60, 7,3));
+				}
+				check_ran = false;
+				next_create = time;
+			}
 		}
 	}
 }
@@ -71,7 +82,8 @@ void PlayState::update() {
 	Map::getInstance()->MapCollision(player1);
 
 	// random tao enemy
-	rand_enemy();
+	rand_enemy(2);
+	
 	// het mau chuyen sang GameOver
 	if (health == 0) {
 		static_cast<Player*>(player1)->death();
@@ -207,11 +219,19 @@ void PlayState::update() {
 			render_health();
 		}
 	}
-	
-	
 	for (int i = 0; i < gameObjects.size(); i++) {
 		gameObjects[i]->update();
 	}
+	// update cho boss
+	for (int i = 0; i < bosses.size(); i++) {
+		if (check_boss[bosses[i]] == 0) {
+			bosses[i]->update(player1);
+		}
+	}
+
+
+
+
 
 	// neu enemy con song thi update
 	for (int i = 0; i < enemys.size(); i++) {
@@ -231,13 +251,9 @@ void PlayState::update() {
 			}
 		}
 	}
-	// update cho boss
-	for (int i = 0; i < bosses.size(); i++) {
-		if (check_boss[bosses[i]] == 0) {
-			bosses[i]->update();
-			bosses[i]->set_follow(player1);
-		}
-	}
+	
+
+
 	// update item
 	for (int i = 0; i < items.size(); i++) {
 		if (check_item[items[i]] == 0) {
@@ -323,11 +339,19 @@ bool PlayState::loadState() {
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/boss.png","boss",GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/item.png", "item", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/solider death.png","playerdeath", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/boss walk.png", "bosswalk", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/boss attack.png", "bossattack", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/boss idle.png", "bossidle", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/fire.png", "fire", GameControl::getInstance()->getRenderer());
 
 	player1 = new Player("player", 700, 500, 60, 60, 6);
 	 crosshair = new Aim("crosshair", 100, 100, 150, 150, 1);
 	gameObjects.push_back(player1);
 	gameObjects.push_back(crosshair);
+
+
+	bosses.push_back(new Boss("bossidle", 1200, 500, 288, 160, 6));
+
 	for (int i = 1; i <= 20; i++) {
 		items.push_back(new GameItem("item",ran() , ran() , 32, 32, 1));
 	}
@@ -387,7 +411,9 @@ bool PlayState::exitState() {
 	ObjectTextureManager::getInstance()->eraseTexture("bullet3");
 	ObjectTextureManager::getInstance()->eraseTexture("bullet4");
 	ObjectTextureManager::getInstance()->eraseTexture("playerdeath");
-
+	ObjectTextureManager::getInstance()->eraseTexture("bosswalk");
+	ObjectTextureManager::getInstance()->eraseTexture("bossattack");
+	ObjectTextureManager::getInstance()->eraseTexture("bossidle");
 
 	SDL_FreeSurface(textSurface);
 	SDL_FreeSurface(textSurface2);
@@ -476,7 +502,7 @@ void PlayState::shot1() {
 
 void PlayState::shot3() {
 	int time = SDL_GetTicks();
-	if (time - next_bullet2 >= 150) {
+	if (time - next_bullet2 >= 200) {
 		Vector cam = Camera::getInstance()->GetPosition();
 		Bullet* bullet2 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame);
 		Bullet* bullet3 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame);
@@ -498,7 +524,7 @@ void PlayState::shot3() {
 }
 void PlayState::shot5() {
 	int time = SDL_GetTicks();
-	if (time - next_bullet3>=150) {
+	if (time - next_bullet3>=300) {
 		Vector cam = Camera::getInstance()->GetPosition();
 		Bullet* bullet = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame);
 		Bullet* bullet2 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame);
@@ -519,7 +545,7 @@ void PlayState::shot5() {
 			bullets.push_back(bullet5);
 			Mix_VolumeChunk(shootingsound, MIX_MAX_VOLUME / 3);
 			Mix_PlayChannel(3, shootingsound, 0);
-			next_bullet2 = time;
+			next_bullet3= time;
 			render_ammo();
 		}
 	}

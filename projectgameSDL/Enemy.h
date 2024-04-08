@@ -6,7 +6,7 @@
 class Enemy :public GameObject{
 
 public:
-	Enemy(std::string id, int x, int y, int w,int h,int framecount);
+	Enemy(std::string id, int x, int y, int w,int h,int framecount,int health);
 	void draw();
 	void update();
 	void clean();
@@ -17,8 +17,6 @@ public:
 		health -= dame;
 	}
 	void set_follow(GameObject* player) {
-		Vector cam = Camera::getInstance()->GetPosition();
-
 		velocity = (player->getPos()- position);
 		velocity.setLength1();
 		velocity/=1;

@@ -5,6 +5,7 @@
 
 GameButton::GameButton(std::string id,int x,int y,int w,int h,int framecount,void callback()):GameObject(id,x,y,w,h,framecount),button_callback(callback){
 	sprite = 0;
+	check_flip = SDL_FLIP_NONE;
 }
 
 

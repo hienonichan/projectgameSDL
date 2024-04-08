@@ -25,7 +25,7 @@ public:
     }
 
 
-    void rand_enemy();
+    void rand_enemy(int type);
 
     void clearBullet() {
         // clear dan trung muc tieu
@@ -113,7 +113,11 @@ public:
     void mode(int p) {
         mode_shot = p;
     }
-    
+
+
+    std::vector<Enemy*>& getEnemyArray() {
+        return enemys;
+    }
 
 private:
     int code = 2;
@@ -131,7 +135,7 @@ private:
     std::map<Boss*, int>check_boss;
     std::map<GameItem*, int>check_item;
     GameObject* player1 = nullptr;
-
+    
 
     SDL_Surface* textSurface = nullptr;
     SDL_Texture* textTexture = nullptr;
@@ -164,7 +168,7 @@ private:
     SDL_Texture* texture_background = nullptr;
 
    
-    int mode_shot = 3;
+    int mode_shot = 5;
 
 };
 

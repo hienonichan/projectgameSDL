@@ -4,11 +4,13 @@
 #include<string>
 #include"Vector.h"
 #include"Camera.h"
+#include<vector>
+#include"Enemy.h"
 class Boss :public GameObject {
 public:
 	Boss(std::string id, int x, int y, int w, int h, int framecount);
 	void draw();
-	void update();
+	void update(GameObject*player);
 	void clean();
 
 	int getHealth() {
@@ -19,13 +21,16 @@ public:
 	}
 
 	void set_follow(GameObject* player) {
-		Vector cam = Camera::getInstance()->GetPosition();
 		velocity = (player->getPos() - position);
 		velocity.setLength1();
-		velocity /= 10;
+		velocity /= 5;
 	}
 
+	void attack();
+
+
+
 private:
-	int health = 10;
+	int health = 20;
 };
 #endif
