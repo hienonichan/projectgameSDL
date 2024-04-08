@@ -19,6 +19,12 @@ TTF_Font* font3 = nullptr;
 TTF_Font* font4 = nullptr;
 TTF_Font* font5 = nullptr;
 
+int chua_trung = 0;
+int dan_trung = 1;
+int dan_xoay = 2;
+int dan_no = 3;
+
+
 // cac bien dieu khien ham random
 int ran_num = 0;
 int next_create = 0;
@@ -159,14 +165,14 @@ void PlayState::update() {
 					score++;
 					// danh dau enemy chet
 					check_enemy[enemys[j]] = 1;
-					
 					// cap nhat texture Score
 					render_score();
 				}
 				else {
 					enemys[j]->lowHealth(bullet_dame);
 				}
-				check_bullet[bullets[i]] = 1;
+				check_bullet[bullets[i]] = 3;
+				bullets[i]->explosion();
 			}
 		}
 
@@ -209,8 +215,6 @@ void PlayState::update() {
 			render_health();
 		}
 	}
-
-
 	// va cham voi boss
 	for (int i = 0; i < bosses.size(); i++) {
 		if (CollisionChecker::getInstance()->CollisionEnemy(bosses[i], player1)) {
@@ -228,11 +232,6 @@ void PlayState::update() {
 			bosses[i]->update(player1);
 		}
 	}
-
-
-
-
-
 	// neu enemy con song thi update
 	for (int i = 0; i < enemys.size(); i++) {
 		if (check_enemy[enemys[i]] == 0) {
@@ -249,11 +248,16 @@ void PlayState::update() {
 			if (check_bullet[bullets[i]] == 2) {
 				bullets[i]->updateSpin(player1, 100);
 			}
+			if (check_bullet[bullets[i]] == 3) {
+				if (bullets[i]->getSprite() < 7) {
+					bullets[i]->update();
+				}
+				else {
+					check_bullet[bullets[i]] = 1;
+				}
+			}
 		}
 	}
-	
-
-
 	// update item
 	for (int i = 0; i < items.size(); i++) {
 		if (check_item[items[i]] == 0) {
@@ -304,6 +308,11 @@ void PlayState::render() {
 			if (check_bullet[bullets[i]] == 0||check_bullet[bullets[i]]==2) {
 				bullets[i]->draw();
 			}
+			if (check_bullet[bullets[i]] == 3) {
+				if (bullets[i]->getSprite() < 7) {
+					bullets[i]->draw();
+				}
+			}
 		}
 	}
 	
@@ -343,6 +352,7 @@ bool PlayState::loadState() {
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/boss attack.png", "bossattack", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/boss idle.png", "bossidle", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/fire.png", "fire", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/explosion.png", "explosion", GameControl::getInstance()->getRenderer());
 
 	player1 = new Player("player", 700, 500, 60, 60, 6);
 	 crosshair = new Aim("crosshair", 100, 100, 150, 150, 1);
@@ -382,17 +392,14 @@ bool PlayState::loadState() {
 	font2 = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/LibreBaskerville-Bold.ttf", 30);
 	render_score();
 	SDL_QueryTexture(textTexture2, NULL, NULL, &textRect2.w, &textRect2.h);
-
 	// tai chu health
 	font3 = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/LibreBaskerville-Bold.ttf", 25);
 	render_health();
 	SDL_QueryTexture(textTexture3, NULL, NULL, &textRect3.w, &textRect3.h);
-
 	// tai chu ammo
 	font4 = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/LibreBaskerville-Bold.ttf", 25);
 	render_ammo();
 	SDL_QueryTexture(textTexture4, NULL, NULL, &textRect4.w, &textRect4.h);
-
 
 	std::cout << "loading playState\n";
 	return true;
@@ -414,6 +421,7 @@ bool PlayState::exitState() {
 	ObjectTextureManager::getInstance()->eraseTexture("bosswalk");
 	ObjectTextureManager::getInstance()->eraseTexture("bossattack");
 	ObjectTextureManager::getInstance()->eraseTexture("bossidle");
+	ObjectTextureManager::getInstance()->eraseTexture("explosion");
 
 	SDL_FreeSurface(textSurface);
 	SDL_FreeSurface(textSurface2);
@@ -448,9 +456,6 @@ void PlayState::up_health() {
 void PlayState::up_ammo() {
 	max_ammo += 2;
 }
-
-
-
 void PlayState:: render_health() {
 	SDL_FreeSurface(textSurface3);
 	SDL_DestroyTexture(textTexture3);

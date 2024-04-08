@@ -10,7 +10,7 @@ void Bullet::draw() {
 }
 
 void Bullet::update() {
-	sprite = int(SDL_GetTicks() / 100) % frame;
+	sprite = int(SDL_GetTicks() / speed_sprite) % frame;
 	GameObject::update();
 }
 
@@ -22,7 +22,7 @@ void Bullet::fireBullet(GameObject* crosshair) {
 		Vector bonus(crosshair->getW() / 2, crosshair->getH() / 2);
 		velocity = crosshair->getPos() + bonus - position;
 		velocity.setLength1();
-		velocity *= 10;
+		velocity *= 5;
 }
 
 void Bullet::fireBulletup(GameObject* crosshair, float angle) {
@@ -33,7 +33,7 @@ void Bullet::fireBulletup(GameObject* crosshair, float angle) {
 	velocity.setY(ahead.getX() * sin(rad) + ahead.getY() * cos(rad));
 
 	velocity.setLength1();
-	velocity *= 10;
+	velocity *= 5;
 }
 
 void Bullet::updateSpin(GameObject*player,double r) {
@@ -44,3 +44,20 @@ void Bullet::updateSpin(GameObject*player,double r) {
 	position.setY(player->getPos().getY() - cam.getY() + r * sin(rad));
 	angle += 2;
 }
+
+
+void Bullet::explosion() {
+	Vector cam = Camera::getInstance()->GetPosition();
+	sprite = 0;
+	changeTexture("explosion", 8);
+	velocity = Vector(0, 0);
+	position += cam;
+	changeW(32);
+	changeH(32);
+}
+
+
+
+
+
+

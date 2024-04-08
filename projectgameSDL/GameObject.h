@@ -31,6 +31,7 @@ public:
 	Vector getVelocity() { return velocity; }
 	int getW() { return width; }
 	int getH() { return height; }
+	int getSprite(){ return sprite; }
 
 	Point* GetOrigin() { return origin; }
 
