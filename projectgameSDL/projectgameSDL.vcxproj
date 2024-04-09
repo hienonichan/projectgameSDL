@@ -151,6 +151,7 @@
     <ClCompile Include="GameItem.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameOver.cpp" />
+    <ClCompile Include="Healthbar.cpp" />
     <ClCompile Include="HomeState.cpp" />
     <ClCompile Include="InputChecker.cpp" />
     <ClCompile Include="main.cpp" />
@@ -175,6 +176,7 @@
     <ClInclude Include="GameItem.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameOver.h" />
+    <ClInclude Include="Healthbar.h" />
     <ClInclude Include="HomeState.h" />
     <ClInclude Include="InputChecker.h" />
     <ClInclude Include="MapObject.h" />

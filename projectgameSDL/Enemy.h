@@ -3,6 +3,7 @@
 #include"GameObject.h"
 #include<string>
 #include"Camera.h"
+#include"Healthbar.h"
 class Enemy :public GameObject{
 
 public:
@@ -13,6 +14,9 @@ public:
 	int getHealth() {
 		return health;
 	}
+	int getMaxHealth() {
+		return max_health;
+	}
 	void lowHealth(int dame) {
 		health -= dame;
 	}
@@ -22,7 +26,9 @@ public:
 		velocity/=1;
 	}
 private:
-	int health = 5;
-
+	int max_health = 5;
+	int health = max_health;
+	Healthbar* healthbar = nullptr;
 };
+
 #endif

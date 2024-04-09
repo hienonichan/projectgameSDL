@@ -47,6 +47,9 @@ public:
 	void changeVelo(Vector velo) {
 		velocity = velo;
 	}
+	void changePos(Vector pos) {
+		position = pos;
+	}
 
 protected:
 	Vector position;

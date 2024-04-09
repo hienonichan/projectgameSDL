@@ -6,6 +6,7 @@
 #include"Camera.h"
 #include<vector>
 #include"Enemy.h"
+#include"Healthbar.h"
 class Boss :public GameObject {
 public:
 	Boss(std::string id, int x, int y, int w, int h, int framecount);
@@ -15,6 +16,9 @@ public:
 
 	int getHealth() {
 		return health;
+	}
+	int getMaxHealth() {
+		return max_health;
 	}
 	void lowHealth(int dame) {
 		health-=dame;
@@ -31,6 +35,8 @@ public:
 
 
 private:
-	int health = 20;
+	int max_health = 200;
+	int health = max_health;
+	Healthbar* healthbar = nullptr;
 };
 #endif

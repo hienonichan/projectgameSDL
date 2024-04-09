@@ -81,6 +81,9 @@
     <ClCompile Include="UpgradeState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Healthbar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameControl.h">
@@ -153,6 +156,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UpgradeState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Healthbar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

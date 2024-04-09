@@ -16,6 +16,7 @@ public:
 		return instance;
 	}
 	void eraseTexture(std::string id) { 
+		SDL_DestroyTexture(TextureMap[id]);
 		TextureMap.erase(id); 
 	}
 

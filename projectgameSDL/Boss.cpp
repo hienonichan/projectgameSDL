@@ -3,7 +3,9 @@
 #include<vector>
 #include"PlayState.h"
 
-Boss::Boss(std::string id,int x,int y,int w,int h,int framecount):GameObject(id,x,y,w,h,framecount){}
+Boss::Boss(std::string id,int x,int y,int w,int h,int framecount):GameObject(id,x,y,w,h,framecount){
+	healthbar = new Healthbar("redbar", position.getX(), position.getY(), 96, 13, 1);
+}
 
 // bien check boss da awake chua
 bool awake = false;
@@ -38,8 +40,10 @@ void Boss::update(GameObject*player) {
 		changeTexture("bossidle", 6); 
 		velocity = Vector(0, 0);
 	}
+	healthbar->update(this);
+	healthbar->changePos(Vector(position.getX() + 100, position.getY()+20));
 	GameObject::update();
-	std::cout << sprite << std::endl;
+   //	std::cout << sprite << std::endl;
 }
 
 
@@ -52,8 +56,11 @@ void Boss::attack() {
 void Boss::draw() {
 	//sprite = int(SDL_GetTicks() / 100) % frame;
 	GameObject::draw();
+	healthbar->draw();
 }
 
 void Boss::clean() {
+	healthbar->clean();
 	GameObject::clean();
+
 }

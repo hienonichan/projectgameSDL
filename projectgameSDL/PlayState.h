@@ -11,6 +11,7 @@
 #include"InputChecker.h"
 #include"Boss.h"
 #include"GameItem.h"
+#include"Healthbar.h"
 
 class PlayState :public State {
 public:

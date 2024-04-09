@@ -13,6 +13,7 @@
 #include"GameOver.h"
 #include"GameItem.h"
 #include"UpgradeState.h"
+#include"Healthbar.h"
 TTF_Font* font = nullptr;
 TTF_Font* font2 = nullptr;
 TTF_Font* font3 = nullptr;
@@ -57,7 +58,7 @@ void PlayState:: rand_enemy(int type) {
 	if (type == 1) {
 		if (check_ran) {
 			int time = SDL_GetTicks();
-			if (time - next_create2 >= 500) {
+			if (time - next_create2 >= 300) {
 				Vector cam = Camera::getInstance()->GetPosition();
 				enemys.push_back(new Enemy("fire",bosses.back()->getPos().getX(), bosses.back()->getPos().getY(), 78, 120, 8,1));
 			}
@@ -68,7 +69,7 @@ void PlayState:: rand_enemy(int type) {
 	else {
 		if (check_ran) {
 			int time = SDL_GetTicks();
-			if (time - next_create >= 4000) {
+			if (time - next_create >= 2000) {
 				if (ran_num <= 1400) {
 					enemys.push_back(new Enemy("enemy", ran_num, ran_num, 100, 80, 8,5));
 				}
@@ -84,6 +85,8 @@ void PlayState:: rand_enemy(int type) {
 
 
 void PlayState::update() {
+
+	std::cout << bullets.size() << std::endl;
 
 	Map::getInstance()->MapCollision(player1);
 
@@ -354,6 +357,7 @@ bool PlayState::loadState() {
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/boss idle.png", "bossidle", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/fire.png", "fire", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/explosion.png", "explosion", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/red bar.png", "redbar", GameControl::getInstance()->getRenderer());
 
 	player1 = new Player("player", 700, 500, 60, 60, 6);
 	 crosshair = new Aim("crosshair", 100, 100, 150, 150, 1);
@@ -423,6 +427,8 @@ bool PlayState::exitState() {
 	ObjectTextureManager::getInstance()->eraseTexture("bossattack");
 	ObjectTextureManager::getInstance()->eraseTexture("bossidle");
 	ObjectTextureManager::getInstance()->eraseTexture("explosion");
+	ObjectTextureManager::getInstance()->eraseTexture("fire");
+	ObjectTextureManager::getInstance()->eraseTexture("redbar");
 
 	SDL_FreeSurface(textSurface);
 	SDL_FreeSurface(textSurface2);
@@ -557,7 +563,6 @@ void PlayState::shot5() {
 	}
 }
 void PlayState::summon() {
-
 	Vector cam = Camera::getInstance()->GetPosition();
 	Bullet* bullet = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame);
 	Bullet* bullet2 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame);
@@ -565,5 +570,4 @@ void PlayState::summon() {
 	check_bullet[bullet2] = 2;
 	bullets.push_back(bullet);
 	bullets.push_back(bullet2);
-	
 }
