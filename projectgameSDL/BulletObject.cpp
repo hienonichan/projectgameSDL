@@ -10,7 +10,7 @@ void Bullet::draw() {
 }
 
 void Bullet::update() {
-	sprite = int(SDL_GetTicks() / speed_sprite) % frame;
+	//sprite = int(SDL_GetTicks() / speed_sprite) % frame;
 	GameObject::update();
 }
 
@@ -50,6 +50,7 @@ void Bullet::explosion() {
 	Vector cam = Camera::getInstance()->GetPosition();
 	sprite = 0;
 	changeTexture("explosion", 8);
+	change_speedsprite(100);
 	velocity = Vector(0, 0);
 	position += cam;
 	changeW(32);

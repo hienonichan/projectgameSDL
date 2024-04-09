@@ -17,7 +17,7 @@ void Enemy::draw() {
 
 
 void Enemy::update() {
-	sprite = int(SDL_GetTicks() / speed_sprite) % frame;
+	//sprite = int(SDL_GetTicks() / speed_sprite) % frame;
 	GameObject::update();
 }
 

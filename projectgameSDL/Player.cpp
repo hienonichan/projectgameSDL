@@ -71,7 +71,8 @@ void Player::update() {
 	origin->x = position.getX() +width / 2;
 	origin->y = position.getY() + height / 2;
 	  
-	sprite = int(SDL_GetTicks() /speed_sprite) % frame;
+	//sprite = int(SDL_GetTicks() /speed_sprite) % frame;
+	
 	GameObject::update();
 }
 

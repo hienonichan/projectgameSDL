@@ -17,11 +17,10 @@ void Boss::update(GameObject*player) {
 	}
 	if (awake) {
 		int time = SDL_GetTicks();
-		if (time - next_attack >= 2000) {
+		if (time - next_attack >= 4000) {
 			changeTexture("bossattack", 15);
-			change_speedsprite(300);
+			change_speedsprite(100);
 			velocity = Vector(0, 0);
-			
 			// chay het sprite chem thi moi chuyen sang walk
 			if (sprite == 9) {
 				attack();
@@ -40,6 +39,7 @@ void Boss::update(GameObject*player) {
 		velocity = Vector(0, 0);
 	}
 	GameObject::update();
+	std::cout << sprite << std::endl;
 }
 
 
@@ -50,7 +50,7 @@ void Boss::attack() {
 }
 
 void Boss::draw() {
-	sprite = int(SDL_GetTicks() / 100) % frame;
+	//sprite = int(SDL_GetTicks() / 100) % frame;
 	GameObject::draw();
 }
 

@@ -16,8 +16,7 @@ public:
 	void death() {
 		check_death = true;
 		changeTexture("playerdeath", 8);
-		sprite = 0;
-		change_speedsprite(500);
+		change_speedsprite(150);
 		update();
 		draw();
 		if (sprite == 7) {

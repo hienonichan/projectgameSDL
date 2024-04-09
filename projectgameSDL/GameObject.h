@@ -16,6 +16,9 @@ public:
 	
 
 	void changeTexture(std::string id,int framecount) { 
+		if (sprite >=frame) {
+			sprite = 0;
+		}
 		frame = framecount;
 		textureID = id;
 	}
@@ -62,5 +65,7 @@ protected:
 	Point* origin;
 	SDL_RendererFlip check_flip = SDL_FLIP_NONE;
 	bool check_death = false;
+
+	int next_sprite = 0;
 };
 #endif

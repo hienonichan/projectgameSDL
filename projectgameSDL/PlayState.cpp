@@ -190,7 +190,8 @@ void PlayState::update() {
 					bosses[z]->lowHealth(bullet_dame);
 				}
 
-				check_bullet[bullets[i]] = 1;
+				check_bullet[bullets[i]] = 3;
+				bullets[i]->explosion();
 			}
 		}
 	}

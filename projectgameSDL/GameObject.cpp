@@ -36,6 +36,16 @@ void GameObject::draw() {
 }
 
 void GameObject::update() {
+	int time = SDL_GetTicks();
+	if (time - next_sprite >= speed_sprite) {
+		if (sprite <= frame - 2) {
+			sprite++;
+		}
+		else {
+			sprite = 0;
+		}
+		next_sprite = time;
+	}
 	position += velocity;
 }
 void GameObject:: clean() {
