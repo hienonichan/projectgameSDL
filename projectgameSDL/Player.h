@@ -5,6 +5,7 @@
 #include"GameObject.h"
 #include<string>
 #include"GameOver.h"
+#include"Skill.h"
 
 class Player :public GameObject {
 public:
@@ -13,17 +14,11 @@ public:
 	void update();
 	void clean();
 
-	void death() {
-		check_death = true;
-		changeTexture("playerdeath", 8);
-		change_speedsprite(150);
-		update();
-		draw();
-		if (sprite == 7) {
-			GameControl::getInstance()->getStateManager()->addState(new GameOver());
-		}
-	}
+	void death();
 
+private:
+	Skill* skill_q = nullptr;
+	Skill* skill_e = nullptr;
 };
 
 

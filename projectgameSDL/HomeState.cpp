@@ -11,8 +11,6 @@ void HomeState::update() {
 	for (int i = 0; i < gameObjects.size(); i++) {
 		gameObjects[i]->update();
 	}
-
-	
 }
 
 
@@ -25,6 +23,7 @@ void HomeState::render() {
    }
 
 	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), textTexture, NULL, &textRect);
+	
 }
 
 

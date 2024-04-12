@@ -3,7 +3,7 @@
 #include"Enemy.h"
 #include"Boss.h"
 Healthbar::Healthbar(std::string id, int x, int y, int w, int h, int framecount) :GameObject(id, x, y, w, h, framecount) {
-	max_w = w;
+        max_w = w;
 }
 
 void Healthbar::update(GameObject*enemy) {
@@ -19,6 +19,7 @@ void Healthbar::update(GameObject*enemy) {
 
 void Healthbar::draw() {
 	GameObject::draw();
+
 }
 
 void Healthbar::clean() {

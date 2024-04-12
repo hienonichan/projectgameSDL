@@ -3,11 +3,13 @@
 #include"InputChecker.h"
 #include"ObjectTextureManager.h"
 #include"MapObject.h"
+#include"Camera.h"
 SDL_RendererFlip check_flip = SDL_FLIP_NONE;
 
 
 Player::Player(std::string id, int x, int y, int w, int h,int framecount):GameObject(id,x,y,w,h,framecount) {
-	
+	skill_q = new Skill("skill_1_on", 1050, 500, 100, 100, 1, 'Q');
+	skill_e = new Skill("skill_2_on", 1150, 450, 100, 100, 1, 'E');
 }
 
 void Player::draw() {
@@ -31,14 +33,16 @@ void Player::draw() {
 	else {
 		ObjectTextureManager::getInstance()->drawAnimation(textureID, (int)position.getX(), (int)position.getY(), width, height, sprite, GameControl::getInstance()->getRenderer(), check_flip);
 	}
+	skill_q->draw();
+	skill_e->draw();
 }
 
 bool check = true;
 
 void Player::update() {
 
-
-
+	skill_q->update();
+	skill_e->update();
 
 	if (Map::getInstance()->MapCollision(this)) {
 		check = false;
@@ -78,5 +82,16 @@ void Player::update() {
 
 void Player::clean() {
 	GameObject::clean();
+}
+
+void Player::death() {
+	check_death = true;
+	changeTexture("playerdeath", 8);
+	change_speedsprite(250);
+	update();
+	draw();
+	if (sprite == 7) {
+		GameControl::getInstance()->getStateManager()->addState(new GameOver());
+	}
 }
 

@@ -22,12 +22,8 @@ public:
 		frame = framecount;
 		textureID = id;
 	}
-	void changeW(int w) {
-		width=w;
-	}
-	void changeH(int h) {
-		height = h;
-	}
+	void changeW(int w) {width=w;}
+	void changeH(int h) {height = h;}
 	
 
 	Vector getPos() { return position; }
@@ -38,18 +34,12 @@ public:
 
 	Point* GetOrigin() { return origin; }
 
-	void change_speedsprite(int speed) {
-		speed_sprite = speed;
-	}
+	void change_speedsprite(int speed) {speed_sprite = speed;}
 
 	int CheckFlip();
-    
-	void changeVelo(Vector velo) {
-		velocity = velo;
-	}
-	void changePos(Vector pos) {
-		position = pos;
-	}
+ 
+	void changeVelo(Vector velo) {	velocity = velo;}
+	void changePos(Vector pos) {position = pos;}
 
 protected:
 	Vector position;

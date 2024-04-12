@@ -86,11 +86,11 @@ void PlayState:: rand_enemy(int type) {
 
 void PlayState::update() {
 
-	std::cout << bullets.size() << std::endl;
+	//std::cout << bullets.size() << std::endl;
 
 	Map::getInstance()->MapCollision(player1);
 
-	// random tao enemy
+	// random tao enemy 
 	rand_enemy(2);
 	
 	// het mau chuyen sang GameOver
@@ -99,11 +99,10 @@ void PlayState::update() {
 	}
 
      next_score = score;
-	if (next_score - current_score >= 10) {
+	if (next_score - current_score >= 100) {
 		current_score = next_score;
 		GameControl::getInstance()->getStateManager()->addState(new UpgradeState());
 	}
-
 
 	// nap dan 
 	if (checkReload()) {
@@ -112,7 +111,6 @@ void PlayState::update() {
 	// ban bang crosshair 1 vien
 	if (InputChecker::getInstance()->checkClicked(LEFT) == true) {
 		if (mode_shot == 3) {
-			//shot3();
 			shot3();
 		}
 		// ban ba vien
@@ -157,9 +155,6 @@ void PlayState::update() {
 			}
 		}
 	}
-
-
-
 	// goi lop check bullet ban trung enemy
 	for (int i = 0; i < bullets.size(); i++) {
 		for (int j = 0; j < enemys.size(); j++) {
@@ -272,13 +267,6 @@ void PlayState::update() {
 	if (InputChecker::getInstance()->checkKeyboard(SDL_SCANCODE_ESCAPE)) {
 		GameControl::getInstance()->getStateManager()->addState(new DelayState());
 	}
-
-
-	// neu di chuyen cho  chu bien mat
-	if (player1->getVelocity().getX() != 0 || player1->getVelocity().getY() != 0) {
-		SDL_SetTextureAlphaMod(textTexture, 0);
-		SDL_SetTextureAlphaMod(textTexture5, 0);
-	}
 	Camera::getInstance()->Update();
 }
 
@@ -320,16 +308,13 @@ void PlayState::render() {
 		}
 	}
 	
-	// hien chu "MISSION START"
-	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), textTexture, NULL, &textRect);
+	
 	// cap nhat hien score len man hinh
 	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), textTexture2, NULL, &textRect2);
 	// cap nhat health len man hinh
 	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), textTexture3, NULL, &textRect3);
 	// cap nhat ammo
 	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), textTexture4, NULL, &textRect4);
-	// tai huong dan
-	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), textTexture5, NULL, &textRect5);
 }
 
 
@@ -358,6 +343,10 @@ bool PlayState::loadState() {
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/fire.png", "fire", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/explosion.png", "explosion", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/red bar.png", "redbar", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/q_circle_on.png", "skill_1_on", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/q_circle_off.png", "skill_1_off", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/e_circle_on.png", "skill_2_on", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/e_circle_off.png", "skill_2_off", GameControl::getInstance()->getRenderer());
 
 	player1 = new Player("player", 700, 500, 60, 60, 6);
 	 crosshair = new Aim("crosshair", 100, 100, 150, 150, 1);
@@ -378,21 +367,6 @@ bool PlayState::loadState() {
 
 	// lay player lam trung tam camera
 	Camera::getInstance()->SetTarget(player1->GetOrigin());
-
-
-	// tai chu MISSION START
-	font=TTF_OpenFont("C:/projectgameSDL/projectgameSDL/phong chu2.ttf", 45); 
-	textSurface = TTF_RenderText_Blended(font, "MISSION START", colorText);
-	textTexture = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface);
-	SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
-
-    // tai huong dan tro choi
-	font5 = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/phong chu2.ttf", 25);
-	textSurface5 = TTF_RenderText_Blended(font5, "A,W,S,D to move. LEFT MOUSE to shoot. R to reload", colorText5);
-	textTexture5 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface5);
-	SDL_QueryTexture(textTexture5, NULL, NULL, &textRect5.w, &textRect5.h);
-
-
 	// tai score len goc trai
 	font2 = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/LibreBaskerville-Bold.ttf", 30);
 	render_score();
@@ -429,19 +403,20 @@ bool PlayState::exitState() {
 	ObjectTextureManager::getInstance()->eraseTexture("explosion");
 	ObjectTextureManager::getInstance()->eraseTexture("fire");
 	ObjectTextureManager::getInstance()->eraseTexture("redbar");
-
-	SDL_FreeSurface(textSurface);
+	ObjectTextureManager::getInstance()->eraseTexture("skill_1_on");
+	ObjectTextureManager::getInstance()->eraseTexture("skill_1_off");
+	ObjectTextureManager::getInstance()->eraseTexture("skill_2_on");
+	ObjectTextureManager::getInstance()->eraseTexture("skill_2_off");
+	
 	SDL_FreeSurface(textSurface2);
 	SDL_FreeSurface(textSurface3);
 	SDL_FreeSurface(textSurface4);
-	SDL_FreeSurface(textSurface5);
 	SDL_FreeSurface(surface_background);
 
-	SDL_DestroyTexture(textTexture);
+	
 	SDL_DestroyTexture(textTexture2);
 	SDL_DestroyTexture(textTexture3);
 	SDL_DestroyTexture(textTexture4);
-	SDL_DestroyTexture(textTexture5);
 	SDL_DestroyTexture(texture_background);
 
 
@@ -469,7 +444,6 @@ void PlayState:: render_health() {
 	textSurface3 = TTF_RenderText_Blended(font3, ("HEALTH:" + std::to_string(health)).c_str(), colorText3);
 	textTexture3 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface3);
 }
-
 void PlayState::render_ammo() {
 	SDL_FreeSurface(textSurface4);
 	SDL_DestroyTexture(textTexture4);
@@ -482,7 +456,6 @@ void PlayState::render_score() {
 	textSurface2 = TTF_RenderText_Blended(font2, ("SCORE: " + std::to_string(score)).c_str(), colorText2);
 	textTexture2 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface2);
 }
-
 void PlayState::reload() {
 	int time = SDL_GetTicks();
 	if (time - next_reload >= 100) {
@@ -494,12 +467,10 @@ void PlayState::reload() {
 		next_reload = time;
 	}
 }
-
 void PlayState::shot1() {
 	int time = SDL_GetTicks();
 	if (time - next_bullet >= 150) {
 		Vector cam = Camera::getInstance()->GetPosition();
-	
 		if (ammo_count >= 1) {
 			bullets.push_back(new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame));
 			bullets.back()->fireBullet(crosshair);
@@ -511,7 +482,6 @@ void PlayState::shot1() {
 		}
 	}
 }
-
 void PlayState::shot3() {
 	int time = SDL_GetTicks();
 	if (time - next_bullet2 >= 200) {

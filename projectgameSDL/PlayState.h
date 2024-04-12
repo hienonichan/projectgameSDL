@@ -138,10 +138,6 @@ private:
     GameObject* player1 = nullptr;
     
 
-    SDL_Surface* textSurface = nullptr;
-    SDL_Texture* textTexture = nullptr;
-    SDL_Color colorText = { 255,255,255 };
-    SDL_Rect textRect = { 500,300,300,300 };
 
 
     SDL_Surface* textSurface2 = nullptr;
@@ -160,16 +156,13 @@ private:
     SDL_Color colorText4 = { 255,255,255 };
     SDL_Rect textRect4 = { 50,150,300,300 };
 
-    SDL_Surface* textSurface5 = nullptr;
-    SDL_Texture* textTexture5 = nullptr;
-    SDL_Color colorText5 = { 255,255,255 };
-    SDL_Rect textRect5 = { 350,400,300,300 };
+  
 
     SDL_Surface* surface_background = nullptr;
     SDL_Texture* texture_background = nullptr;
 
    
-    int mode_shot = 5;
+    int mode_shot = 3;
 
 };
 
