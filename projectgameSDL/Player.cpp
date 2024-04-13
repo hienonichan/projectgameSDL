@@ -41,8 +41,8 @@ bool check = true;
 
 void Player::update() {
 
-	skill_q->update();
-	skill_e->update();
+	skill_q->update(this);
+	skill_e->update(this);
 
 	if (Map::getInstance()->MapCollision(this)) {
 		check = false;

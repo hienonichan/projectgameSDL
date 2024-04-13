@@ -35,6 +35,8 @@ void Boss::update(GameObject*player) {
 			changeTexture("bosswalk", 12);
 			set_follow(player);
 		}
+
+
 	}
 	if (!awake) {
 		changeTexture("bossidle", 6); 

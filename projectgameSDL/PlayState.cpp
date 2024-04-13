@@ -347,6 +347,10 @@ bool PlayState::loadState() {
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/q_circle_off.png", "skill_1_off", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/e_circle_on.png", "skill_2_on", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/e_circle_off.png", "skill_2_off", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/skill_left.png", "skill_left", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/skill_up.png", "skill_up", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/skill_down.png", "skill_down", GameControl::getInstance()->getRenderer());
+
 
 	player1 = new Player("player", 700, 500, 60, 60, 6);
 	 crosshair = new Aim("crosshair", 100, 100, 150, 150, 1);
@@ -407,6 +411,10 @@ bool PlayState::exitState() {
 	ObjectTextureManager::getInstance()->eraseTexture("skill_1_off");
 	ObjectTextureManager::getInstance()->eraseTexture("skill_2_on");
 	ObjectTextureManager::getInstance()->eraseTexture("skill_2_off");
+	ObjectTextureManager::getInstance()->eraseTexture("skill_left");
+	ObjectTextureManager::getInstance()->eraseTexture("skill_up");
+	ObjectTextureManager::getInstance()->eraseTexture("skill_down");
+
 	
 	SDL_FreeSurface(textSurface2);
 	SDL_FreeSurface(textSurface3);

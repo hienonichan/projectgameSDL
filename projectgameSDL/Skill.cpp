@@ -7,16 +7,15 @@ Skill::Skill(std::string id,int x,int y,int w,int h,int framecount,char type):Ga
 	velocity = Vector(0,0);
 }
 
-void Skill::update() {
+void Skill::update(GameObject*player) {
 	if (skill_type == 'Q') {
 		if (InputChecker::getInstance()->checkKeyboard(SDL_SCANCODE_Q)&&turn_on==true) {
 			changeTexture("skill_1_off", 1);  
 			turn_on = false;
 			next = SDL_GetTicks();
-			std::vector<State*>temp = GameControl::getInstance()->getStateManager()->getVectorState();
-			static_cast<PlayState*>(temp.back())->summon();
+			sword_energy(player);
 		}
-		if (cool_down(1000)) {
+		if (cool_down(3000)) {
 			turn_on = true;
 			changeTexture("skill_1_on", 1);
 		}
@@ -26,19 +25,33 @@ void Skill::update() {
 			changeTexture("skill_2_off", 1);
 			turn_on = false;
 			next = SDL_GetTicks();
+			std::vector<State*>temp = GameControl::getInstance()->getStateManager()->getVectorState();
+			static_cast<PlayState*>(temp.back())->summon();
 		}
-		if (cool_down(3000)) {
+		if (cool_down(1000)) {
 			turn_on = true;
 			changeTexture("skill_2_on", 1);
 		}
 	}
     
 	GameObject::update();
+	if (left != nullptr && right != nullptr && up != nullptr && down != nullptr) {
+		left->update();
+		right->update();
+		up->update();
+		down->update();
+	}
 }
 
 
 void Skill::draw() {
 	GameObject::draw();
+	if (left != nullptr && right != nullptr && up != nullptr && down != nullptr) {
+		left->draw();
+		right->draw();
+		up->draw();
+		down->draw();
+	}
 }
 
 void Skill::clean() {
@@ -51,4 +64,21 @@ bool Skill::cool_down(int cooldown) {
 		return true;
 	}
 	return false;
+}
+
+void Skill::sword_energy(GameObject* player) {
+	int x = player->getPos().getX() - Camera::getInstance()->GetPosition().getX();
+	int y = player->getPos().getY() - Camera::getInstance()->GetPosition().getY();
+
+	left = new Bullet("skill_left", x, y, 50, 100, 1);
+	left->changeVelo(Vector(5, 0));
+
+	right = new Bullet("skill_left", x, y, 50, 100, 1);
+	right->changeVelo(Vector(-5, 0));
+
+	up= new Bullet("skill_up", x, y, 100, 50, 1);
+	up->changeVelo(Vector(0, -5));
+
+	down = new Bullet("skill_down", x, y, 100, 50, 1);
+	down->changeVelo(Vector(0, 5));
 }

@@ -56,7 +56,7 @@ void ObjectTextureManager::drawAnimation(std::string id, int x, int y, int width
 	if (id!="startbutton"&&id!="exitbutton"&&id!="continue"&&id!="menu"&&id!="map1"&&id!="map2"&&id!="restart"
 		&&id!="card1"&&id!="card2"&&id!="card3"&&id!="card4"&&id!="card5"&&id!="card6"&&id!="ammo"&&id!="bullet"
 		&&id!="bullet2"&&id!="bullet3"&&id!="bullet4"&&id!="crosshair"&&id!="skill_1_on"&&id!="skill_1_off"
-		&&id!="skill_2_on"&&id!="skill_2_off"
+		&&id!="skill_2_on"&&id!="skill_2_off"&&id!="skill_left"&&id!="skill_up"&&id!="skill_down"
 		) {
 		desRect.x -= cam.getX();
 		desRect.y -= cam.getY();
