@@ -114,7 +114,7 @@ public:
     void mode(int p) {
         mode_shot = p;
     }
-
+    void sword_energy_skill();
 
     std::vector<Enemy*>& getEnemyArray() {
         return enemys;
@@ -138,8 +138,6 @@ private:
     GameObject* player1 = nullptr;
     
 
-
-
     SDL_Surface* textSurface2 = nullptr;
     SDL_Texture* textTexture2 = nullptr;
     SDL_Color colorText2 = { 255,255,255 };
@@ -162,7 +160,7 @@ private:
     SDL_Texture* texture_background = nullptr;
 
    
-    int mode_shot = 3;
+    int mode_shot = 5;
 
 };
 

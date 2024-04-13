@@ -16,9 +16,17 @@ public:
 
 	void death();
 
+	int getHealth() { return health; }
+	void lowHealth(int dame) {
+		health -= dame;
+	}
+	void buffHealth(int buff) { health += buff; }
+
 private:
 	Skill* skill_q = nullptr;
 	Skill* skill_e = nullptr;
+
+	int health = 2;
 };
 
 

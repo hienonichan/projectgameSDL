@@ -40,7 +40,10 @@ void Player::draw() {
 bool check = true;
 
 void Player::update() {
-
+	if (health <= 0) {
+		health = 0;
+		death();
+	 }
 	skill_q->update(this);
 	skill_e->update(this);
 
@@ -78,6 +81,7 @@ void Player::update() {
 	//sprite = int(SDL_GetTicks() /speed_sprite) % frame;
 	
 	GameObject::update();
+
 }
 
 void Player::clean() {
@@ -88,8 +92,7 @@ void Player::death() {
 	check_death = true;
 	changeTexture("playerdeath", 8);
 	change_speedsprite(250);
-	update();
-	draw();
+	std::cout << sprite << std::endl;
 	if (sprite == 7) {
 		GameControl::getInstance()->getStateManager()->addState(new GameOver());
 	}

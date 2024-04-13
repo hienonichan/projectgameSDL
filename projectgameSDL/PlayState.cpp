@@ -50,38 +50,7 @@ int bullet_frame = 1;
 int current_score=0;
 int next_score=0;
 
-void PlayState:: rand_enemy(int type) {
-	ran_num = ran();
-	if (ran_num) {
-		check_ran = true;
-	}
-	if (type == 1) {
-		if (check_ran) {
-			int time = SDL_GetTicks();
-			if (time - next_create2 >= 300) {
-				Vector cam = Camera::getInstance()->GetPosition();
-				enemys.push_back(new Enemy("fire",bosses.back()->getPos().getX(), bosses.back()->getPos().getY(), 78, 120, 8,1));
-			}
-			check_ran = false;
-			next_create2 = time;
-		}
-	}
-	else {
-		if (check_ran) {
-			int time = SDL_GetTicks();
-			if (time - next_create >= 2000) {
-				if (ran_num <= 1400) {
-					enemys.push_back(new Enemy("enemy", ran_num, ran_num, 100, 80, 8,5));
-				}
-				else if (ran_num <= 1900) {
-					enemys.push_back(new Enemy("enemy2", ran_num, ran_num, 60, 60, 7,3));
-				}
-				check_ran = false;
-				next_create = time;
-			}
-		}
-	}
-}
+
 
 
 void PlayState::update() {
@@ -92,11 +61,6 @@ void PlayState::update() {
 
 	// random tao enemy 
 	rand_enemy(2);
-	
-	// het mau chuyen sang GameOver
-	if (health == 0) {
-		static_cast<Player*>(player1)->death();
-	}
 
      next_score = score;
 	if (next_score - current_score >= 100) {
@@ -110,16 +74,10 @@ void PlayState::update() {
 	}
 	// ban bang crosshair 1 vien
 	if (InputChecker::getInstance()->checkClicked(LEFT) == true) {
-		if (mode_shot == 3) {
-			shot3();
-		}
+		if (mode_shot == 3) { shot3();}
 		// ban ba vien
-		else if (mode_shot == 1) {
-			shot1();
-		}
-		else {
-			shot5();
-		}
+		else if (mode_shot == 1) {shot1();}
+		else {shot5();}
 	}
 	// check item sau do change bullet
 	for (int i = 0; i < items.size(); i++) {
@@ -207,10 +165,7 @@ void PlayState::update() {
 		if (CollisionChecker::getInstance()->CollisionEnemy(enemys[i], player1)) {
 			check_enemy[enemys[i]] = 1;
 			Mix_PlayChannel(4, hurtSound, 0);
-			health--;
-			if (health < 0) {
-				health = 0;
-			}
+			static_cast<Player*>(player1)->lowHealth(1);
 			render_health();
 		}
 	}
@@ -218,7 +173,7 @@ void PlayState::update() {
 	for (int i = 0; i < bosses.size(); i++) {
 		if (CollisionChecker::getInstance()->CollisionEnemy(bosses[i], player1)) {
 			Mix_PlayChannel(4, hurtSound, 0);
-			health = 0;
+			static_cast<Player*>(player1)->lowHealth(static_cast<Player*>(player1)->getHealth());
 			render_health();
 		}
 	}
@@ -441,7 +396,7 @@ void PlayState::up_attack() {
 	bullet_dame += 2;
 }
 void PlayState::up_health() {
-	health += 2;
+	static_cast<Player*>(player1)->buffHealth(2);
 }
 void PlayState::up_ammo() {
 	max_ammo += 2;
@@ -449,7 +404,7 @@ void PlayState::up_ammo() {
 void PlayState:: render_health() {
 	SDL_FreeSurface(textSurface3);
 	SDL_DestroyTexture(textTexture3);
-	textSurface3 = TTF_RenderText_Blended(font3, ("HEALTH:" + std::to_string(health)).c_str(), colorText3);
+	textSurface3 = TTF_RenderText_Blended(font3, ("HEALTH:" + std::to_string(static_cast<Player*>(player1)->getHealth())).c_str(), colorText3);
 	textTexture3 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface3);
 }
 void PlayState::render_ammo() {
@@ -480,7 +435,7 @@ void PlayState::shot1() {
 	if (time - next_bullet >= 150) {
 		Vector cam = Camera::getInstance()->GetPosition();
 		if (ammo_count >= 1) {
-			bullets.push_back(new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame));
+			bullets.push_back(new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame)); check_bullet[bullets.back()] = 0;
 			bullets.back()->fireBullet(crosshair);
 			ammo_count--;
 			Mix_VolumeChunk(shootingsound, MIX_MAX_VOLUME / 3);
@@ -494,9 +449,9 @@ void PlayState::shot3() {
 	int time = SDL_GetTicks();
 	if (time - next_bullet2 >= 200) {
 		Vector cam = Camera::getInstance()->GetPosition();
-		Bullet* bullet2 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame);
-		Bullet* bullet3 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame);
-		Bullet* bullet4 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame);
+		Bullet* bullet2 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame); check_bullet[bullet2] = 0;
+		Bullet* bullet3 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame); check_bullet[bullet3] = 0;
+		Bullet* bullet4 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame); check_bullet[bullet4] = 0;
 		if (ammo_count >= 3) {
 			ammo_count -= 3;
 			bullet2->fireBullet(crosshair);
@@ -516,11 +471,11 @@ void PlayState::shot5() {
 	int time = SDL_GetTicks();
 	if (time - next_bullet3>=300) {
 		Vector cam = Camera::getInstance()->GetPosition();
-		Bullet* bullet = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame);
-		Bullet* bullet2 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame);
-		Bullet* bullet3 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame);
-		Bullet* bullet4 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame);
-		Bullet* bullet5 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame);
+		Bullet* bullet = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame); check_bullet[bullet] = 0;
+		Bullet* bullet2 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame); check_bullet[bullet2] = 0;
+		Bullet* bullet3 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame);  check_bullet[bullet3] = 0;
+		Bullet* bullet4 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame); check_bullet[bullet4] = 0;
+		Bullet* bullet5 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame); check_bullet[bullet5] = 0;
 		if (ammo_count >= 5) {
 			ammo_count -= 5;
 			bullet->fireBullet(crosshair);
@@ -548,4 +503,48 @@ void PlayState::summon() {
 	check_bullet[bullet2] = 2;
 	bullets.push_back(bullet);
 	bullets.push_back(bullet2);
+}
+void PlayState::sword_energy_skill() {
+	int x = player1->getPos().getX() - Camera::getInstance()->GetPosition().getX();
+	int y = player1->getPos().getY() - Camera::getInstance()->GetPosition().getY();
+	bullets.push_back( new Bullet("skill_left", x, y, 50, 100, 1));
+	bullets.back()->changeVelo(Vector(5, 0)); check_bullet[bullets.back()] = 0;
+	bullets.push_back(new Bullet("skill_left", x, y, 50, 100, 1));
+	bullets.back()->changeVelo(Vector(-5, 0));  check_bullet[bullets.back()] = 0;
+	bullets.push_back(new Bullet("skill_up", x, y, 100, 50, 1));
+	bullets.back()->changeVelo(Vector(0, -5)); check_bullet[bullets.back()] = 0;
+	bullets.push_back(new Bullet("skill_down", x, y, 100, 50, 1));
+	bullets.back()->changeVelo(Vector(0, 5)); check_bullet[bullets.back()] = 0;
+}
+void PlayState::rand_enemy(int type) {
+	ran_num = ran();
+	if (ran_num) {
+		check_ran = true;
+	}
+	if (type == 1) {
+		if (check_ran) {
+			int time = SDL_GetTicks();
+			if (time - next_create2 >= 300) {
+				Vector cam = Camera::getInstance()->GetPosition();
+				enemys.push_back(new Enemy("fire", bosses.back()->getPos().getX(), bosses.back()->getPos().getY(), 78, 120, 8, 1));
+			}
+			check_ran = false;
+			next_create2 = time;
+		}
+	}
+	else {
+		if (check_ran) {
+			int time = SDL_GetTicks();
+			if (time - next_create >= 2000) {
+				if (ran_num <= 1400) {
+					enemys.push_back(new Enemy("enemy", ran_num, ran_num, 100, 80, 8, 5));
+				}
+				else if (ran_num <= 1900) {
+					enemys.push_back(new Enemy("enemy2", ran_num, ran_num, 60, 60, 7, 3));
+				}
+				check_ran = false;
+				next_create = time;
+			}
+		}
+	}
 }

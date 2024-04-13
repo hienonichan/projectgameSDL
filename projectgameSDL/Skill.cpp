@@ -15,7 +15,7 @@ void Skill::update(GameObject*player) {
 			next = SDL_GetTicks();
 			sword_energy(player);
 		}
-		if (cool_down(3000)) {
+		if (cool_down(300)) {
 			turn_on = true;
 			changeTexture("skill_1_on", 1);
 		}
@@ -67,18 +67,6 @@ bool Skill::cool_down(int cooldown) {
 }
 
 void Skill::sword_energy(GameObject* player) {
-	int x = player->getPos().getX() - Camera::getInstance()->GetPosition().getX();
-	int y = player->getPos().getY() - Camera::getInstance()->GetPosition().getY();
-
-	left = new Bullet("skill_left", x, y, 50, 100, 1);
-	left->changeVelo(Vector(5, 0));
-
-	right = new Bullet("skill_left", x, y, 50, 100, 1);
-	right->changeVelo(Vector(-5, 0));
-
-	up= new Bullet("skill_up", x, y, 100, 50, 1);
-	up->changeVelo(Vector(0, -5));
-
-	down = new Bullet("skill_down", x, y, 100, 50, 1);
-	down->changeVelo(Vector(0, 5));
+	std::vector<State*> loi = GameControl::getInstance()->getStateManager()->getVectorState();
+	static_cast<PlayState*>(loi.back())->sword_energy_skill();
 }

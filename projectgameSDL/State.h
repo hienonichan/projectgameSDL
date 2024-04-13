@@ -13,7 +13,7 @@ public:
 	virtual int getScore() { return score; }
 protected:
 	int score = 0;
-	int health = 200000;
+	//int health = 200000;
 	
 	 int max_ammo = 12;
 	int ammo_count = max_ammo;
