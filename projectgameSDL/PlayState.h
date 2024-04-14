@@ -28,53 +28,10 @@ public:
 
     void rand_enemy(int type);
 
-    void clearBullet() {
-        // clear dan trung muc tieu
-        for (int i = 0; i < bullets.size(); i++) {
-            Vector cam = Camera::getInstance()->GetPosition();
-            if (check_bullet[bullets[i]] == 1) {
-                bullets[i]->clean();
-                bullets.erase(bullets.begin() + i);
-                i--;
-            }
-            else if (abs(bullets[i]->getPos().length() - (player1->getPos()-cam).length()) >= SCREEN_WIDTH) {
-                bullets[i]->clean();
-                bullets.erase(bullets.begin() + i);
-                i--;
-            }
-        }
-    }
-
-    void clearEnemy() {
-        // clear enemy bi chet
-        for (int i = 0; i < enemys.size(); i++) {
-            if (check_enemy[enemys[i]] == 1) {
-                enemys[i]->clean();
-                enemys.erase(enemys.begin() + i);
-                i--;
-            }
-        }
-    }
-
-    void clearBoss() {
-        for (int i = 0; i < bosses.size(); i++) {
-            if (check_boss[bosses[i]] == 1) {
-                bosses[i]->clean();
-                bosses.erase(bosses.begin() + i);
-                i--;
-            }
-        }
-    }
-
-    void clearItem() {
-        for (int i = 0; i < items.size(); i++) {
-            if (check_item[items[i]] == 1) {
-                items[i]->clean();
-                items.erase(items.begin() + i);
-                i--;
-            }
-        }
-    }
+    void clearBullet();
+    void clearEnemy();
+    void clearBoss();
+    void clearItem();
 
     // ham check reload
     bool checkReload() {
@@ -160,7 +117,7 @@ private:
     SDL_Texture* texture_background = nullptr;
 
    
-    int mode_shot = 5;
+    int mode_shot = 1;
 
 };
 

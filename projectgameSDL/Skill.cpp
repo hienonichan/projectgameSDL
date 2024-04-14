@@ -15,7 +15,7 @@ void Skill::update(GameObject*player) {
 			next = SDL_GetTicks();
 			sword_energy(player);
 		}
-		if (cool_down(300)) {
+		if (cool_down(500)) {
 			turn_on = true;
 			changeTexture("skill_1_on", 1);
 		}

@@ -26,7 +26,7 @@ private:
 	Skill* skill_q = nullptr;
 	Skill* skill_e = nullptr;
 
-	int health = 2;
+	int health = 5;
 };
 
 

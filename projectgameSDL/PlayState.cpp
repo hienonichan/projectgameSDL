@@ -19,12 +19,17 @@ TTF_Font* font2 = nullptr;
 TTF_Font* font3 = nullptr;
 TTF_Font* font4 = nullptr;
 TTF_Font* font5 = nullptr;
+enum BULLET_STATE {
+	BULLET_NOT_HIT=0,
+	BULLET_HIT=1,
+	BULLET_CIRCLE=2,
+	BULLET_EXPLOSION=3
+};
 
-int chua_trung = 0;
-int dan_trung = 1;
-int dan_xoay = 2;
-int dan_no = 3;
-
+enum ENEMY_STATE{
+	ALIVE=0,
+	DIE=1
+};
 
 // cac bien dieu khien ham random
 int ran_num = 0;
@@ -55,7 +60,7 @@ int next_score=0;
 
 void PlayState::update() {
 
-	//std::cout << bullets.size() << std::endl;
+	
 
 	Map::getInstance()->MapCollision(player1);
 
@@ -120,14 +125,14 @@ void PlayState::update() {
 				if (enemys[j]->getHealth() <= 0) {
 					score++;
 					// danh dau enemy chet
-					check_enemy[enemys[j]] = 1;
+					check_enemy[enemys[j]] = DIE;
 					// cap nhat texture Score
 					render_score();
 				}
 				else {
 					enemys[j]->lowHealth(bullet_dame);
 				}
-				check_bullet[bullets[i]] = 3;
+				check_bullet[bullets[i]] = BULLET_EXPLOSION;
 				bullets[i]->explosion();
 			}
 		}
@@ -137,7 +142,7 @@ void PlayState::update() {
 		for (int z = 0; z < bosses.size(); z++) {
 			if (CollisionChecker::getInstance()->CollisionBullet(bosses[z], bullets[i])) {
 				if (bosses[z]->getHealth() <= 0) {
-					check_boss[bosses[z]] = 1;
+					check_boss[bosses[z]] = DIE;
 					score += 20;
 					// neu boss chet thi cap nhat diem
 					render_score();
@@ -145,8 +150,7 @@ void PlayState::update() {
 				else {
 					bosses[z]->lowHealth(bullet_dame);
 				}
-
-				check_bullet[bullets[i]] = 3;
+				check_bullet[bullets[i]] = BULLET_EXPLOSION;
 				bullets[i]->explosion();
 			}
 		}
@@ -163,7 +167,7 @@ void PlayState::update() {
 	// cap nhat texture health
 	for (int i = 0; i < enemys.size(); i++) {
 		if (CollisionChecker::getInstance()->CollisionEnemy(enemys[i], player1)) {
-			check_enemy[enemys[i]] = 1;
+			check_enemy[enemys[i]] = DIE;
 			Mix_PlayChannel(4, hurtSound, 0);
 			static_cast<Player*>(player1)->lowHealth(1);
 			render_health();
@@ -182,13 +186,13 @@ void PlayState::update() {
 	}
 	// update cho boss
 	for (int i = 0; i < bosses.size(); i++) {
-		if (check_boss[bosses[i]] == 0) {
+		if (check_boss[bosses[i]] == ALIVE) {
 			bosses[i]->update(player1);
 		}
 	}
 	// neu enemy con song thi update
 	for (int i = 0; i < enemys.size(); i++) {
-		if (check_enemy[enemys[i]] == 0) {
+		if (check_enemy[enemys[i]] == ALIVE) {
 			enemys[i]->update();
 			enemys[i]->set_follow(player1);
 		}
@@ -196,18 +200,18 @@ void PlayState::update() {
 	// neu dan chua trung thi update
 	if (!bullets.empty()) {
 		for (int i = 0; i < bullets.size(); i++) {
-			if (check_bullet[bullets[i]] == 0) {
+			if (check_bullet[bullets[i]] == BULLET_NOT_HIT) {
 				bullets[i]->update();
 			}
-			if (check_bullet[bullets[i]] == 2) {
+			if (check_bullet[bullets[i]] == BULLET_CIRCLE) {
 				bullets[i]->updateSpin(player1, 100);
 			}
-			if (check_bullet[bullets[i]] == 3) {
+			if (check_bullet[bullets[i]] == BULLET_EXPLOSION) {
 				if (bullets[i]->getSprite() < 7) {
 					bullets[i]->update();
 				}
 				else {
-					check_bullet[bullets[i]] = 1;
+					check_bullet[bullets[i]] = BULLET_HIT;
 				}
 			}
 		}
@@ -435,7 +439,7 @@ void PlayState::shot1() {
 	if (time - next_bullet >= 150) {
 		Vector cam = Camera::getInstance()->GetPosition();
 		if (ammo_count >= 1) {
-			bullets.push_back(new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame)); check_bullet[bullets.back()] = 0;
+			bullets.push_back(new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame));  check_bullet[bullets.back()] = 0;
 			bullets.back()->fireBullet(crosshair);
 			ammo_count--;
 			Mix_VolumeChunk(shootingsound, MIX_MAX_VOLUME / 3);
@@ -545,6 +549,50 @@ void PlayState::rand_enemy(int type) {
 				check_ran = false;
 				next_create = time;
 			}
+		}
+	}
+}
+void PlayState::clearBullet() {
+	// clear dan trung muc tieu
+	for (int i = 0; i < bullets.size(); i++) {
+		Vector cam = Camera::getInstance()->GetPosition();
+		if (check_bullet[bullets[i]] == BULLET_HIT) {
+			bullets[i]->clean();
+			bullets.erase(bullets.begin() + i);
+			i--;
+		}
+		else if (abs(bullets[i]->getPos().length() - (player1->getPos() - cam).length()) >= SCREEN_WIDTH) {
+			bullets[i]->clean();
+			bullets.erase(bullets.begin() + i);
+			i--;
+		}
+	}
+}
+void PlayState::clearEnemy() {
+	// clear enemy bi chet
+	for (int i = 0; i < enemys.size(); i++) {
+		if (check_enemy[enemys[i]] == DIE) {
+			enemys[i]->clean();
+			enemys.erase(enemys.begin() + i);
+			i--;
+		}
+	}
+}
+void PlayState::clearBoss() {
+	for (int i = 0; i < bosses.size(); i++) {
+		if (check_boss[bosses[i]] == DIE) {
+			bosses[i]->clean();
+			bosses.erase(bosses.begin() + i);
+			i--;
+		}
+	}
+}
+void PlayState::clearItem() {
+	for (int i = 0; i < items.size(); i++) {
+		if (check_item[items[i]] == 1) {
+			items[i]->clean();
+			items.erase(items.begin() + i);
+			i--;
 		}
 	}
 }
