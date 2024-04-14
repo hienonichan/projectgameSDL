@@ -41,10 +41,7 @@ public:
         return false;
     }
 
-    int ran() {
-        int loi = rand() % 2000 + 1;
-        return loi;
-    }
+   
 
 
     // xu li boost
@@ -118,6 +115,18 @@ private:
 
    
     int mode_shot = 1;
+
+    enum BULLET_STATE {
+        BULLET_NOT_HIT = 0,
+        BULLET_HIT = 1,
+        BULLET_CIRCLE = 2,
+        BULLET_EXPLOSION = 3
+    };
+
+    enum ENEMY_STATE {
+        ALIVE = 0,
+        DIE = 1
+    };
 
 };
 

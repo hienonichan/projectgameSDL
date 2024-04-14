@@ -1,8 +1,8 @@
 #include"BulletObject.h"
 
 
-Bullet::Bullet(std::string id,int x,int y,int w,int h,int framecount):GameObject(id,x,y,w,h,framecount){
-	
+Bullet::Bullet(std::string id,int x,int y,int w,int h,int framecount,int bulletdame):GameObject(id,x,y,w,h,framecount){
+	bullet_dame = bulletdame;
 }
 
 void Bullet::draw() {

@@ -20,14 +20,14 @@ public:
 	void lowHealth(int dame) {
 		health -= dame;
 	}
-	void set_follow(GameObject* player) {
+	void set_follow(GameObject* player) { 
 		velocity = (player->getPos()- position);
 		velocity.setLength1();
 		velocity/=1;
 	}
 private:
-	int max_health = 5;
-	int health = max_health;
+	int max_health;
+	int health;
 	Healthbar* healthbar = nullptr;
 };
 

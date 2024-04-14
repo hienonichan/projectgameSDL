@@ -8,7 +8,7 @@
 
 class Bullet:public GameObject {
 public:
-	Bullet(std::string id,int x, int y, int w, int h, int framecount);
+	Bullet(std::string id, int x, int y, int w, int h, int framecount,int bulletdame);
 	void draw();
 	void update();
 	void clean();
@@ -16,9 +16,11 @@ public:
 	void fireBulletup(GameObject* crosshair, float angle);
 	void updateSpin(GameObject*player,double r);
 	void explosion();
+	int getBulletDame() { return bullet_dame; }
 	
 private:
 	double angle = 0;
+	int bullet_dame;
 };
 
 

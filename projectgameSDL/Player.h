@@ -20,13 +20,16 @@ public:
 	void lowHealth(int dame) {
 		health -= dame;
 	}
+	int getAttack() { return attack; }
+	void buffAttack(int dame) { attack += dame; }
 	void buffHealth(int buff) { health += buff; }
 
 private:
 	Skill* skill_q = nullptr;
 	Skill* skill_e = nullptr;
 
-	int health = 5;
+	int health = 100000000000000;
+	int attack = 1;
 };
 
 

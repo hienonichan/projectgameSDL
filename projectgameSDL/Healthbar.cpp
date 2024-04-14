@@ -9,7 +9,7 @@ Healthbar::Healthbar(std::string id, int x, int y, int w, int h, int framecount)
 void Healthbar::update(GameObject*enemy) {
 	if (static_cast<Enemy*>(enemy)) {
 		Enemy* loi = static_cast<Enemy*>(enemy);
-		changeW(max_w * loi->getHealth() / loi->getMaxHealth());
+		changeW(max_w*loi->getHealth()/loi->getMaxHealth());
      }
 	else {
 		Boss* loi = static_cast<Boss*>(enemy);

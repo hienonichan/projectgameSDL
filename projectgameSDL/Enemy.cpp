@@ -8,7 +8,8 @@
 #include"Enemy.h"
 
 Enemy::Enemy(std::string id, int x, int y, int w, int h,int framecount,int heal) : GameObject(id, x, y, w, h,framecount) {
-	health = heal;
+	max_health = heal;
+	health = max_health;
 	healthbar = new Healthbar("redbar", position.getX()+10, position.getY()-10, 40,5, 1);
 }
 

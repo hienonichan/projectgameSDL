@@ -19,17 +19,7 @@ TTF_Font* font2 = nullptr;
 TTF_Font* font3 = nullptr;
 TTF_Font* font4 = nullptr;
 TTF_Font* font5 = nullptr;
-enum BULLET_STATE {
-	BULLET_NOT_HIT=0,
-	BULLET_HIT=1,
-	BULLET_CIRCLE=2,
-	BULLET_EXPLOSION=3
-};
 
-enum ENEMY_STATE{
-	ALIVE=0,
-	DIE=1
-};
 
 // cac bien dieu khien ham random
 int ran_num = 0;
@@ -48,8 +38,8 @@ GameObject* crosshair = nullptr;
 std::string bullet_id = "bullet";
 int bullet_w = 19;
 int bullet_h = 19;
-int bullet_dame=1;
 int bullet_frame = 1;
+int bullet_dame = 1;
 
 // dieu kien upgrade
 int current_score=0;
@@ -88,11 +78,12 @@ void PlayState::update() {
 	for (int i = 0; i < items.size(); i++) {
 		if (CollisionChecker::getInstance()->CollisionEnemy(items[i], player1)) {
 			check_item[items[i]] = 1;
-			int ran_id = ran() % 4;
+			int ran_id = rand() % 4;
 			if (ran_id == 0) {
 				bullet_id = "bullet";
 				bullet_w = bullet_h = 20;
 				bullet_frame = 1;
+				bullet_dame = 1;
 				
 			}
 			else if (ran_id == 1) {
@@ -100,6 +91,7 @@ void PlayState::update() {
 				bullet_h = 25;
 				bullet_w = 32;
 				bullet_frame = 6;
+				bullet_dame = 2;
 				
 			}
 			else if (ran_id == 2) {
@@ -107,6 +99,7 @@ void PlayState::update() {
 				bullet_h = 25;
 				bullet_w = 31;
 				bullet_frame = 6;
+				bullet_dame = 4;
 				
 			}
 			else {
@@ -114,7 +107,7 @@ void PlayState::update() {
 				bullet_h = 25;
 				bullet_w = 32;
 				bullet_frame = 6;
-				
+				bullet_dame = 10;
 			}
 		}
 	}
@@ -130,7 +123,7 @@ void PlayState::update() {
 					render_score();
 				}
 				else {
-					enemys[j]->lowHealth(bullet_dame);
+					enemys[j]->lowHealth(static_cast<Player*>(player1)->getAttack()+bullets[i]->getBulletDame());
 				}
 				check_bullet[bullets[i]] = BULLET_EXPLOSION;
 				bullets[i]->explosion();
@@ -148,7 +141,7 @@ void PlayState::update() {
 					render_score();
 				}
 				else {
-					bosses[z]->lowHealth(bullet_dame);
+					bosses[z]->lowHealth(static_cast<Player*>(player1)->getAttack()+bullets[i]->getBulletDame());
 				}
 				check_bullet[bullets[i]] = BULLET_EXPLOSION;
 				bullets[i]->explosion();
@@ -286,12 +279,13 @@ bool PlayState::loadState() {
 
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/solider run.png", "player",GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/zom2.png", "enemy", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/enemy2.png", "enemy2", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/enemy3.png", "enemy3", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/solider stand.png", "playerstand", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/bullet.png", "bullet", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/bullet2.png", "bullet2", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/bullet3.png", "bullet3", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/bullet4.png", "bullet4", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/enemy2.png", "enemy2", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/crosshair.png", "crosshair", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/boss.png","boss",GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/item.png", "item", GameControl::getInstance()->getRenderer());
@@ -320,7 +314,7 @@ bool PlayState::loadState() {
 	bosses.push_back(new Boss("bossidle", 1200, 500, 288, 160, 6));
 
 	for (int i = 1; i <= 20; i++) {
-		items.push_back(new GameItem("item",ran() , ran() , 32, 32, 1));
+		items.push_back(new GameItem("item",rand()%2000 , rand()%1640 , 32, 32, 1));
 	}
 
 
@@ -397,7 +391,7 @@ bool PlayState::exitState() {
 }
 
 void PlayState::up_attack() {
-	bullet_dame += 2;
+	static_cast<Player*>(player1)->buffAttack(2);
 }
 void PlayState::up_health() {
 	static_cast<Player*>(player1)->buffHealth(2);
@@ -439,7 +433,7 @@ void PlayState::shot1() {
 	if (time - next_bullet >= 150) {
 		Vector cam = Camera::getInstance()->GetPosition();
 		if (ammo_count >= 1) {
-			bullets.push_back(new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame));  check_bullet[bullets.back()] = 0;
+			bullets.push_back(new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame,bullet_dame));  check_bullet[bullets.back()] = 0;
 			bullets.back()->fireBullet(crosshair);
 			ammo_count--;
 			Mix_VolumeChunk(shootingsound, MIX_MAX_VOLUME / 3);
@@ -453,9 +447,9 @@ void PlayState::shot3() {
 	int time = SDL_GetTicks();
 	if (time - next_bullet2 >= 200) {
 		Vector cam = Camera::getInstance()->GetPosition();
-		Bullet* bullet2 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame); check_bullet[bullet2] = 0;
-		Bullet* bullet3 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame); check_bullet[bullet3] = 0;
-		Bullet* bullet4 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame); check_bullet[bullet4] = 0;
+		Bullet* bullet2 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame,bullet_dame); check_bullet[bullet2] = 0;
+		Bullet* bullet3 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame,bullet_dame); check_bullet[bullet3] = 0;
+		Bullet* bullet4 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame,bullet_dame); check_bullet[bullet4] = 0;
 		if (ammo_count >= 3) {
 			ammo_count -= 3;
 			bullet2->fireBullet(crosshair);
@@ -475,11 +469,11 @@ void PlayState::shot5() {
 	int time = SDL_GetTicks();
 	if (time - next_bullet3>=300) {
 		Vector cam = Camera::getInstance()->GetPosition();
-		Bullet* bullet = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame); check_bullet[bullet] = 0;
-		Bullet* bullet2 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame); check_bullet[bullet2] = 0;
-		Bullet* bullet3 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame);  check_bullet[bullet3] = 0;
-		Bullet* bullet4 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame); check_bullet[bullet4] = 0;
-		Bullet* bullet5 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame); check_bullet[bullet5] = 0;
+		Bullet* bullet = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame,bullet_dame); check_bullet[bullet] = 0;
+		Bullet* bullet2 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame,bullet_dame); check_bullet[bullet2] = 0;
+		Bullet* bullet3 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame,bullet_dame);  check_bullet[bullet3] = 0;
+		Bullet* bullet4 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame,bullet_dame); check_bullet[bullet4] = 0;
+		Bullet* bullet5 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame,bullet_dame); check_bullet[bullet5] = 0;
 		if (ammo_count >= 5) {
 			ammo_count -= 5;
 			bullet->fireBullet(crosshair);
@@ -501,56 +495,52 @@ void PlayState::shot5() {
 }
 void PlayState::summon() {
 	Vector cam = Camera::getInstance()->GetPosition();
-	Bullet* bullet = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame);
-	Bullet* bullet2 = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame);
+	Bullet* bullet = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame,bullet_dame);
 	check_bullet[bullet] = 2;
-	check_bullet[bullet2] = 2;
 	bullets.push_back(bullet);
-	bullets.push_back(bullet2);
 }
 void PlayState::sword_energy_skill() {
 	int x = player1->getPos().getX() - Camera::getInstance()->GetPosition().getX();
 	int y = player1->getPos().getY() - Camera::getInstance()->GetPosition().getY();
-	bullets.push_back( new Bullet("skill_left", x, y, 50, 100, 1));
+	bullets.push_back( new Bullet("skill_left", x, y, 50, 100, 1,100));
 	bullets.back()->changeVelo(Vector(5, 0)); check_bullet[bullets.back()] = 0;
-	bullets.push_back(new Bullet("skill_left", x, y, 50, 100, 1));
+	bullets.push_back(new Bullet("skill_left", x, y, 50, 100, 1,100));
 	bullets.back()->changeVelo(Vector(-5, 0));  check_bullet[bullets.back()] = 0;
-	bullets.push_back(new Bullet("skill_up", x, y, 100, 50, 1));
+	bullets.push_back(new Bullet("skill_up", x, y, 100, 50, 1,100));
 	bullets.back()->changeVelo(Vector(0, -5)); check_bullet[bullets.back()] = 0;
-	bullets.push_back(new Bullet("skill_down", x, y, 100, 50, 1));
+	bullets.push_back(new Bullet("skill_down", x, y, 100, 50, 1,100));
+
 	bullets.back()->changeVelo(Vector(0, 5)); check_bullet[bullets.back()] = 0;
 }
 void PlayState::rand_enemy(int type) {
-	ran_num = ran();
-	if (ran_num) {
-		check_ran = true;
-	}
+	
 	if (type == 1) {
-		if (check_ran) {
 			int time = SDL_GetTicks();
-			if (time - next_create2 >= 300) {
+			if (time - next_create2 >= 500) {
 				Vector cam = Camera::getInstance()->GetPosition();
 				enemys.push_back(new Enemy("fire", bosses.back()->getPos().getX(), bosses.back()->getPos().getY(), 78, 120, 8, 1));
+				check_enemy[enemys.back()] = ALIVE;
 			}
-			check_ran = false;
+			
 			next_create2 = time;
-		}
 	}
 	else {
-		if (check_ran) {
+		int ran_num = rand() % 3;
 			int time = SDL_GetTicks();
-			if (time - next_create >= 2000) {
-				if (ran_num <= 1400) {
-					enemys.push_back(new Enemy("enemy", ran_num, ran_num, 100, 80, 8, 5));
+			if (time - next_create >= 1500) {
+				if (ran_num ==0) {
+					enemys.push_back(new Enemy("enemy", rand() % 2500 - 500, rand() % 2000 - 500, 100, 80, 8, 10)); check_enemy[enemys.back()] = ALIVE;
 				}
-				else if (ran_num <= 1900) {
-					enemys.push_back(new Enemy("enemy2", ran_num, ran_num, 60, 60, 7, 3));
+				else if (ran_num ==1) {
+					enemys.push_back(new Enemy("enemy2", rand() % 1500 - 500, rand() % 1500 - 500, 60, 60, 7, 15));  check_enemy[enemys.back()] = ALIVE;
 				}
-				check_ran = false;
+				else if (ran_num == 2) {
+					enemys.push_back(new Enemy("enemy3", rand() % 1500 - 500, rand() % 1500 - 500, 96, 64, 10, 20)); check_enemy[enemys.back()] = ALIVE;
+				}
 				next_create = time;
 			}
-		}
 	}
+	std::cout << next_create << std::endl;
 }
 void PlayState::clearBullet() {
 	// clear dan trung muc tieu
