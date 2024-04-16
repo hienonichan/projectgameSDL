@@ -40,9 +40,17 @@ public:
         }
         return false;
     }
-
+    
+    std::pair<int,int> ranPos() {  
+        int hehe = rand() % 2;
+        int x = rand() % 2860 - 150;
+        int y;
+        if (hehe == 1) { y= sqrt(8192000 - pow(x - 1280, 2)) + 640; }
+        else { y=-sqrt(8192000 - pow(x - 1280, 2)) + 640; }
+        return std::make_pair(x, y);
+    }
    
-
+       
 
     // xu li boost
     void up_health();

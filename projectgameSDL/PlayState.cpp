@@ -527,20 +527,20 @@ void PlayState::rand_enemy(int type) {
 	else {
 		int ran_num = rand() % 3;
 			int time = SDL_GetTicks();
-			if (time - next_create >= 1500) {
+			if (time - next_create >= 1000) {
 				if (ran_num ==0) {
-					enemys.push_back(new Enemy("enemy", rand() % 2500 - 500, rand() % 2000 - 500, 100, 80, 8, 10)); check_enemy[enemys.back()] = ALIVE;
+					enemys.push_back(new Enemy("enemy", ranPos().first,ranPos().second, 100, 80, 8, 10)); check_enemy[enemys.back()] = ALIVE;
 				}
 				else if (ran_num ==1) {
-					enemys.push_back(new Enemy("enemy2", rand() % 1500 - 500, rand() % 1500 - 500, 60, 60, 7, 15));  check_enemy[enemys.back()] = ALIVE;
+					enemys.push_back(new Enemy("enemy2",ranPos().first,ranPos().second, 60, 60, 7, 15));  check_enemy[enemys.back()] = ALIVE;
 				}
 				else if (ran_num == 2) {
-					enemys.push_back(new Enemy("enemy3", rand() % 1500 - 500, rand() % 1500 - 500, 96, 64, 10, 20)); check_enemy[enemys.back()] = ALIVE;
+					enemys.push_back(new Enemy("enemy3",ranPos().first,ranPos().second, 96, 64, 10, 20)); check_enemy[enemys.back()] = ALIVE;
 				}
 				next_create = time;
 			}
 	}
-	std::cout << next_create << std::endl;
+	
 }
 void PlayState::clearBullet() {
 	// clear dan trung muc tieu

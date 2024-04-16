@@ -40,17 +40,13 @@ bool GameControl::init(const char* title, int x, int y, int width, int height, b
 		return false;
 	}
 	game_running = true;
-	
-
 	GameControl::getInstance()->getStateManager()->addState(new HomeState());
 	return true;
 }
 
 
 void GameControl::render() {
-	// tai background va may cai lat vat
 	SDL_RenderClear(renderer);
-	
 	// tai object chinh
 	GameControl::getInstance()->getStateManager()->render();
 	SDL_RenderPresent(renderer);

@@ -47,8 +47,6 @@ private:
 
 	StateManager* state = new StateManager();
 	
-
-
 };
 
 #endif

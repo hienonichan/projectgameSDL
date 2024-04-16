@@ -40,6 +40,11 @@ private:
 	SDL_Surface* surface_home = nullptr;
 	SDL_Texture* texture_home = nullptr;
 	SDL_Rect rect_home = { 275,50,692,500 };
+
+	SDL_Surface* surface_logo = nullptr;
+	SDL_Texture* texture_logo = nullptr;
+	SDL_Rect rect_logo = { 420,100,433,162 };
+	
 };
 
 
