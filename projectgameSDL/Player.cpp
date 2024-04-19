@@ -4,12 +4,16 @@
 #include"ObjectTextureManager.h"
 #include"MapObject.h"
 #include"Camera.h"
+
 SDL_RendererFlip check_flip = SDL_FLIP_NONE;
 
 
 Player::Player(std::string id, int x, int y, int w, int h,int framecount):GameObject(id,x,y,w,h,framecount) {
+	healthbar = new Healthbar("redbar", 56, 26, 168, 12, 1);
+	
 	skill_q = new Skill("skill_1_on", 1050, 500, 100, 100, 1, 'Q');
 	skill_e = new Skill("skill_2_on", 1150, 450, 100, 100, 1, 'E');
+	
 }
 
 void Player::draw() {
@@ -35,6 +39,7 @@ void Player::draw() {
 	}
 	skill_q->draw();
 	skill_e->draw();
+	healthbar->draw();
 }
 
 bool check = true;
@@ -77,14 +82,12 @@ void Player::update() {
 	// lay tam nhan vat
 	origin->x = position.getX() +width / 2;
 	origin->y = position.getY() + height / 2;
-	  
-	//sprite = int(SDL_GetTicks() /speed_sprite) % frame;
-	
 	GameObject::update();
-
+	healthbar->changeW(healthbar->getMaxW() * health / max_health);
 }
 
 void Player::clean() {
+	healthbar->clean();
 	GameObject::clean();
 }
 

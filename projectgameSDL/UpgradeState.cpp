@@ -92,7 +92,6 @@ void UpgradeState::upgrade_health() {
 	std::vector<State*>loi = GameControl::getInstance()->getStateManager()->getVectorState();
 	check = dynamic_cast<PlayState*>(loi[loi.size() - 2]);
 	check->up_health();
-	check->render_health();
 	GameControl::getInstance()->getStateManager()->deleteState();
 }
 

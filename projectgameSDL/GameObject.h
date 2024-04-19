@@ -16,7 +16,7 @@ public:
 	
 
 	void changeTexture(std::string id,int framecount) { 
-		if (sprite >=frame) {
+		if (sprite >=framecount) {
 			sprite = 0;
 		}
 		frame = framecount;
@@ -31,6 +31,7 @@ public:
 	int getW() { return width; }
 	int getH() { return height; }
 	int getSprite(){ return sprite; }
+	std::string getTextureid() { return textureID; }
 
 	Point* GetOrigin() { return origin; }
 

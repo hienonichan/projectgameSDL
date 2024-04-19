@@ -55,7 +55,7 @@ void PlayState::update() {
 	Map::getInstance()->MapCollision(player1);
 
 	// random tao enemy 
-	rand_enemy(2);
+	//rand_enemy(2);
 
      next_score = score;
 	if (next_score - current_score >= 100) {
@@ -160,10 +160,14 @@ void PlayState::update() {
 	// cap nhat texture health
 	for (int i = 0; i < enemys.size(); i++) {
 		if (CollisionChecker::getInstance()->CollisionEnemy(enemys[i], player1)) {
-			check_enemy[enemys[i]] = DIE;
+			if (enemys[i]->getTextureid() == "fire") {
+				check_enemy[enemys[i]] = DIE;
+				static_cast<Player*>(player1)->lowHealth(30);
+			}
+			else {
+				static_cast<Player*>(player1)->lowHealth(1);
+			}
 			Mix_PlayChannel(4, hurtSound, 0);
-			static_cast<Player*>(player1)->lowHealth(1);
-			render_health();
 		}
 	}
 	// va cham voi boss
@@ -171,7 +175,6 @@ void PlayState::update() {
 		if (CollisionChecker::getInstance()->CollisionEnemy(bosses[i], player1)) {
 			Mix_PlayChannel(4, hurtSound, 0);
 			static_cast<Player*>(player1)->lowHealth(static_cast<Player*>(player1)->getHealth());
-			render_health();
 		}
 	}
 	for (int i = 0; i < gameObjects.size(); i++) {
@@ -185,9 +188,8 @@ void PlayState::update() {
 	}
 	// neu enemy con song thi update
 	for (int i = 0; i < enemys.size(); i++) {
-		if (check_enemy[enemys[i]] == ALIVE) {
-			enemys[i]->update();
-			enemys[i]->set_follow(player1);
+		if (check_enemy[enemys[i]] == ALIVE) { 
+			enemys[i]->update(player1);
 		}
 	} 
 	// neu dan chua trung thi update
@@ -263,10 +265,12 @@ void PlayState::render() {
 	
 	// cap nhat hien score len man hinh
 	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), textTexture2, NULL, &textRect2);
-	// cap nhat health len man hinh
-	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), textTexture3, NULL, &textRect3);
+	
 	// cap nhat ammo
 	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), textTexture4, NULL, &textRect4);
+	SDL_RenderCopy(GameControl::getInstance()->getRenderer(), texture_bar, NULL, &rect_bar);
+
+	
 }
 
 
@@ -295,7 +299,6 @@ bool PlayState::loadState() {
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/boss idle.png", "bossidle", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/fire.png", "fire", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/explosion.png", "explosion", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/red bar.png", "redbar", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/q_circle_on.png", "skill_1_on", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/q_circle_off.png", "skill_1_off", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/e_circle_on.png", "skill_2_on", GameControl::getInstance()->getRenderer());
@@ -303,8 +306,13 @@ bool PlayState::loadState() {
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/skill_left.png", "skill_left", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/skill_up.png", "skill_up", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/skill_down.png", "skill_down", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/Skeleton_01_White_Attack1.png", "enemy3attack", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/enemy4.png", "enemy4", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/enemy4attack.png", "enemy4attack", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/health bar red.png", "redbar", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/red bar.png", "redbar2", GameControl::getInstance()->getRenderer());
 
-
+	enemys.push_back(new Enemy("enemy3", 200, 200, 96, 64, 10, 20,3)); check_enemy[enemys.back()] = ALIVE;
 	player1 = new Player("player", 700, 500, 60, 60, 6);
 	 crosshair = new Aim("crosshair", 100, 100, 150, 150, 1);
 	gameObjects.push_back(player1);
@@ -317,23 +325,26 @@ bool PlayState::loadState() {
 		items.push_back(new GameItem("item",rand()%2000 , rand()%1640 , 32, 32, 1));
 	}
 
+	
 
 	std::string background = "C:/projectgameSDL/projectgameSDL/background play.png";
 	surface_background = IMG_Load(background.c_str());
 	texture_background = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), surface_background);
 
+	std::string bar = "C:/projectgameSDL/projectgameSDL/health bar origin.png";
+	surface_bar = IMG_Load(bar.c_str());
+	texture_bar = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), surface_bar);
+
 	// lay player lam trung tam camera
 	Camera::getInstance()->SetTarget(player1->GetOrigin());
 	// tai score len goc trai
-	font2 = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/LibreBaskerville-Bold.ttf", 30);
+	font2 = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/LibreBaskerville-Bold.ttf", 18);
 	render_score();
 	SDL_QueryTexture(textTexture2, NULL, NULL, &textRect2.w, &textRect2.h);
-	// tai chu health
-	font3 = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/LibreBaskerville-Bold.ttf", 25);
-	render_health();
-	SDL_QueryTexture(textTexture3, NULL, NULL, &textRect3.w, &textRect3.h);
+	
+
 	// tai chu ammo
-	font4 = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/LibreBaskerville-Bold.ttf", 25);
+	font4 = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/LibreBaskerville-Bold.ttf", 18);
 	render_ammo();
 	SDL_QueryTexture(textTexture4, NULL, NULL, &textRect4.w, &textRect4.h);
 
@@ -367,19 +378,20 @@ bool PlayState::exitState() {
 	ObjectTextureManager::getInstance()->eraseTexture("skill_left");
 	ObjectTextureManager::getInstance()->eraseTexture("skill_up");
 	ObjectTextureManager::getInstance()->eraseTexture("skill_down");
+	ObjectTextureManager::getInstance()->eraseTexture("enemy3attack");
+	ObjectTextureManager::getInstance()->eraseTexture("enemy4attack");
+	ObjectTextureManager::getInstance()->eraseTexture("enemy4");
 
 	
 	SDL_FreeSurface(textSurface2);
-	SDL_FreeSurface(textSurface3);
 	SDL_FreeSurface(textSurface4);
 	SDL_FreeSurface(surface_background);
-
+	SDL_FreeSurface(surface_bar);
 	
 	SDL_DestroyTexture(textTexture2);
-	SDL_DestroyTexture(textTexture3);
 	SDL_DestroyTexture(textTexture4);
 	SDL_DestroyTexture(texture_background);
-
+	SDL_DestroyTexture(texture_bar);
 
 	Mix_FreeChunk(sound1);
 	Mix_FreeChunk(shootingsound);
@@ -399,12 +411,8 @@ void PlayState::up_health() {
 void PlayState::up_ammo() {
 	max_ammo += 2;
 }
-void PlayState:: render_health() {
-	SDL_FreeSurface(textSurface3);
-	SDL_DestroyTexture(textTexture3);
-	textSurface3 = TTF_RenderText_Blended(font3, ("HEALTH:" + std::to_string(static_cast<Player*>(player1)->getHealth())).c_str(), colorText3);
-	textTexture3 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface3);
-}
+
+
 void PlayState::render_ammo() {
 	SDL_FreeSurface(textSurface4);
 	SDL_DestroyTexture(textTexture4);
@@ -518,7 +526,7 @@ void PlayState::rand_enemy(int type) {
 			int time = SDL_GetTicks();
 			if (time - next_create2 >= 500) {
 				Vector cam = Camera::getInstance()->GetPosition();
-				enemys.push_back(new Enemy("fire", bosses.back()->getPos().getX(), bosses.back()->getPos().getY(), 78, 120, 8, 1));
+				enemys.push_back(new Enemy("fire", bosses.back()->getPos().getX(), bosses.back()->getPos().getY(), 78, 120, 8, 1,0));
 				check_enemy[enemys.back()] = ALIVE;
 			}
 			
@@ -529,13 +537,15 @@ void PlayState::rand_enemy(int type) {
 			int time = SDL_GetTicks();
 			if (time - next_create >= 1000) {
 				if (ran_num ==0) {
-					enemys.push_back(new Enemy("enemy", ranPos().first,ranPos().second, 100, 80, 8, 10)); check_enemy[enemys.back()] = ALIVE;
+					//enemys.push_back(new Enemy("enemy", ranPos().first,ranPos().second, 100, 80, 8, 10)); check_enemy[enemys.back()] = ALIVE;
+					enemys.push_back(new Enemy("enemy3", ranPos().first, ranPos().second, 96, 64, 10, 20,3)); check_enemy[enemys.back()] = ALIVE;
 				}
 				else if (ran_num ==1) {
-					enemys.push_back(new Enemy("enemy2",ranPos().first,ranPos().second, 60, 60, 7, 15));  check_enemy[enemys.back()] = ALIVE;
+					//enemys.push_back(new Enemy("enemy2",ranPos().first,ranPos().second, 60, 60, 7, 15));  check_enemy[enemys.back()] = ALIVE;
+					enemys.push_back(new Enemy("enemy4", ranPos().first, ranPos().second, 96, 64, 10, 20,4)); check_enemy[enemys.back()] = ALIVE;
 				}
 				else if (ran_num == 2) {
-					enemys.push_back(new Enemy("enemy3",ranPos().first,ranPos().second, 96, 64, 10, 20)); check_enemy[enemys.back()] = ALIVE;
+					enemys.push_back(new Enemy("enemy3",ranPos().first,ranPos().second, 96, 64, 10, 20,3)); check_enemy[enemys.back()] = ALIVE;
 				}
 				next_create = time;
 			}

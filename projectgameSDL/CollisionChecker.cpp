@@ -1,5 +1,6 @@
 #include"CollisionChecker.h"
 #include"Camera.h"
+#include"Enemy.h"
 CollisionChecker* CollisionChecker::instance = 0;
 
 
@@ -20,8 +21,10 @@ bool CollisionChecker::CollisionEnemy(GameObject* enemy, GameObject* player) {
 	if (left1+lowSquare >= right2) { return false; }
 	if (left2+lowSquare >= right1) { return false; }
 	if (under1 <= top2+lowSquare) { return false; }
-	if (under2 <= top1+lowSquare) { return false; }
-
+	if (under2 <= top1 + lowSquare) { return false; }
+	if (enemy->getTextureid() != "fire"&&enemy->getTextureid()!="item") {
+		if (!static_cast<Enemy*>(enemy)->enemy_state() || !(enemy->getSprite() == 5)) { return false; }
+	}
 	return true;
 }
 

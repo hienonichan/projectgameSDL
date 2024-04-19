@@ -15,7 +15,7 @@ void Skill::update(GameObject*player) {
 			next = SDL_GetTicks();
 			sword_energy(player);
 		}
-		if (cool_down(500)) {
+		if (cool_down(5000)) {
 			turn_on = true;
 			changeTexture("skill_1_on", 1);
 		}
@@ -35,23 +35,13 @@ void Skill::update(GameObject*player) {
 	}
     
 	GameObject::update();
-	if (left != nullptr && right != nullptr && up != nullptr && down != nullptr) {
-		left->update();
-		right->update();
-		up->update();
-		down->update();
-	}
+	
 }
 
 
 void Skill::draw() {
 	GameObject::draw();
-	if (left != nullptr && right != nullptr && up != nullptr && down != nullptr) {
-		left->draw();
-		right->draw();
-		up->draw();
-		down->draw();
-	}
+	
 }
 
 void Skill::clean() {

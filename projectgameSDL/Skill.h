@@ -21,12 +21,5 @@ private:
 	char skill_type;
 	bool turn_on = true;
 	int next = 0;
-
-	Bullet* left = nullptr;
-	Bullet* right = nullptr;
-	Bullet* up = nullptr;
-	Bullet* down = nullptr;
-	
-	
 };
 #endif

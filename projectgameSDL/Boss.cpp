@@ -4,7 +4,7 @@
 #include"PlayState.h"
 
 Boss::Boss(std::string id,int x,int y,int w,int h,int framecount):GameObject(id,x,y,w,h,framecount){
-	healthbar = new Healthbar("redbar", position.getX(), position.getY(), 96, 13, 1);
+	healthbar = new Healthbar("redbar2", position.getX(), position.getY(), 96, 13, 1);
 }
 
 // bien check boss da awake chua
@@ -35,8 +35,6 @@ void Boss::update(GameObject*player) {
 			changeTexture("bosswalk", 12);
 			set_follow(player);
 		}
-
-
 	}
 	if (!awake) {
 		changeTexture("bossidle", 6); 

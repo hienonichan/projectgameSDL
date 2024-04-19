@@ -7,10 +7,13 @@
 #include"GameObject.h"
 #include"Enemy.h"
 
-Enemy::Enemy(std::string id, int x, int y, int w, int h,int framecount,int heal) : GameObject(id, x, y, w, h,framecount) {
+
+
+Enemy::Enemy(std::string id, int x, int y, int w, int h,int framecount,int heal,int type) : GameObject(id, x, y, w, h,framecount) {
 	max_health = heal;
 	health = max_health;
-	healthbar = new Healthbar("redbar", position.getX()+10, position.getY()-10, 40,5, 1);
+	id_enemy = type;
+	healthbar = new Healthbar("redbar2", position.getX()+10, position.getY()-10, 40,5, 1);
 }
 
 void Enemy::draw() {
@@ -19,10 +22,32 @@ void Enemy::draw() {
 }
 
 
-void Enemy::update() {
-	//sprite = int(SDL_GetTicks() / speed_sprite) % frame;
+void Enemy::update(GameObject*player) {
     healthbar->update(this);
 	healthbar->changePos(Vector(position.getX() + 15, position.getY() - 15));
+
+	if (getTextureid() == "fire") {
+		set_follow(player);
+	}
+	else {
+		if (sprite == 9&&textureID=="enemy"+std::to_string(id_enemy)+"attack") {
+			attack_state = false;
+		}
+		Vector cam = Camera::getInstance()->GetPosition();
+		if (abs((position-cam).length() - (player->getPos()-cam).length()) <= 15) {
+			attack_state = true;
+			velocity = Vector(0, 0);
+			change_speedsprite(150);
+			changeTexture("enemy" + std::to_string(id_enemy) + "attack", 10);
+	     }
+		else{
+			if (attack_state == false) {
+				changeTexture("enemy"+std::to_string(id_enemy), 10);
+				set_follow(player);
+				change_speedsprite(100);
+			}
+		}
+	}
 	GameObject::update();
 }
 

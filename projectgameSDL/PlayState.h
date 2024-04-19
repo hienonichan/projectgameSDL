@@ -58,7 +58,6 @@ public:
     void up_ammo();
 
     // xu li render stat
-    void render_health();
     void render_ammo();
     void render_score();
 
@@ -103,24 +102,22 @@ private:
     SDL_Surface* textSurface2 = nullptr;
     SDL_Texture* textTexture2 = nullptr;
     SDL_Color colorText2 = { 255,255,255 };
-    SDL_Rect textRect2 = { 50,50,300,300 };
+    SDL_Rect textRect2 = { 50,80,300,300 };
 
-
-    SDL_Surface* textSurface3 = nullptr;
-    SDL_Texture* textTexture3 = nullptr;
-    SDL_Color colorText3 = { 255,255,255 };
-    SDL_Rect textRect3 = { 50,100,300,300 };
 
     SDL_Surface* textSurface4 = nullptr;
     SDL_Texture* textTexture4 = nullptr;
     SDL_Color colorText4 = { 255,255,255 };
-    SDL_Rect textRect4 = { 50,150,300,300 };
+    SDL_Rect textRect4 = { 50,100,300,300 };
 
   
 
     SDL_Surface* surface_background = nullptr;
     SDL_Texture* texture_background = nullptr;
 
+    SDL_Surface* surface_bar = nullptr;
+    SDL_Texture* texture_bar = nullptr;
+    SDL_Rect rect_bar = { 0,0,228,60 };
    
     int mode_shot = 1;
 
@@ -135,6 +132,8 @@ private:
         ALIVE = 0,
         DIE = 1
     };
+
+   
 
 };
 

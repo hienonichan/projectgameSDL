@@ -6,6 +6,7 @@
 #include<string>
 #include"GameOver.h"
 #include"Skill.h"
+#include"Healthbar.h"
 
 class Player :public GameObject {
 public:
@@ -17,6 +18,7 @@ public:
 	void death();
 
 	int getHealth() { return health; }
+	int getMaxHealth() { return max_health; }
 	void lowHealth(int dame) {
 		health -= dame;
 	}
@@ -28,9 +30,12 @@ private:
 	Skill* skill_q = nullptr;
 	Skill* skill_e = nullptr;
 
-	int health = 100000000000000;
-	int attack = 1;
-};
+    int max_health = 200;
+	int health = max_health;
+	int attack = 1; 
+
+	Healthbar* healthbar = nullptr;
+}; 
 
 
 #endif
