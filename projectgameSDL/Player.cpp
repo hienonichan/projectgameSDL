@@ -82,8 +82,10 @@ void Player::update() {
 	// lay tam nhan vat
 	origin->x = position.getX() +width / 2;
 	origin->y = position.getY() + height / 2;
+
+	healthbar->update(this);
 	GameObject::update();
-	healthbar->changeW(healthbar->getMaxW() * health / max_health);
+	
 }
 
 void Player::clean() {

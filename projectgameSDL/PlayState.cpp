@@ -52,10 +52,10 @@ void PlayState::update() {
 
 	
 
-	Map::getInstance()->MapCollision(player1);
+	Map::getInstance()->MapCollision(player1);  
 
 	// random tao enemy 
-	//rand_enemy(2);
+	rand_enemy(2);
 
      next_score = score;
 	if (next_score - current_score >= 100) {
@@ -311,8 +311,10 @@ bool PlayState::loadState() {
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/enemy4attack.png", "enemy4attack", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/health bar red.png", "redbar", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/red bar.png", "redbar2", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/enemy5.png", "enemy5", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/enemy5attack.png", "enemy5attack", GameControl::getInstance()->getRenderer());
 
-	enemys.push_back(new Enemy("enemy3", 200, 200, 96, 64, 10, 20,3)); check_enemy[enemys.back()] = ALIVE;
+	enemys.push_back(new Enemy("enemy5", 200, 200, 96, 96, 10, 20,5)); check_enemy[enemys.back()] = ALIVE;
 	player1 = new Player("player", 700, 500, 60, 60, 6);
 	 crosshair = new Aim("crosshair", 100, 100, 150, 150, 1);
 	gameObjects.push_back(player1);
@@ -324,7 +326,7 @@ bool PlayState::loadState() {
 	for (int i = 1; i <= 20; i++) {
 		items.push_back(new GameItem("item",rand()%2000 , rand()%1640 , 32, 32, 1));
 	}
-
+ 
 	
 
 	std::string background = "C:/projectgameSDL/projectgameSDL/background play.png";
@@ -381,6 +383,8 @@ bool PlayState::exitState() {
 	ObjectTextureManager::getInstance()->eraseTexture("enemy3attack");
 	ObjectTextureManager::getInstance()->eraseTexture("enemy4attack");
 	ObjectTextureManager::getInstance()->eraseTexture("enemy4");
+	ObjectTextureManager::getInstance()->eraseTexture("enemy5attack");
+	ObjectTextureManager::getInstance()->eraseTexture("enemy5");
 
 	
 	SDL_FreeSurface(textSurface2);
@@ -545,8 +549,9 @@ void PlayState::rand_enemy(int type) {
 					enemys.push_back(new Enemy("enemy4", ranPos().first, ranPos().second, 96, 64, 10, 20,4)); check_enemy[enemys.back()] = ALIVE;
 				}
 				else if (ran_num == 2) {
-					enemys.push_back(new Enemy("enemy3",ranPos().first,ranPos().second, 96, 64, 10, 20,3)); check_enemy[enemys.back()] = ALIVE;
+					enemys.push_back(new Enemy("enemy5", 200, 200, 96, 96, 10, 20, 5)); check_enemy[enemys.back()] = ALIVE;
 				}
+				
 				next_create = time;
 			}
 	}

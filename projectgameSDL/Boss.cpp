@@ -41,7 +41,6 @@ void Boss::update(GameObject*player) {
 		velocity = Vector(0, 0);
 	}
 	healthbar->update(this);
-	healthbar->changePos(Vector(position.getX() + 100, position.getY()+20));
 	GameObject::update();
    //	std::cout << sprite << std::endl;
 }

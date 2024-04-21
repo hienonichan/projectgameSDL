@@ -11,6 +11,7 @@ bool ObjectTextureManager::loadTexture(std::string file, std::string id, SDL_Ren
 		return false;
 	}
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_FreeSurface(surface);
 	if (texture == 0) {
 		std::cout << "have some error in load texture\n";
 		return false;

@@ -24,13 +24,11 @@ void Enemy::draw() {
 
 void Enemy::update(GameObject*player) {
     healthbar->update(this);
-	healthbar->changePos(Vector(position.getX() + 15, position.getY() - 15));
-
 	if (getTextureid() == "fire") {
 		set_follow(player);
 	}
 	else {
-		if (sprite == 9&&textureID=="enemy"+std::to_string(id_enemy)+"attack") {
+		if (sprite == frame-1&&textureID=="enemy"+std::to_string(id_enemy)+"attack") {
 			attack_state = false;
 		}
 		Vector cam = Camera::getInstance()->GetPosition();
