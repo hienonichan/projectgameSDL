@@ -88,10 +88,10 @@ private:
     std::vector<Bullet*>bullets;
     std::vector<Boss*>bosses;
     std::vector<GameItem*>items;
-    Mix_Chunk* sound1 = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/playing music.wav");
-    Mix_Chunk* shootingsound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/shooting sound.wav");
-    Mix_Chunk* hurtSound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/roblox-death-sound-effect.wav");
-    Mix_Chunk* reloadSound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/1911-reload-6248.wav");
+    Mix_Chunk* sound1 = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/source sound/playing music.wav");
+    Mix_Chunk* shootingsound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/source sound/shooting sound.wav");
+    Mix_Chunk* hurtSound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/source sound/roblox-death-sound-effect.wav");
+    Mix_Chunk* reloadSound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/source sound/1911-reload-6248.wav");
     std::map<Enemy*, int>check_enemy;
     std::map<Bullet*, int>check_bullet;
     std::map<Boss*, int>check_boss;

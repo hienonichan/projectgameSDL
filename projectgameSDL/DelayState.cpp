@@ -25,25 +25,25 @@ void DelayState::render() {
 }
 
 bool DelayState::loadState() {
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/continue.png", "continue", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/menu.png", "menu", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/continue.png", "continue", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/menu.png", "menu", GameControl::getInstance()->getRenderer());
 	GameObject* button1 = new GameButton("continue", 480, 230,288 , 129, 1, turnToPlay);
 	GameObject* button2 = new GameButton("menu", 480, 350, 287, 122, 1, turnToHome);
 	gameObjects.push_back(button1);
 	gameObjects.push_back(button2);
 
 
-	TTF_Font* font = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/PixeloidSans-Bold.ttf", 30);
+	TTF_Font* font = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/source ttf/PixeloidSans-Bold.ttf", 30);
 	textSurface = TTF_RenderText_Blended(font, "MONSTER KILLER", colorText);
 	textTexture = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface);
 	SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
 
 
-	std::string background = "C:/projectgameSDL/projectgameSDL/background1.jpg";
+	std::string background = "C:/projectgameSDL/projectgameSDL/source picture/background1.jpg";
 	surface_background = IMG_Load(background.c_str());
 	texture_background = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), surface_background);
 
-	surface_home = IMG_Load("C:/projectgameSDL/projectgameSDL/homepic.png");
+	surface_home = IMG_Load("C:/projectgameSDL/projectgameSDL/source picture/homepic.png");
 	texture_home = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), surface_home);
 	std::cout << "loading delaySTate\n";
 	return true;

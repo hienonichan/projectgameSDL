@@ -20,8 +20,8 @@ Map::Map() {
 
 	
 
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/tileset map.png", "tileset", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/tileset2.png", "tileset2", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/tileset map.png", "tileset", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/tileset2.png", "tileset2", GameControl::getInstance()->getRenderer());
 	int z = 1;
 	for (int i = 0; i < tileset_height; i++) {
 		for (int j = 0; j < tileset_width; j++) {

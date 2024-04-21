@@ -19,12 +19,12 @@ void UpgradeState::render() {
 }
 
 bool UpgradeState::loadState() {
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/card1.png", "card1", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/card2.png", "card2", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/card3.png", "card3", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/card4.png", "card4", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/card5.png", "card5", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/card6.png", "card6", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/card1.png", "card1", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/card2.png", "card2", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/card3.png", "card3", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/card4.png", "card4", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/card5.png", "card5", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/card6.png", "card6", GameControl::getInstance()->getRenderer());
 
 	
      
@@ -48,11 +48,11 @@ bool UpgradeState::loadState() {
 		gameObjects.push_back(button6);
 	}
 
-	std::string background = "C:/projectgameSDL/projectgameSDL/anh ma mi.jpg";
+	std::string background = "C:/projectgameSDL/projectgameSDL/source picture/anh ma mi.jpg";
 	background_surface = IMG_Load(background.c_str());
 	background_texture = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), background_surface);
 
-	TTF_Font* font = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/LibreBaskerville-Bold.ttf", 30);
+	TTF_Font* font = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/source ttf/LibreBaskerville-Bold.ttf", 30);
 	textSurface = TTF_RenderText_Blended(font, "YOU GOT NEW LEVEL! CHOOSE YOUR BOOST", colorText);
 	textTexture = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface);
 	SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
