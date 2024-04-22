@@ -15,7 +15,7 @@ void Skill::update(GameObject*player) {
 			next = SDL_GetTicks();
 			sword_energy(player);
 		}
-		if (cool_down(5000)) {
+		if (cool_down(q_cooldown)) {
 			turn_on = true;
 			changeTexture("skill_1_on", 1);
 		}
@@ -26,9 +26,11 @@ void Skill::update(GameObject*player) {
 			turn_on = false;
 			next = SDL_GetTicks();
 			std::vector<State*>temp = GameControl::getInstance()->getStateManager()->getVectorState();
-			static_cast<PlayState*>(temp.back())->summon();
+			if (dynamic_cast<PlayState*>(temp.back())) {
+				dynamic_cast<PlayState*>(temp.back())->summon();
+			}
 		}
-		if (cool_down(1000)) {
+		if (cool_down(e_cooldown)) {
 			turn_on = true;
 			changeTexture("skill_2_on", 1);
 		}
@@ -58,5 +60,7 @@ bool Skill::cool_down(int cooldown) {
 
 void Skill::sword_energy(GameObject* player) {
 	std::vector<State*> loi = GameControl::getInstance()->getStateManager()->getVectorState();
-	static_cast<PlayState*>(loi.back())->sword_energy_skill();
+	if (dynamic_cast<PlayState*>(loi.back())) {
+		dynamic_cast<PlayState*>(loi.back())->sword_energy_skill();
+	}
 }

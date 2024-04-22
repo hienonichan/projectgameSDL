@@ -92,6 +92,8 @@ private:
     Mix_Chunk* shootingsound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/source sound/shooting sound.wav");
     Mix_Chunk* hurtSound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/source sound/roblox-death-sound-effect.wav");
     Mix_Chunk* reloadSound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/source sound/1911-reload-6248.wav");
+    Mix_Chunk* explosionSound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/source sound/explosion sound.wav");
+
     std::map<Enemy*, int>check_enemy;
     std::map<Bullet*, int>check_bullet;
     std::map<Boss*, int>check_boss;
@@ -109,8 +111,6 @@ private:
     SDL_Texture* textTexture4 = nullptr;
     SDL_Color colorText4 = { 255,255,255 };
     SDL_Rect textRect4 = { 50,100,300,300 };
-
-  
 
     SDL_Surface* surface_background = nullptr;
     SDL_Texture* texture_background = nullptr;
@@ -134,7 +134,30 @@ private:
     };
 
    
+    // dieu kien upgrade
+    int current_score = 0;
+    int next_score = 0;
 
+    // thong so cua dan
+    std::string bullet_id = "bullet";
+    int bullet_w = 19;
+    int bullet_h = 19;
+    int bullet_frame = 1;
+    int bullet_dame = 1;
+
+
+    // cac bien dieu khien ham random
+    int ran_num = 0;
+    int next_create = 0;
+    int next_create2 = 0;
+    bool check_ran = false;
+
+    // cac bien dieu khien sinh bullet
+    int next_bullet = 0;
+    int next_bullet2 = 0;
+    int next_bullet3 = 0;
+    int next_reload = 0;
+    GameObject* crosshair = nullptr;
 };
 
 #endif

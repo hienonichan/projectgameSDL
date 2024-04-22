@@ -91,7 +91,9 @@ void UpgradeState::upgrade_health() {
 	PlayState* check = nullptr;
 	std::vector<State*>loi = GameControl::getInstance()->getStateManager()->getVectorState();
 	check = dynamic_cast<PlayState*>(loi[loi.size() - 2]);
-	check->up_health();
+	if (check) {
+		check->up_health();
+	}
 	GameControl::getInstance()->getStateManager()->deleteState();
 }
 
@@ -99,7 +101,9 @@ void UpgradeState::upgrade_attack() {
 	PlayState* check = nullptr;
 	std::vector<State*>loi = GameControl::getInstance()->getStateManager()->getVectorState();
 	check = dynamic_cast<PlayState*>(loi[loi.size() - 2]);
-	check->up_attack();
+	if (check) {
+		check->up_attack();
+	}
 	GameControl::getInstance()->getStateManager()->deleteState();
 
 }
@@ -108,27 +112,35 @@ void UpgradeState::upgrade_ammo() {
 	PlayState* check = nullptr;
 	std::vector<State*>loi = GameControl::getInstance()->getStateManager()->getVectorState();
 	check = dynamic_cast<PlayState*>(loi[loi.size() - 2]);
-	check->up_ammo();
+	if (check) {
+		check->up_ammo();
+	}
 	GameControl::getInstance()->getStateManager()->deleteState();
 }
 
 void UpgradeState::summon_bullet() {
 	std::vector<State*>loi = GameControl::getInstance()->getStateManager()->getVectorState();
 	PlayState* check = dynamic_cast<PlayState*>(loi[loi.size() - 2]);
-	check->summon();
+	if (check) {
+		check->summon();
+	}
 	GameControl::getInstance()->getStateManager()->deleteState();
 }
 
 void UpgradeState::shotbullet3() {
 	std::vector<State*>loi = GameControl::getInstance()->getStateManager()->getVectorState();
 	PlayState* check = dynamic_cast<PlayState*>(loi[loi.size() - 2]);
-	check->mode(3);
+	if (check) {
+		check->mode(3);
+	}
 	GameControl::getInstance()->getStateManager()->deleteState();
 }
 
 void UpgradeState::shotbullet5() {
 	std::vector<State*>loi = GameControl::getInstance()->getStateManager()->getVectorState();
-	PlayState* check = static_cast<PlayState*>(loi[loi.size() - 2]);
-	check->mode(5);
+	PlayState* check = dynamic_cast<PlayState*>(loi[loi.size() - 2]);
+	if (check) {
+		check->mode(5);
+	}
 	GameControl::getInstance()->getStateManager()->deleteState();
 }
