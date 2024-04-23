@@ -1,15 +1,16 @@
 # MONSTER KILLER - A game project made by SDL2 C++
 ## Introduction
  - This is a project game made with SDL2 C++
-
- - For more information. Watch game's demo:
+ - Author: Vũ Minh Hiến
+ - Student id: 23020064
+ - For more information about gameplay. Watch game's demo:
 
 ## Technologies
 
 Project uses:
  - Visual Studio 2022
  - SDL2-2.28.5
- - SDL2_image-2.8.2
+ - SDL2_image-2.8.2 
  - SDL2_mixer-2.0.2
  - SDL2_ttf-2.0.18
 
@@ -35,5 +36,5 @@ In this mission, you must survive among monsters with only a gun while waiting f
 
    
 **Notes**
- - Your health is limited . Try to survival and kill monsters as much as you can to earn item and update
+ - Your health is limited . Try to survival,kill monsters and collect item  as much as to reach level.When reach level you can upgrade stat and weapon
    
