@@ -92,7 +92,7 @@ private:
     Mix_Chunk* shootingsound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/source sound/shooting sound.wav");
     Mix_Chunk* hurtSound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/source sound/roblox-death-sound-effect.wav");
     Mix_Chunk* reloadSound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/source sound/1911-reload-6248.wav");
-    Mix_Chunk* explosionSound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/source sound/explosion sound.wav");
+  
 
     std::map<Enemy*, int>check_enemy;
     std::map<Bullet*, int>check_bullet;

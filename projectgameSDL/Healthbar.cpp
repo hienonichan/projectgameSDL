@@ -11,7 +11,12 @@ void Healthbar::update(GameObject*enemy) {
 	if (dynamic_cast<Enemy*>(enemy)) {
 		Enemy* loi = dynamic_cast<Enemy*>(enemy);
 		changeW(max_w * loi->getHealth() / loi->getMaxHealth());
-		changePos(Vector(loi->getPos().getX() + 15,loi->getPos().getY() - 15));
+		if (enemy->getTextureid() == "enemy6" || enemy->getTextureid() == "enemy6attack") {
+			changePos(Vector(loi->getPos().getX() + 50, loi->getPos().getY() - 15));
+		}
+		else {
+			changePos(Vector(loi->getPos().getX() + 15, loi->getPos().getY() - 15));
+		}
 	}
 	else if(dynamic_cast<Boss*>(enemy)) {
 		Boss* loi = dynamic_cast<Boss*>(enemy);

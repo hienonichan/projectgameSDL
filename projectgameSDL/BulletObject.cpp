@@ -40,10 +40,11 @@ void Bullet::updateSpin(GameObject*player,double r) {
 	sprite = int(SDL_GetTicks() / 100) % frame;
 	Vector cam = Camera::getInstance()->GetPosition();
 	float rad = angle * M_PI / 180.0f;
-	position.setX(player->getPos().getX()+20 - cam.getX() + r * cos(rad));
-	position.setY(player->getPos().getY()+20- cam.getY() + r * sin(rad));
+	position.setX(player->getPos().getX()+18 - cam.getX() + r * cos(rad));
+	position.setY(player->getPos().getY()+18- cam.getY() + r * sin(rad));
 	angle += 2;
 }
+
 
 
 void Bullet::explosion() {

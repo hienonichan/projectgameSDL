@@ -17,26 +17,28 @@ public:
     virtual int getStateCode() { return code; }
 private:
     int code = 4;
+    int score = 0;
     std::vector<GameObject*>gameObjects;
-
     static void restart();
     static void returnMenu();
 
     SDL_Surface* textSurface = nullptr;
     SDL_Texture* textTexture = nullptr;
     SDL_Color colorText = { 255,0,0 };
-    SDL_Rect textRect = { 470,100,300,300 };
+    SDL_Rect textRect = { 480,90,300,300 };
 
     SDL_Surface* textSurface2 = nullptr;
     SDL_Texture* textTexture2 = nullptr;
     SDL_Color colorText2 = { 255,255,255 };
-    SDL_Rect textRect2 = { 500,135,300,300 };
+    SDL_Rect textRect2 = { 550,125,300,300 };
 
-    int max_score = 0;
+    SDL_Surface* textSurface3 = nullptr;
+    SDL_Texture* textTexture3 = nullptr;
+    SDL_Color colorText3 = { 255,255,255 };
+    SDL_Rect textRect3 = { 530,145,300,300 };
 
     SDL_Surface* surface_background = nullptr;
     SDL_Texture* texture_background = nullptr;
-
 
     SDL_Surface* surface_home = nullptr;
     SDL_Texture* texture_home = nullptr;

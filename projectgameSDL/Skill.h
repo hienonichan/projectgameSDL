@@ -22,7 +22,7 @@ private:
 	bool turn_on = true;
 	int next = 0;
 
-	const int q_cooldown = 5000;
-	const int e_cooldown = 100;
+	const int q_cooldown = 3000;
+	const int e_cooldown = 10000;
 };
 #endif

@@ -17,6 +17,7 @@ public:
 	void updateSpin(GameObject*player,double r);
 	void explosion();
 	int getBulletDame() { return bullet_dame; }
+	void changeAngle(double c) { angle = c; }
 	
 private:
 	double angle = 0;

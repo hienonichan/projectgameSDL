@@ -31,10 +31,8 @@ private:
 	SDL_Texture* background_texture = nullptr;
 
 	SDL_Surface* textSurface = nullptr;
-	SDL_Texture* textTexture = nullptr;
+	SDL_Texture* textTexture = nullptr; 
 	SDL_Color colorText = { 255,255,255 };
 	SDL_Rect textRect = { 250,100,300,300 };
-
-
 };
 #endif

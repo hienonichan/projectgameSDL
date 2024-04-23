@@ -95,7 +95,6 @@ void PlayState::update() {
 					enemys[j]->lowHealth(static_cast<Player*>(player1)->getAttack()+bullets[i]->getBulletDame());
 				}
 				check_bullet[bullets[i]] = BULLET_EXPLOSION;
-				Mix_PlayChannel(5, explosionSound, 0);
 				bullets[i]->explosion();
 			}
 		}
@@ -114,7 +113,6 @@ void PlayState::update() {
 					bosses[z]->lowHealth(static_cast<Player*>(player1)->getAttack()+bullets[i]->getBulletDame());
 				}
 				check_bullet[bullets[i]] = BULLET_EXPLOSION;
-				Mix_PlayChannel(5, explosionSound, 0);
 				bullets[i]->explosion();
 			}
 		}
@@ -282,8 +280,11 @@ bool PlayState::loadState() {
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/red bar.png", "redbar2", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/enemy5.png", "enemy5", GameControl::getInstance()->getRenderer());
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/enemy5attack.png", "enemy5attack", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/enemy6.png", "enemy6", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/enemy6attack.png", "enemy6attack", GameControl::getInstance()->getRenderer());
 
-	enemys.push_back(new Enemy("enemy5", 200, 200, 96, 96, 10, 50,5)); check_enemy[enemys.back()] = ALIVE;
+
+	enemys.push_back(new Enemy("enemy6", 200, 200, 150, 100, 10, 50,6)); check_enemy[enemys.back()] = ALIVE;
 	player1 = new Player("player", 700, 500, 60, 60, 6);
 	 crosshair = new Aim("crosshair", 100, 100, 150, 150, 1);
 	gameObjects.push_back(player1);
@@ -295,19 +296,16 @@ bool PlayState::loadState() {
 	for (int i = 1; i <= 20; i++) {
 		items.push_back(new GameItem("item",rand()%2000 , rand()%1640 , 32, 32, 1));
 	}
- 
-	
-
 	std::string background = "C:/projectgameSDL/projectgameSDL/source picture/background play.png";
 	surface_background = IMG_Load(background.c_str());
 	texture_background = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), surface_background);
-
 	std::string bar = "C:/projectgameSDL/projectgameSDL/source picture/health bar origin.png";
 	surface_bar = IMG_Load(bar.c_str());
 	texture_bar = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), surface_bar);
 
 	// lay player lam trung tam camera
 	Camera::getInstance()->SetTarget(player1->GetOrigin());
+
 	// tai score len goc trai
 	font2 = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/source ttf/LibreBaskerville-Bold.ttf", 18);
 	render_score();
@@ -353,6 +351,8 @@ bool PlayState::exitState() {
 	ObjectTextureManager::getInstance()->eraseTexture("enemy4");
 	ObjectTextureManager::getInstance()->eraseTexture("enemy5attack");
 	ObjectTextureManager::getInstance()->eraseTexture("enemy5");
+	ObjectTextureManager::getInstance()->eraseTexture("enemy6");
+	ObjectTextureManager::getInstance()->eraseTexture("enemy6attack");
 
 	
 	SDL_FreeSurface(textSurface2);
@@ -369,7 +369,6 @@ bool PlayState::exitState() {
 	Mix_FreeChunk(shootingsound);
 	Mix_FreeChunk(hurtSound);
 	Mix_FreeChunk(reloadSound);
-	Mix_FreeChunk(explosionSound);
 
 	std::cout << "exting playState\n";
 	return true;
@@ -476,9 +475,11 @@ void PlayState::shot5() {
 }
 void PlayState::summon() {
 	Vector cam = Camera::getInstance()->GetPosition();
-	Bullet* bullet = new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame,bullet_dame);
-	check_bullet[bullet] = BULLET_CIRCLE;
-	bullets.push_back(bullet);
+	for (int i = 1; i <= 20; i++) {
+		bullets.push_back(new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame, bullet_dame));
+		check_bullet[bullets.back()] = BULLET_CIRCLE;
+		bullets.back()->changeAngle(i * 20);
+	}
 }
 void PlayState::sword_energy_skill() {
 	int x = player1->getPos().getX() - Camera::getInstance()->GetPosition().getX();
@@ -506,7 +507,7 @@ void PlayState::rand_enemy(int type) {
 	else {
 		int ran_num = rand() % 3;
 			int time = SDL_GetTicks();
-			if (time - next_create >= 1000) {
+			if (time - next_create >= 1500) {
 				if (ran_num ==0) {
 					//enemys.push_back(new Enemy("enemy", ranPos().first,ranPos().second, 100, 80, 8, 10)); check_enemy[enemys.back()] = ALIVE;
 					enemys.push_back(new Enemy("enemy3", ranPos().first, ranPos().second, 96, 64, 10, 20,3)); check_enemy[enemys.back()] = ALIVE;
