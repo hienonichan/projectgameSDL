@@ -14,7 +14,7 @@ Project uses:
  - SDL2_ttf-2.0.18
 
 ## How to setup and play:
- - To setup before run project.You can check tutorial to setup on Visual Studio 2022 https://lazyfoo.net/tutorials/SDL/01_hello_SDL/index.php
+ - To setup before run project.You can check tutorial to setup on Visual Studio 2022 https://lazyfoo.net/tutorials/SDL/01_hello_SDL/windows/msvc2019/index.php
 ## Contents
 ### How to play
 
