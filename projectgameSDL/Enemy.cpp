@@ -32,7 +32,7 @@ void Enemy::update(GameObject*player) {
 			attack_state = false;
 		}
 		Vector cam = Camera::getInstance()->GetPosition();
-		if (abs((position-cam).length() - (player->getPos()-cam).length()) <= 10) {
+		if (abs((position-cam).length() - (player->getPos()-cam).length()) <= 15) {
 			attack_state = true;
 			velocity = Vector(0, 0);
 			change_speedsprite(150);
@@ -42,7 +42,7 @@ void Enemy::update(GameObject*player) {
 			if (attack_state == false) {
 				changeTexture("enemy"+std::to_string(id_enemy), 10);
 				set_follow(player);
-				change_speedsprite(100);
+				change_speedsprite(80);
 			}
 		}
 	}

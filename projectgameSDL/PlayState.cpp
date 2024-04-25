@@ -27,7 +27,7 @@ void PlayState::update() {
 	rand_enemy(2);
 
      next_score = score;
-	if (next_score - current_score >= 10) {
+	if (next_score - current_score >= 40) {
 		current_score = next_score;
 		GameControl::getInstance()->getStateManager()->addState(new UpgradeState());
 	}
@@ -284,7 +284,7 @@ bool PlayState::loadState() {
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/enemy6attack.png", "enemy6attack", GameControl::getInstance()->getRenderer());
 
 
-	enemys.push_back(new Enemy("enemy6", 200, 200, 150, 100, 10, 50,6)); check_enemy[enemys.back()] = ALIVE;
+	enemys.push_back(new Enemy("enemy6", 200, 200, 120, 80, 10, 50,6)); check_enemy[enemys.back()] = ALIVE;
 	player1 = new Player("player", 700, 500, 60, 60, 6);
 	 crosshair = new Aim("crosshair", 100, 100, 150, 150, 1);
 	gameObjects.push_back(player1);
@@ -510,14 +510,14 @@ void PlayState::rand_enemy(int type) {
 			if (time - next_create >= 1500) {
 				if (ran_num ==0) {
 					//enemys.push_back(new Enemy("enemy", ranPos().first,ranPos().second, 100, 80, 8, 10)); check_enemy[enemys.back()] = ALIVE;
-					enemys.push_back(new Enemy("enemy3", ranPos().first, ranPos().second, 96, 64, 10, 20,3)); check_enemy[enemys.back()] = ALIVE;
+					enemys.push_back(new Enemy("enemy3", ranPos().first, ranPos().second, 96, 64, 10, 10,3)); check_enemy[enemys.back()] = ALIVE;
 				}
 				else if (ran_num ==1) {
 					//enemys.push_back(new Enemy("enemy2",ranPos().first,ranPos().second, 60, 60, 7, 15));  check_enemy[enemys.back()] = ALIVE;
-					enemys.push_back(new Enemy("enemy4", ranPos().first, ranPos().second, 96, 64, 10, 40,4)); check_enemy[enemys.back()] = ALIVE;
+					enemys.push_back(new Enemy("enemy4", ranPos().first, ranPos().second, 96, 64, 10, 20,4)); check_enemy[enemys.back()] = ALIVE;
 				}
 				else if (ran_num == 2) {
-					enemys.push_back(new Enemy("enemy5", ranPos().first, ranPos().second, 96, 96, 10, 50, 5)); check_enemy[enemys.back()] = ALIVE;
+					enemys.push_back(new Enemy("enemy5", ranPos().first, ranPos().second, 96, 96, 10, 40, 5)); check_enemy[enemys.back()] = ALIVE;
 				}
 				next_create = time;
 			}
