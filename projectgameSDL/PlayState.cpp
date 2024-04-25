@@ -247,7 +247,11 @@ void PlayState::render() {
 bool PlayState::loadState() {
 	
 	// phat am thanh
-	Mix_VolumeChunk(sound1, MIX_MAX_VOLUME / 4);
+	Mix_VolumeChunk(sound1, MIX_MAX_VOLUME /20);
+	Mix_VolumeChunk(shootingsound, MIX_MAX_VOLUME/20);
+	Mix_VolumeChunk(hurtSound, MIX_MAX_VOLUME / 20);
+	Mix_VolumeChunk(reloadSound, MIX_MAX_VOLUME/20);
+	
 	PlayMusic();
 
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/solider run.png", "player",GameControl::getInstance()->getRenderer());
@@ -304,7 +308,6 @@ bool PlayState::loadState() {
 
 	// lay player lam trung tam camera
 	Camera::getInstance()->SetTarget(player1->GetOrigin());
-
 	// tai score len goc trai
 	font2 = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/source ttf/LibreBaskerville-Bold.ttf", 18);
 	render_score();
@@ -415,7 +418,6 @@ void PlayState::shot1() {
 			bullets.push_back(new Bullet(bullet_id, player1->getPos().getX() - cam.getX(), player1->getPos().getY() - cam.getY() + 10, bullet_w, bullet_h, bullet_frame,bullet_dame));  check_bullet[bullets.back()] = BULLET_NOT_HIT;
 			bullets.back()->fireBullet(crosshair);
 			ammo_count--;
-			Mix_VolumeChunk(shootingsound, MIX_MAX_VOLUME / 3);
 			Mix_PlayChannel(3, shootingsound, 0);
 			next_bullet = time;
 			render_ammo();
@@ -437,7 +439,6 @@ void PlayState::shot3() {
 			bullets.push_back(bullet2);
 			bullets.push_back(bullet3);
 			bullets.push_back(bullet4);
-			Mix_VolumeChunk(shootingsound, MIX_MAX_VOLUME / 3);
 			Mix_PlayChannel(3, shootingsound, 0);
 			next_bullet2 = time;
 			render_ammo();
@@ -465,7 +466,6 @@ void PlayState::shot5() {
 			bullets.push_back(bullet3);
 			bullets.push_back(bullet4);
 			bullets.push_back(bullet5);
-			Mix_VolumeChunk(shootingsound, MIX_MAX_VOLUME / 3);
 			Mix_PlayChannel(3, shootingsound, 0);
 			next_bullet3= time;
 			render_ammo();

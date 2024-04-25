@@ -44,7 +44,6 @@ private:
 	SDL_Surface* surface_logo = nullptr;
 	SDL_Texture* texture_logo = nullptr;
 	SDL_Rect rect_logo = { 420,100,433,162 };
-	
 };
 
 

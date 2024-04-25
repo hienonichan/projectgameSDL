@@ -22,7 +22,7 @@ void GameButton::update() {
 		sprite = 1;
 		if (InputChecker::getInstance()->checkClicked(LEFT)) {
 			sprite = 2;
-			Mix_VolumeChunk(sound, MIX_MAX_VOLUME);
+			Mix_VolumeChunk(sound, MIX_MAX_VOLUME/10);
 			Mix_PlayChannel(1, sound, 0);
 			SDL_Delay(250);
 			button_callback();

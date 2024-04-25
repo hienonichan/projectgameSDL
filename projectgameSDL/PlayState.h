@@ -45,8 +45,8 @@ public:
         int hehe = rand() % 2;
         int x = rand() % 2860 - 150;
         int y;
-        if (hehe == 1) { y= sqrt(8192000 - pow(x - 1280, 2)) + 640; }
-        else { y=-sqrt(8192000 - pow(x - 1280, 2)) + 640; }
+        if (hehe == 1) { y= sqrt(8192000 - pow(x - 1280, 2)) + 640-1800; }
+        else { y=-sqrt(8192000 - pow(x - 1280, 2)) + 640+1800; }
         return std::make_pair(x, y);
     }
    
@@ -92,7 +92,7 @@ private:
     Mix_Chunk* shootingsound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/source sound/shooting sound.wav");
     Mix_Chunk* hurtSound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/source sound/roblox-death-sound-effect.wav");
     Mix_Chunk* reloadSound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/source sound/1911-reload-6248.wav");
-  
+   
 
     std::map<Enemy*, int>check_enemy;
     std::map<Bullet*, int>check_bullet;
@@ -158,6 +158,7 @@ private:
     int next_bullet3 = 0;
     int next_reload = 0;
     GameObject* crosshair = nullptr;
+
 };
 
 #endif

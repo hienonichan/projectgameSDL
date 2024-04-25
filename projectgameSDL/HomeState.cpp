@@ -38,7 +38,7 @@ void HomeState::render() {
 
 
 bool HomeState::loadState() {
-	Mix_VolumeChunk(sound, MIX_MAX_VOLUME / 2);
+	Mix_VolumeChunk(sound, MIX_MAX_VOLUME / 10);
 	PlayMusic();
 
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/play.png", "startbutton", GameControl::getInstance()->getRenderer());
