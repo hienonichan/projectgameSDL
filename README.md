@@ -23,7 +23,9 @@
 |Q hoặc E|Sử dụng skill|
  - **ESC** : Tạm dừng trò chơi
 ### ***Preview***:
-
+![](projectgameSDL/source_picture/demo1.png)
+![](projectgameSDL/source_picture/demo2.png)
+![](projectgameSDL/source_picture/demo3.png)
 
 
 ## ***Cách cài đặt***:
