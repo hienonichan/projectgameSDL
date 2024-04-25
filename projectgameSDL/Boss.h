@@ -35,7 +35,7 @@ public:
 
 
 private:
-	int max_health = 200;
+	int max_health = 2000;
 	int health = max_health;
 	Healthbar* healthbar = nullptr;
 };

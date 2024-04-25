@@ -284,14 +284,13 @@ bool PlayState::loadState() {
 	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/enemy6attack.png", "enemy6attack", GameControl::getInstance()->getRenderer());
 
 
-	enemys.push_back(new Enemy("enemy6", 200, 200, 120, 80, 10, 50,6)); check_enemy[enemys.back()] = ALIVE;
+	enemys.push_back(new Enemy("enemy3", 200, 200, 96, 64, 10, 50,3)); check_enemy[enemys.back()] = ALIVE;
+	bosses.push_back(new Boss("bossidle", 2200, 500, 288, 160, 6)); check_boss[bosses.back()] = ALIVE;
 	player1 = new Player("player", 700, 500, 60, 60, 6);
 	 crosshair = new Aim("crosshair", 100, 100, 150, 150, 1);
 	gameObjects.push_back(player1);
 	gameObjects.push_back(crosshair);
 
-
-	bosses.push_back(new Boss("bossidle", 1200, 500, 288, 160, 6));
 
 	for (int i = 1; i <= 20; i++) {
 		items.push_back(new GameItem("item",rand()%2000 , rand()%1640 , 32, 32, 1));
@@ -505,7 +504,7 @@ void PlayState::rand_enemy(int type) {
 			next_create2 = time;
 	}
 	else {
-		int ran_num = rand() % 3;
+		int ran_num = rand() % 4;
 			int time = SDL_GetTicks();
 			if (time - next_create >= 1500) {
 				if (ran_num ==0) {
@@ -518,6 +517,9 @@ void PlayState::rand_enemy(int type) {
 				}
 				else if (ran_num == 2) {
 					enemys.push_back(new Enemy("enemy5", ranPos().first, ranPos().second, 96, 96, 10, 40, 5)); check_enemy[enemys.back()] = ALIVE;
+				}
+				else {
+					enemys.push_back(new Enemy("enemy6", ranPos().first, ranPos().second, 120, 80, 10, 50, 6)); check_enemy[enemys.back()] = ALIVE;
 				}
 				next_create = time;
 			}

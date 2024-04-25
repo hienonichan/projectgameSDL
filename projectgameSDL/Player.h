@@ -30,7 +30,7 @@ private:
 	Skill* skill_q = nullptr;
 	Skill* skill_e = nullptr;
 
-    int max_health = 200;
+    int max_health = 150;
 	int health = max_health;
 	int attack = 1; 
 
