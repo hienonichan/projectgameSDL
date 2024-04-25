@@ -24,13 +24,13 @@ void SetupState::render() {
 
 
 bool SetupState::loadState() {
-	TTF_Font* font = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/source ttf/phong chu2.ttf", 40);
+	TTF_Font* font = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/source_ttf/phong chu2.ttf", 40);
 
 	textSurface = TTF_RenderText_Blended(font, "CHOOSE MAP", colorText);
 	textTexture = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface);
 	SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
 
-	TTF_Font* font2 = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/source ttf/phong chu2.ttf", 30);
+	TTF_Font* font2 = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/source_ttf/phong chu2.ttf", 30);
 	textSurface1 = TTF_RenderText_Blended(font2, "first Map", colorText1);
 	textTexture1 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface1);
 	SDL_QueryTexture(textTexture1, NULL, NULL, &textRect1.w, &textRect1.h);
@@ -39,19 +39,19 @@ bool SetupState::loadState() {
 	textTexture2 = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), textSurface2);
 	SDL_QueryTexture(textTexture2, NULL, NULL, &textRect2.w, &textRect2.h);
 
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/anh map.jpg", "map1", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/anh map2.jpg", "map2", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/anh map.jpg", "map1", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/anh map2.jpg", "map2", GameControl::getInstance()->getRenderer());
 
 	GameObject* button1 = new GameButton("map1",400, 300, 160, 160, 1, map1ToPlay);
 	GameObject* button2 = new GameButton("map2", 700, 300, 160, 160, 1, map2ToPlay);
 	gameObjects.push_back(button1);
 	gameObjects.push_back(button2);
 
-	std::string background = "C:/projectgameSDL/projectgameSDL/source picture/background1.jpg";
+	std::string background = "C:/projectgameSDL/projectgameSDL/source_picture/background1.jpg";
 	surface_background = IMG_Load(background.c_str());
 	texture_background = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), surface_background);
 
-	surface_home = IMG_Load("C:/projectgameSDL/projectgameSDL/source picture/homepic.png");
+	surface_home = IMG_Load("C:/projectgameSDL/projectgameSDL/source_picture/homepic.png");
 	texture_home = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), surface_home);
 
 	std::cout << "loading SetupState\n";

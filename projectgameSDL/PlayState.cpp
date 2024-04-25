@@ -254,38 +254,38 @@ bool PlayState::loadState() {
 	
 	PlayMusic();
 
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/solider run.png", "player",GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/enemy3.png", "enemy3", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/solider stand.png", "playerstand", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/bullet.png", "bullet", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/bullet2.png", "bullet2", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/bullet3.png", "bullet3", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/bullet4.png", "bullet4", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/crosshair.png", "crosshair", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/boss.png","boss",GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/item.png", "item", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/solider death.png","playerdeath", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/boss walk.png", "bosswalk", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/boss attack.png", "bossattack", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/boss idle.png", "bossidle", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/fire.png", "fire", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/explosion.png", "explosion", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/q_circle_on.png", "skill_1_on", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/q_circle_off.png", "skill_1_off", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/e_circle_on.png", "skill_2_on", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/e_circle_off.png", "skill_2_off", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/skill_left.png", "skill_left", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/skill_up.png", "skill_up", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/skill_down.png", "skill_down", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/Skeleton_01_White_Attack1.png", "enemy3attack", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/enemy4.png", "enemy4", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/enemy4attack.png", "enemy4attack", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/health bar red.png", "redbar", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/red bar.png", "redbar2", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/enemy5.png", "enemy5", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/enemy5attack.png", "enemy5attack", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/enemy6.png", "enemy6", GameControl::getInstance()->getRenderer());
-	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source picture/enemy6attack.png", "enemy6attack", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/solider run.png", "player",GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/enemy3.png", "enemy3", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/solider stand.png", "playerstand", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/bullet.png", "bullet", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/bullet2.png", "bullet2", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/bullet3.png", "bullet3", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/bullet4.png", "bullet4", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/crosshair.png", "crosshair", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/boss.png","boss",GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/item.png", "item", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/solider death.png","playerdeath", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/boss walk.png", "bosswalk", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/boss attack.png", "bossattack", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/boss idle.png", "bossidle", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/fire.png", "fire", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/explosion.png", "explosion", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/q_circle_on.png", "skill_1_on", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/q_circle_off.png", "skill_1_off", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/e_circle_on.png", "skill_2_on", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/e_circle_off.png", "skill_2_off", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/skill_left.png", "skill_left", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/skill_up.png", "skill_up", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/skill_down.png", "skill_down", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/Skeleton_01_White_Attack1.png", "enemy3attack", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/enemy4.png", "enemy4", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/enemy4attack.png", "enemy4attack", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/health bar red.png", "redbar", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/red bar.png", "redbar2", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/enemy5.png", "enemy5", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/enemy5attack.png", "enemy5attack", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/enemy6.png", "enemy6", GameControl::getInstance()->getRenderer());
+	ObjectTextureManager::getInstance()->loadTexture("C:/projectgameSDL/projectgameSDL/source_picture/enemy6attack.png", "enemy6attack", GameControl::getInstance()->getRenderer());
 
 
 	enemys.push_back(new Enemy("enemy3", 200, 200, 96, 64, 10, 50,3)); check_enemy[enemys.back()] = ALIVE;
@@ -299,23 +299,23 @@ bool PlayState::loadState() {
 	for (int i = 1; i <= 20; i++) {
 		items.push_back(new GameItem("item",rand()%2000 , rand()%1640 , 32, 32, 1));
 	}
-	std::string background = "C:/projectgameSDL/projectgameSDL/source picture/background play.png";
+	std::string background = "C:/projectgameSDL/projectgameSDL/source_picture/background play.png";
 	surface_background = IMG_Load(background.c_str());
 	texture_background = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), surface_background);
-	std::string bar = "C:/projectgameSDL/projectgameSDL/source picture/health bar origin.png";
+	std::string bar = "C:/projectgameSDL/projectgameSDL/source_picture/health bar origin.png";
 	surface_bar = IMG_Load(bar.c_str());
 	texture_bar = SDL_CreateTextureFromSurface(GameControl::getInstance()->getRenderer(), surface_bar);
 
 	// lay player lam trung tam camera
 	Camera::getInstance()->SetTarget(player1->GetOrigin());
 	// tai score len goc trai
-	font2 = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/source ttf/LibreBaskerville-Bold.ttf", 18);
+	font2 = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/source_ttf/LibreBaskerville-Bold.ttf", 18);
 	render_score();
 	SDL_QueryTexture(textTexture2, NULL, NULL, &textRect2.w, &textRect2.h);
 	
 
 	// tai chu ammo
-	font4 = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/source ttf/LibreBaskerville-Bold.ttf", 18);
+	font4 = TTF_OpenFont("C:/projectgameSDL/projectgameSDL/source_ttf/LibreBaskerville-Bold.ttf", 18);
 	render_ammo();
 	SDL_QueryTexture(textTexture4, NULL, NULL, &textRect4.w, &textRect4.h);
 

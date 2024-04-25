@@ -26,7 +26,7 @@ private:
 	static void turnToPlay();
 	static void turnToExit();
 
-	Mix_Chunk* sound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/source sound/theme sound.wav");
+	Mix_Chunk* sound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/source_sound/theme sound.wav");
 
 
 	SDL_Surface* textSurface = nullptr;

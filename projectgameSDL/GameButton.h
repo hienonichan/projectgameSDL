@@ -15,7 +15,7 @@ public:
 private:
 	void(*button_callback)();
 
-	Mix_Chunk* sound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/source sound/clicksound.wav");
+	Mix_Chunk* sound = Mix_LoadWAV("C:/projectgameSDL/projectgameSDL/source_sound/clicksound.wav");
 	
 };
 #endif
