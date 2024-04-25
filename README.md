@@ -27,7 +27,7 @@
 
 
 ## ***Cách cài đặt***:
-1. Tạo folder bất kì trên máy tính, sau đó clone project về máy (lưu ý: để folder trong ổ C: vì project load ảnh bằng đường dẫn tuyệt đối ).
+1. Tải file zip về máy, giải nén . Tìm file .exe trong folder Debug để chạy trò chơi (lưu ý: để folder trong ổ C: vì project load ảnh bằng đường dẫn tuyệt đối ).
 2. Sử dụng IDE: Visual Studio 2022 để liên kết thư viện
 
 
