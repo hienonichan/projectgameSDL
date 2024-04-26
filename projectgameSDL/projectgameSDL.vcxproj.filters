@@ -169,9 +169,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="mp_layer1.txt" />
-    <Text Include="mp_layer2.txt" />
     <Text Include="map\map2\map2_layer1.txt" />
     <Text Include="map\map2\map2_layer2.txt" />
+    <Text Include="map\map1\mp_layer1.txt" />
+    <Text Include="map\map1\mp_layer2.txt" />
   </ItemGroup>
 </Project>

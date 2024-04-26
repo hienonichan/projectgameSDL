@@ -27,7 +27,7 @@ void PlayState::update() {
 	rand_enemy(2);
 
      next_score = score;
-	if (next_score - current_score >= 40) {
+	if (next_score - current_score >= 5) {
 		current_score = next_score;
 		GameControl::getInstance()->getStateManager()->addState(new UpgradeState());
 	}
@@ -38,6 +38,7 @@ void PlayState::update() {
 	}
 	// ban bang crosshair 1 vien
 	if (InputChecker::getInstance()->checkClicked(LEFT) == true) {
+
 		if (mode_shot == 3) { shot3();}
 		// ban ba vien
 		else if (mode_shot == 1) {shot1();}
