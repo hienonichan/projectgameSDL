@@ -8,6 +8,7 @@
  - [Description](#description)
      * [Tổng quan về trò chơi](#tổng-quan-về-trò-chơi)
      * [Các thao tác trong trò chơi](#các-thao-tác-trong-trò-chơi)
+     * [Các tính năng trong trò chơi](#các-tính-năng-trong-trò-chơi)
      * [Preview](#preview)
  - [Cách cài đặt](#cách-cài-đặt)
       * [Cách 1](#cách-1)
@@ -38,6 +39,13 @@
 |R|Nạp đạn|
 |Q hoặc E|Sử dụng skill|
  - **ESC** : Tạm dừng trò chơi
+
+### ***Các tính năng trong trò chơi*** 
+ -  Có intro sinh động loading khi vào game.
+ -  Player có hành động cùng âm thanh sinh động.
+ -  Hệ thống quái đa dạng.
+ -  Boss mạnh và có lượng máu cao.
+ -  Hệ thống bắn đạn nhiều kiểu, có skill cho nhân vật.
 ### ***Preview***:
 #### **Phần Menu trò chơi**
 ![](projectgameSDL/source_picture/demo1.png)
