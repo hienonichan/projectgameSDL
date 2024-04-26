@@ -39,9 +39,20 @@
 |Q hoặc E|Sử dụng skill|
  - **ESC** : Tạm dừng trò chơi
 ### ***Preview***:
+#### **Phần Menu trò chơi**
 ![](projectgameSDL/source_picture/demo1.png)
+#### **Chọn Map**
+![](projectgameSDL/source_picture/demo7.png)
+#### **Bắt đầu chơi**
 ![](projectgameSDL/source_picture/demo2.png)
+#### **Dùng Skill**
 ![](projectgameSDL/source_picture/demo3.png)
+#### **Pause Game**
+![](projectgameSDL/source_picture/demo4.png)
+#### **Chức năng nâng cấp**
+![](projectgameSDL/source_picture/demo5.png)
+#### **Game Over**
+![](projectgameSDL/source_picture/demo6.png)
 
 
 ## ***Cách cài đặt***:
