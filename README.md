@@ -29,8 +29,10 @@
 
 
 ## ***Cách cài đặt***:
-1. Tải file zip về máy, giải nén . Tìm file .exe trong folder Debug để chạy trò chơi (lưu ý: để folder trong ổ C: vì project load ảnh bằng đường dẫn tuyệt đối ).
-2. Sử dụng IDE: Visual Studio 2022 để liên kết thư viện
+Cách 1. Tải file zip về máy, giải nén . Tìm file .exe trong folder Debug để chạy trò chơi (***lưu ý: để folder trong ổ C: vì project load ảnh bằng đường dẫn tuyệt đối***).
+
+
+Cách 2. Clone source code về máy .Sử dụng IDE: Visual Studio 2022 để liên kết thư viện và chạy trò chơi. 
 
 
 Chi tiết về cách liên kết thư viện trên Visual Studio:https://lazyfoo.net/tutorials/SDL/01_hello_SDL/windows/msvc2019/index.php
@@ -66,6 +68,7 @@ Chi tiết về cách liên kết thư viện trên Visual Studio:https://lazyfo
 ### ***Một số hạn chế***:
  - Một số class code chưa sạch sẽ, rối.
  - Chưa clear triệt để các con trỏ sau mỗi lần chuyển State.
+ - Phần class Camera.h xử lí chưa tốt nên tọa độ bị lệch một chút.
 
 ### ***Các định hướng cải thiện,bổ sung***:
  - Thêm nhiều loại card nâng cấp trong game hơn nữa.
@@ -73,9 +76,12 @@ Chi tiết về cách liên kết thư viện trên Visual Studio:https://lazyfo
  - Thêm nhiều loại Skill và nâng cấp Skill.
  - Thêm chế độ Co-op để chơi online với nhau.
  - Thêm loại quái vật và Boss.
+ - Thêm màn chơi và thêm các Ending cho trò chơi.
+ - Thêm NPC trong game và tương tác với các NPC.
 
 
 ## *Mức điểm mong muốn*:
-Vì đây là project đầu tay nên vẫn còn nhiều hạn chế. Em rất mong muốn được điểm 9+ để có động lực phát triển và thực hiện nhiều project hơn trong tương lai.
+Vì đây là project đầu tay của bản thân em nên vẫn còn nhiều hạn chế. Em rất mong muốn dự án này được điểm 9.5+ để có động lực phát triển và thực hiện nhiều project hơn trong tương lai.
+Em xin trân trọng cảm ơn.
 
 
