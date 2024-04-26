@@ -4,13 +4,29 @@
  - Mã sinh viên : 23020064
  - Lớp học phần : 2324ll_INT2215_50
  - Bài tập lớn : MONSTER KILLER
-
+# Phụ lục
+ - [Description](#description)
+     * [Tổng quan về trò chơi](#tổng-quan-về-trò-chơi)
+     * [Các thao tác trong trò chơi](#các-thao-tác-trong-trò-chơi)
+     * [Preview](#preview)
+ - [Cách cài đặt](#cách-cài-đặt)
+      * [Cách 1](#cách-1)
+      * [Cách 2](#cách-2)
+      * [Các nguồn tham khảo](#các-nguồn-tham-khảo)
+ - [Source code game](#source-code-game)
+ - [Conclusion](#conclusion)
+   * [Điều tâm đắc](#điều-tâm-đắc)
+   * [Một số hạn chế](#một-số-hạn-chế)
+   * [Các định hướng cải thiện](#các-định-hướng-cải-thiện)
+ - [A Special Thanks To](#a-special-thanks-to)
+ - [Mức điểm mong muốn](#mức-điểm-mong-muốn)
+   
 ## ***Description***:
 
 ### ***Tổng quan về trò chơi***:
  - Đây là một Game hành động bắn súng được phát triển với nhiều tính năng hay, hấp dẫn được xây dựng bằng ngôn ngữ C++ và thư viện SDL2
  - **Cốt truyện** : Vào năm 2077, con người đã có những đột phá vượt bậc về công nghệ và kỹ thuật , đặc biệt là về lĩnh vực sinh học và con người. Tuy nhiên sự tiến bộ đó cũng tiềm tàng những tham vọng nguy hiểm. The Umbrella- Một công ty dược phẩm ở nước S đã bí mật trái phép nghiên cứu và phát triển vũ khí sinh học và thí nghiệm lên con người, trước khi bị quân đội tiêu diệt đã phát tán một loại virus lạ khiến cho con người biến thành quái vật. Bạn chính là một đặc vụ được chính phủ cử đến khu vực lây nhiễm để điều tra và thu thập thông tin về loại virus đó.
- - Video demo Game:
+ - Video demo Game: https://www.youtube.com/watch?v=u9_WbTC7xPM&t=14s
 ### ***Các thao tác trong trò chơi***:
 | Thao tác | Player |
 |----------|--------|
@@ -23,15 +39,22 @@
 |Q hoặc E|Sử dụng skill|
  - **ESC** : Tạm dừng trò chơi
 ### ***Preview***:
-
+![](projectgameSDL/source_picture/demo1.png)
+![](projectgameSDL/source_picture/demo2.png)
+![](projectgameSDL/source_picture/demo3.png)
 
 
 ## ***Cách cài đặt***:
-1. Tải file zip về máy, giải nén . Tìm file .exe trong folder Debug để chạy trò chơi (lưu ý: để folder trong ổ C: vì project load ảnh bằng đường dẫn tuyệt đối ).
-2. Sử dụng IDE: Visual Studio 2022 để liên kết thư viện
+### ***Cách 1***. 
+ - Tải file projectgameSDL.zip tại link sau https://github.com/hienonichan/projectgameSDL/releases
+ - Giải nén vào ổ C: (***lưu ý: để folder giải nén trong ổ C: vì project load ảnh bằng đường dẫn tuyệt đối***).
+ - Tìm file .exe trong folder Debug để chạy trò chơi.
 
 
-Chi tiết về cách liên kết thư viện trên Visual Studio:https://lazyfoo.net/tutorials/SDL/01_hello_SDL/windows/msvc2019/index.php
+### ***Cách 2***.
+ - Clone source code về máy
+ - Sử dụng IDE: Visual Studio 2022 để liên kết thư viện và chạy trò chơi. 
+ - Chi tiết về cách liên kết thư viện trên Visual Studio:https://lazyfoo.net/tutorials/SDL/01_hello_SDL/windows/msvc2019/index.php
 
 ### ***Các nguồn tham khảo***:
  - Cách sử dụng thư viện, các cú pháp : LazyFoo
@@ -64,16 +87,24 @@ Chi tiết về cách liên kết thư viện trên Visual Studio:https://lazyfo
 ### ***Một số hạn chế***:
  - Một số class code chưa sạch sẽ, rối.
  - Chưa clear triệt để các con trỏ sau mỗi lần chuyển State.
+ - Phần class Camera.h xử lí chưa tốt nên tọa độ bị lệch một chút.
 
-### ***Các định hướng cải thiện,bổ sung***:
+### ***Các định hướng cải thiện***:
  - Thêm nhiều loại card nâng cấp trong game hơn nữa.
  - Thêm các loại weapon và cơ chế đổi weapon.
  - Thêm nhiều loại Skill và nâng cấp Skill.
  - Thêm chế độ Co-op để chơi online với nhau.
  - Thêm loại quái vật và Boss.
+ - Thêm màn chơi và thêm các Ending cho trò chơi.
+ - Thêm NPC trong game và tương tác với các NPC.
+
+## A Special Thanks To
+ - **TS.Lê Đức Trọng**
+ - **CN. Trần Trường Thủy**
 
 
-## *Mức điểm mong muốn*:
-Vì đây là project đầu tay nên vẫn còn nhiều hạn chế. Em rất mong muốn được điểm 9+ để có động lực phát triển và thực hiện nhiều project hơn trong tương lai.
+## **Mức điểm mong muốn**:
+Vì đây là project đầu tay của bản thân em nên vẫn còn nhiều hạn chế. Em rất mong muốn dự án này được điểm 9.5+ để có động lực phát triển và thực hiện nhiều project hơn trong tương lai.
+Em xin trân trọng cảm ơn.
 
 
